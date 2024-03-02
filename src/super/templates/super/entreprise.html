@@ -1,0 +1,155 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features mt-4">
+        <div class="container" data-aos="fade-up">
+  
+          <ul class="nav nav-tabs row gy-4 d-flex">
+  
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+              <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#tab-1">
+                <i class="bi bi-binoculars color-cyan"></i>
+                <h4>MEV en quelques mots</h4>
+              </a>
+            </li><!-- End Tab 1 Nav -->
+  
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-2">
+                <i class="bi bi-box-seam color-indigo"></i>
+                <h4>Notre Équipe</h4>
+              </a>
+            </li><!-- End Tab 2 Nav -->
+  
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-3">
+                <i class="bi bi-brightness-high color-teal"></i>
+                <h4>L'accompagnement</h4>
+              </a>
+            </li><!-- End Tab 3 Nav -->
+  
+            <li class="nav-item col-6 col-md-4 col-lg-2">
+              <a class="nav-link" data-bs-toggle="tab" data-bs-target="#tab-4">
+                <i class="bi bi-command color-red"></i>
+                <h4>Qualifications Professionnelles</h4>
+              </a>
+            </li><!-- End Tab 4 Nav -->
+  
+
+  
+          </ul>
+  
+          <div class="tab-content">
+  
+            <div class="tab-pane active show" id="tab-1">
+              <div class="row gy-4">
+                <div class="col-lg-8 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+                  <h3>MEV en quelques mots</h3>
+                  <p class="fst-italic">
+                    MEV est une société d'ingénierie et de conseil indépendante, dédiée à la performance énergétique des bâtiments et au management de l'environnement. Depuis sa création en 2005, notre bureau d'études fédère des experts autour de compétences techniques variées et complémentaires.
+                  </p>
+                  <ul>
+                    <li>Thermique du bâtiment : Analyse et bilan des performances du patrimoine.</li>
+                    <li>Ingénierie du bâtiment : Conception et suivi de réalisation de projets de rénovation.</li>
+                    <li>Rénovation énergétique : Amélioration de la performance énergétique pour des bâtiments existants.</li>
+                    <li>Ingénierie financière : Solutions de subventions et de financements adaptées aux projets de rénovation énergétique.</li>
+                  </ul>
+                  <p>
+                    Notre mission est d'accompagner nos clients dans leurs démarches d'amélioration énergétique, en proposant des solutions innovantes, durables et économiquement viables. Notre approche intégrée garantit une expertise à la hauteur de vos projets, du diagnostic à la réalisation.
+                  </p>
+                </div>
+                <div class="col-lg-4 order-1 order-lg-2 text-center" data-aos="fade-up" data-aos-delay="200">
+                  <img src="{% static 'img/features-1.svg' %}" alt="" class="img-fluid">
+                </div>
+              </div>
+            </div><!-- End Tab Content 1 -->
+            
+              
+  
+            <div class="tab-pane" id="tab-2">
+              <div class="row gy-4">
+                <div class="col-lg-8 order-2 order-lg-1">
+                  <h3>Notre Équipe</h3>
+                  <p>
+                    Notre équipe se compose de 10 professionnels chevronnés, cumulant chacun en moyenne 15 ans d'expérience dans les domaines liés à la rénovation énergétique. Issus de formations d'ingénieur ou de technicien supérieur, nos membres apportent une riche palette de compétences indispensables à la conduite d'études approfondies et à la mise en œuvre de solutions efficaces pour nos clients.
+                  </p>
+                  <p class="fst-italic">
+                    Chaque membre de MEV enrichit l'équipe avec ses spécialités uniques, contribuant ainsi à notre approche multidisciplinaire et complémentaire. Ensemble, nous œuvrons pour optimiser la performance énergétique de vos projets, en alliant innovation technique et respect des normes environnementales.
+                  </p>
+                  <ul>
+                    <li>Expertise approfondie en rénovation énergétique et diagnostics immobiliers.</li>
+                    <li>Approche personnalisée pour répondre aux besoins spécifiques de chaque projet.</li>
+                    <li>Engagement envers l'excellence et l'innovation dans toutes nos études.</li>
+                    <li>Collaboration étroite avec nos clients pour garantir la réussite de leurs projets.</li>
+                  </ul>
+                </div>
+                <div class="col-lg-4 order-1 order-lg-2 text-center">
+                  <img src="{% static 'img/features-2.svg' %}" alt="" class="img-fluid">
+                </div>
+              </div>
+            </div><!-- End Tab Content 2 -->
+            
+              
+            <div class="tab-pane" id="tab-3">
+              <div class="row gy-4">
+                <div class="col-lg-8 order-2 order-lg-1">
+                  <h3>L'accompagnement</h3>
+                  <p>
+                    Chez MEV, nous croyons fermement que le conseil et l'expertise doivent s'accompagner d'un soutien continu et d'une communication claire. Dès le lancement de votre projet, nous nous engageons à vous guider à chaque étape, en veillant à ce que vous compreniez pleinement les études réalisées et les résultats obtenus. Notre approche de l'accompagnement est intégrale, couvrant toutes les phases du projet, pour assurer une collaboration efficace et des décisions éclairées.
+                  </p>
+                  <ul>
+                    <li>Un démarrage de projet accompagné pour définir clairement vos objectifs et attentes.</li>
+                    <li>Une communication continue pour vous tenir informé des avancées et des découvertes.</li>
+                    <li>Une explication détaillée des résultats pour une compréhension approfondie des recommandations.</li>
+                  </ul>
+                  <p class="fst-italic">
+                    Notre objectif est de rendre le processus aussi transparent et compréhensible que possible, en mettant l'accent sur la communication pour garantir votre satisfaction et la réussite de votre projet.
+                  </p>
+                </div>
+                <div class="col-lg-4 order-1 order-lg-2 text-center">
+                  <img src="{% static 'img/features-5.svg' %}" alt="" class="img-fluid">
+                </div>
+              </div>
+            </div><!-- End Tab Content 3 -->
+            
+              
+            <div class="tab-pane" id="tab-4">
+              <div class="row gy-4">
+                <div class="col-lg-8 order-2 order-lg-1">
+                  <h3>Qualifications Professionnelles</h3>
+                  <p>
+                    MEV est fièrement reconnue pour son sérieux et ses compétences en ingénierie par les certifications OPQIBI et AFNOR, deux références dans le secteur. Ces certifications attestent de la qualité et du professionnalisme de nos prestations, constituant un gage essentiel pour nos clients.
+                  </p>
+                  <p class="fst-italic">
+                    Nos qualifications couvrent un large éventail de services, notamment :
+                  </p>
+                  <ul>
+                    <li>Audit énergétique des bâtiments.</li>
+                    <li>Audit énergétique dans l’industrie.</li>
+                    <li>Audit énergétique des activités de transport de marchandises et/ou de personnes.</li>
+                  </ul>
+                  <p>
+                    En outre, MEV est opérateur de l'ANAH à Paris et mandataire MaPrimeRénov Copropriétés dans tous les départements d’Ile de France et dans l’Yonne. Nous sommes également Mon Accompagnateur Rénov depuis 2024 et reconnus prestataire Bilan Carbone® par l’ABC.
+                  </p>
+                  <p>
+                    Notre engagement envers l'excellence est renforcé par la certification RGE pour nos prestations d'audits énergétiques, permettant à nos clients de bénéficier de subventions pour la réalisation de ces études.
+                  </p>
+                </div>
+                <div class="col-lg-4 order-1 order-lg-2 text-center">
+                  <img src="{% static 'img/features-3.svg' %}" alt="" class="img-fluid">
+                </div>
+              </div>
+            </div><!-- End Tab Content 4 -->
+            
+              
+
+  
+          </div>
+  
+        </div>
+      </section><!-- End Features Section -->
+
+      {% endblock content %}

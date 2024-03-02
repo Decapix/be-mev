@@ -1,0 +1,209 @@
+{% extends "index.html" %}{% load static %} {% block content %}
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+  <div class="container" data-aos="fade-up">
+    <div class="section-header">
+      <h2>Nos Services</h2>
+      <p>
+        Chez MEV, nous mettons à votre disposition une équipe d’experts 
+         reconnus en performance énergétique, alliant audits énergétiques précis,
+          études d'ingénieries financières approfondies et assistance à maîtrise 
+          d'ouvrage (AMO). Notre équipe d'experts est dédiée à optimiser l'efficacité 
+          énergétique de vos bâtiments et projets, en apportant des solutions sur mesure 
+          qui répondent à vos besoins tout en favorisant le développement durable.
+      </p>
+      
+    </div>
+    <div class="row gy-5">
+      <!-- Copropriétés -->
+      <div class="col-xl-4 col-md-6">
+        <h3 class="text-center mb-4 ">Copropriétés</h3>
+        <!-- AMO -->
+        <div class="mb-5" data-aos="zoom-in" data-aos-delay="300">
+          <div class="service-item">
+            <div class="img">
+              <img
+                src="{% static 'img/presta/amo.webp' %}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div class="details position-relative">
+              <div class="icon">
+                <i class="bi bi-person-lines-fill"></i>
+              </div>
+              <a href="{% url 'presta_amo' %}" class="stretched-link">
+                <h3>Assistance à Maîtrise d'Ouvrage (AMO)</h3>
+              </a>
+              <p class="mb-0">
+                Accompagnement sur mesure pour vos projets de rénovation garantissant la conformité, 
+                l'optimisation et financière de vos projets de travaux.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- DTG -->
+        <div class="mb-5" data-aos="zoom-in" data-aos-delay="200">
+          <div class="service-item">
+            <div class="img">
+              <img
+                src="{% static 'img/presta/dgt.webp' %}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div class="details position-relative">
+              <div class="icon">
+                <i class="bi bi-tools"></i>
+              </div>
+              <a href="{% url 'presta_dgt' %}" class="stretched-link">
+                <h3>Diagnostic Technique Global (DTG)</h3>
+              </a>
+              <p class="mb-0">
+                Une évaluation complète de votre copropriété pour anticiper les
+                travaux nécessaires et améliorer la performance énergétique.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- DPE Collectif -->
+        <div class="mb-5" data-aos="zoom-in" data-aos-delay="400">
+          <div class="service-item">
+            <div class="img">
+              <img
+                src="{% static 'img/presta/dpe.webp' %}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div class="details position-relative">
+              <div class="icon">
+                <i class="bi bi-graph-up"></i>
+              </div>
+              <a href="{% url 'presta_dpe' %}" class="stretched-link">
+                <h3>DPE Collectif</h3>
+              </a>
+              <p class="mb-0">
+                Diagnostic de performance énergétique pour les immeubles en
+                copropriété.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mon Accompagnateur Renove -->
+      <div class="mb-5" data-aos="zoom-in" data-aos-delay="300">
+        <div class="service-item">
+          <div class="img">
+            <img
+              src="{% static 'img/presta/renove.webp' %}"
+              class="img-fluid"
+              alt=""
+            />
+          </div>
+          <div class="details position-relative">
+            <div class="icon">
+              <i class="bi bi-house-door-fill"></i>
+            </div>
+            <a href="{% url 'presta_renove' %}" class="stretched-link">
+              <h3>Mon Accompagnateur Rénov'</h3>
+            </a>
+            <p class="mb-0">
+              Un accompagnement personnalisé pour réaliser vos projets de
+              rénovation énergétique, avec un suivi étape par étape de la rénovation de votre patrimoine.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Particuliers -->
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+        <h3 class="text-center mb-4">Particuliers</h3>
+        <!-- Audit Énergétique -->
+        <div class="mb-5" data-aos="zoom-in" data-aos-delay="200">
+          <div class="service-item">
+            <div class="img">
+              <img
+                src="{% static 'img/presta/audit.webp' %}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div class="details position-relative">
+              <div class="icon">
+                <i class="bi bi-thermometer-sun"></i>
+              </div>
+              <a href="{% url 'presta_audit' %}" class="stretched-link">
+                <h3>Audit Énergétique</h3>
+              </a>
+              <p class="mb-0">
+                Découvrez les meilleures solutions pour réduire votre
+                consommation d'énergie et améliorer le confort de votre habitat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Entreprises -->
+      <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+        <h3 class="text-center mb-4">Entreprises</h3>
+        <!-- Audit Énergétique Réglementaire -->
+        <div class="mb-5" data-aos="zoom-in" data-aos-delay="200">
+          <div class="service-item">
+            <div class="img">
+              <img
+                src="{% static 'img/presta/audit_regle.webp' %}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div class="details position-relative">
+              <div class="icon">
+                <i class="bi bi-file-earmark-check"></i>
+              </div>
+              <a href="{% url 'presta_audit_regle' %}" class="stretched-link">
+                <h3>Audit Énergétique Réglementaire</h3>
+              </a>
+              <p class="mb-0">
+                Répondre aux exigences réglementaires et identifier les
+                opportunités d'amélioration de l'efficacité énergétique de votre
+                entreprise.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Bilan Carbone -->
+        <div class="mb-5" data-aos="zoom-in" data-aos-delay="300">
+          <div class="service-item">
+            <div class="img">
+              <img
+                src="{% static 'img/presta/bilan.webp' %}"
+                class="img-fluid"
+                alt=""
+              />
+            </div>
+            <div class="details position-relative">
+              <div class="icon">
+                <i class="bi bi-cloud-arrow-down-fill"></i>
+              </div>
+              <a href="{% url 'presta_bilan' %}" class="stretched-link">
+                <h3>Bilan Carbone</h3>
+              </a>
+              <p class="mb-0">
+                Évaluer l'empreinte carbone de votre organisation pour définir
+                une stratégie de réduction des émissions de CO2 efficace et
+                durable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ajoutez les autres colonnes ici en ajustant l'ordre si nécessaire -->
+    </div>
+  </div>
+</section>
+<!-- End Services Section -->
+
+{% endblock content %}

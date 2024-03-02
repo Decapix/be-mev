@@ -1,0 +1,49 @@
+{% extends "index.html" %}{% load custom_filters %} {% load static %} 
+
+{% block content %}
+<!-- ======= F.A.Q Section ======= -->
+<section id="faq" class="faq">
+    <br>
+    <div class="container-fluid" data-aos="fade-up">
+
+
+        <div class=" d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+          <div class="content px-xl-5">
+            <h3><strong>FAQ</strong>- Vos Questions sur l'Énergie Urbaine</h3>
+            <p>
+              Trouvez des Réponses aux Questions Fréquemment Posées
+            </p>
+          </div>
+
+          <div class="accordion accordion-flush px-xl-5" id="faqlist">
+
+            {% for s in ask %}
+
+            <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                  <i class="bi bi-question-circle question-icon"></i>
+                  {{ s.ask }}
+                </button>
+              </h3>
+              <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                <div class="accordion-body">
+                    {{ s.description|format_description|safe }}                
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="content px-xl-5 mt-5">
+            <p>
+              Si vous n'avez pas trouvé de réponse à votre question dans notre FAQ, n'hésitez pas à nous contacter. 
+              Notre équipe d'experts en énergie urbaine est à votre disposition pour vous fournir toutes les informations 
+              et l'assistance dont vous avez besoin. Ensemble, explorons les solutions énergétiques durables pour nos villes.
+            </p>
+          </div>
+        </div>
+    </div>
+  </section><!-- End F.A.Q Section -->
+{% endblock content %}
+

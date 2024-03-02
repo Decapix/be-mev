@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+  <section id="hero-request-number" class="hero-request-number d-flex align-items-center">
+    <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
+      <h2>Suivre un projet</h2>
+      <p class="main-text-request">Entrez votre numero de suivi de projets pour voir en est votre projet</p>
+      {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6">
+                <input type="text" name="identification_number" class="form-control" placeholder="123456" minlength="6" maxlength="6" pattern="\d{6}" required title="Entrez exactement 6 chiffres.">
+              </div>
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-send">Envoyer</button>
+              </div>
+            </div>
+        </form>
+    
+      <p class="small mt-4">Si vous n'avez pas votre numero de suivi de projet veuillez nous contacter</p>
+
+    </div>
+  </section>
+      {% endblock content %}

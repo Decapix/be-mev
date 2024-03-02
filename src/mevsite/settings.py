@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-y4vjw%qk!*432)fzs-q6lj26xnn+t1e5)d(2*!!*lm=%_ooid^
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['be-mev-e942436feae3.herokuapp.com', '127.0.0.1', 'be-mev.herokuapp.com']
@@ -148,7 +148,6 @@ LOCALE_PATHS = (
 if os.environ.get('ENV') == "PRODUCTION":
     db_from_env = dj_database_url.config(conn_max_age=600)
     DATABASES['default'].update(db_from_env)
-    STATICFILES_DIRS = [BASE_DIR / 'static']
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -157,6 +156,7 @@ if os.environ.get('ENV') == "PRODUCTION":
 
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 
 SITE_ID = 1

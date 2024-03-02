@@ -1468,6 +1468,7 @@ section {
   padding: 0;
 }
 
+/*
 .onfocus .video-play {
   min-height: 400px;
   background: linear-gradient(rgba(var(--color-black-rgb), 0.4), rgba(var(--color-black-rgb), 0.7)), url("../img/onfocus-video-bg.jpg") center center;
@@ -1480,7 +1481,7 @@ section {
   color: rgba(var(--color-white-rgb), 0.8);
   padding: 40px;
 }
-
+*/
 @media (min-width: 768px) {
   .onfocus .content {
     padding: 80px;
@@ -1927,7 +1928,7 @@ section {
   border-radius: 10px;
   overflow: hidden;
 }
-
+/*
 .pricing .pricing-header {
   background: linear-gradient(rgba(var(--color-secondary-rgb), 0.9), rgba(var(--color-secondary-rgb), 0.9)), url("../img/pricing-bg.jpg") center center;
   background-size: cover;
@@ -1935,7 +1936,7 @@ section {
   padding: 40px;
   margin: -60px -40px 0;
 }
-
+*/
 .pricing h3 {
   font-weight: 600;
   margin-bottom: 5px;
@@ -2015,11 +2016,11 @@ section {
 .pricing .featured {
   border-color: var(--color-primary);
 }
-
+/*
 .pricing .featured .pricing-header {
   background: linear-gradient(rgba(var(--color-primary-rgb), 0.9), rgba(var(--color-primary-rgb), 0.9)), url("../img/pricing-bg.jpg") center center;
 }
-
+*/
 .pricing .featured .buy-btn {
   background: var(--color-primary);
   color: var(--color-white);

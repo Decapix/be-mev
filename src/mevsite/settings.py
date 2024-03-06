@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure-y4vjw%qk!*432)fzs-q6lj26xnn+t1e5)d(2*!!*lm=%_ooid^
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['be-mev-e942436feae3.herokuapp.com', '127.0.0.1', 'be-mev.herokuapp.com', 'be-mev.com']
+ALLOWED_HOSTS = ['be-mev-e942436feae3.herokuapp.com', '127.0.0.1', 'be-mev.herokuapp.com', 'be-mev.com', 'www.be-mev.com']
 
 
 # Application definition

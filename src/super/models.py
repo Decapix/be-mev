@@ -12,4 +12,4 @@ class Profile(models.Model):
     show = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.ask}"
+        return f"{self.name}"

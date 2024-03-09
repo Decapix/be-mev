@@ -6,6 +6,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ContactForm
+from .models import Profile
 
 def home(request):
     """view for homepage"""
@@ -20,6 +21,7 @@ def prestation(request):
 
 
 def contact(request):
+    profile = Profile.objects.filter(show=True)
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -44,7 +46,7 @@ def contact(request):
     else:
         form = ContactForm()
 
-    return render(request, 'super/contact.html', {'form': form})
+    return render(request, 'super/contact.html', {'form': form, 'profile':profile})
 
 
 

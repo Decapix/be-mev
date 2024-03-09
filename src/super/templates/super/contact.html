@@ -88,210 +88,29 @@
       </form>
     </div>
 
+    
 
     <div class="row gy-5">
-      <!-- MATTHIEU COFFINET -->
+      {% for pr in profile %}
       <div
         class="col-xl-4 col-md-6 d-flex"
         data-aos="zoom-in"
         data-aos-delay="200"
       >
         <div class="info">
-          <h3>Matthieu Coffinet</h3>
+          <h3>{{ pr.name }}</h3>
           <p>
-            Pour toute question commerciale ou pour débuter un projet, Matthieu
-            est votre premier point de contact.
+            {{ pr.description }}
           </p>
           <div class="info-item d-flex">
             <i class="bi bi-person flex-shrink-0"></i>
             <div>
-              <h4>Co-Gérant, Responsable Commercial</h4>
+              <h4>{{ pr.role }}</h4>
             </div>
           </div>
         </div>
       </div>
-      <!-- ALEXANDRE PESIC -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="300"
-      >
-        <div class="info">
-          <h3>Alexandre Pesic</h3>
-          <p>
-            Contactez Alexandre pour des conseils experts en Assistance à
-            Maîtrise d'Ouvrage (AMO).
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Co-Gérant, Responsable Division AMO</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- JEAN-CHARLES FRA -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="400"
-      >
-        <div class="info">
-          <h3>Jean-Charles Fra</h3>
-          <p>
-            Spécialiste du Diagnostic Technique Global (DTG), Jean-Charles est à
-            votre disposition pour évaluer votre copropriété.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Co-Gérant, Responsable DTG</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- JEROME LEBASNIER -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="500"
-      >
-        <div class="info">
-          <h3>Jérôme Lebasnier</h3>
-          <p>
-            Jérôme est votre référent pour les audits énergétiques, vous aidant
-            à optimiser la performance énergétique de vos bâtiments.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Co-Gérant, Responsable Audit Énergétique</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- AXEL BRUZZESE -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="600"
-      >
-        <div class="info">
-          <h3>Axel Bruzzese</h3>
-          <p>
-            Axel, avec son expertise en thermique, est le référent pour
-            l'optimisation énergétique et les études thermiques détaillées.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Auditeur Senior, Référent Expert Thermique et veille réglementaire</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- SAVERIA PASCAL -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="700"
-      >
-        <div class="info">
-          <h3>Saveria Pascal</h3>
-          <p>
-            Responsable des dossiers AMO, Saveria vous accompagne dans la
-            coordination et la réalisation de vos projets.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Collaboratrice en charge des dossiers AMO</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- LEA MEDEIROS -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="800"
-      >
-        <div class="info">
-          <h3>Léa Medeiros</h3>
-          <p>
-            Léa est à votre service pour la gestion des dossiers IF, assurant le
-            suivi et la qualité de votre dossier de financement.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Collaboratrice en charge des dossiers IF</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- STEPHANE SAINT-CHARLES -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="900"
-      >
-        <div class="info">
-          <h3>Stéphane Saint-Charles</h3>
-          <p>
-            Stéphane, auditeur junior, participe aux audits et études
-            énergétiques, apportant un regard neuf et des solutions innovantes.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Auditeur Junior</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- CAMILLE GENNARDI -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="1000"
-      >
-        <div class="info">
-          <h3>Camille Gennardi</h3>
-          <p>
-            Camille, également auditeur junior, contribue à la réalisation des
-            audits, soutenant l'équipe avec diligence et précision.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Auditeur Junior</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- DJANA -->
-      <div
-        class="col-xl-4 col-md-6 d-flex"
-        data-aos="zoom-in"
-        data-aos-delay="1100"
-      >
-        <div class="info">
-          <h3>Djana</h3>
-          <p>
-            Djana, alternante, apporte son soutien à l'équipe en se formant aux
-            différentes facettes de l'audit énergétique et du diagnostic.
-          </p>
-          <div class="info-item d-flex">
-            <i class="bi bi-person flex-shrink-0"></i>
-            <div>
-              <h4>Alternante</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Additional members can be added following the same structure -->
+      {% endfor %}
     </div>
   </div>
 </section>

@@ -21,7 +21,6 @@ def prestation(request):
 
 
 def contact(request):
-    profile = Profile.objects.filter(show=True)
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -46,14 +45,15 @@ def contact(request):
     else:
         form = ContactForm()
 
-    return render(request, 'super/contact.html', {'form': form, 'profile':profile})
+    return render(request, 'super/contact.html', {'form': form})
 
 
 
 
 def entreprise(request):
     """view for homepage"""
-    return render(request, 'super/entreprise.html')
+    profile = Profile.objects.filter(show=True)
+    return render(request, 'super/entreprise.html', {'profile':profile})
 
 # presta 
 

@@ -122,4 +122,55 @@
         </div>
       </section><!-- End Features Section -->
 
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Notre Équipe</h2>
+          <p>
+            Notre équipe se compose de 10 professionnels chevronnés, cumulant chacun en moyenne 15 ans d'expérience dans les domaines 
+            liés à la rénovation énergétique. Issus de formations d'ingénieur ou de technicien supérieur, nos membres apportent une 
+            riche palette de compétences indispensables à la conduite d'études approfondies et à la mise en œuvre de solutions efficaces 
+            pour nos clients.
+          </p>
+        </div>
+
+        <div class="row gy-5">
+          {% for pr in profile %}
+          <div
+            class="col-xl-4 col-md-6 d-flex"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <div class="info">
+              <h3>{{ pr.name }}</h3>
+              <p>
+                {{ pr.description }}
+              </p>
+              <div class="info-item d-flex">
+                <i class="bi bi-person flex-shrink-0"></i>
+                <div>
+                  <h4>{{ pr.role }}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
       {% endblock content %}

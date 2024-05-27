@@ -27,7 +27,7 @@ def client(request):
         board_id = settings.BOARD_ID
         key = settings.KEY_TRELLO
         token = settings.TOKEN_TRELLO
-        list_id, description = find_card_by_id(board_id, key, token, search_id)
+        list_id = find_card_by_id(board_id, key, token, search_id)
 
         match list_id:
             case settings.ID_LIST_1 :
@@ -48,11 +48,8 @@ def client(request):
     except :
         # Gérer l'erreur si l'ID de session ne correspond à aucun client
         return redirect('requestnumber')
-    
-
-
     # Passer le client au template
-    return render(request, 'client/client.html', context={"advancement": advancement, "description": description, 'steps': steps})
+    return render(request, 'client/client.html', context={"advancement": advancement, 'steps': steps})
 
 def request_number(request):
     """juste check if the client exist and put id in session"""
@@ -113,8 +110,7 @@ def find_card_by_id(board_id, key, token, search_id):
         if search_id in card['name']:
             # Extraire l'ID de la liste et la description
             list_id = card['idList']
-            description = card['desc']
-            return list_id, description
+            return list_id
 
     return None, "Card not found"
 

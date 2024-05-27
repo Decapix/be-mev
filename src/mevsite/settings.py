@@ -174,3 +174,15 @@ EMAIL_HOST_USER = 'mev.message@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+BOARD_ID = os.environ.get('BOARD_ID')
+KEY_TRELLO = os.environ.get('KEY_TRELLO')
+TOKEN_TRELLO = os.environ.get('TOKEN_TRELLO')
+
+ID_LIST_1 = os.environ.get('ID_LIST_1')
+ID_LIST_2 = os.environ.get('ID_LIST_2')
+ID_LIST_3 = os.environ.get('ID_LIST_3')
+ID_LIST_4 = os.environ.get('ID_LIST_4')
+ID_LIST_5 = os.environ.get('ID_LIST_5')
+ID_LIST_6 = os.environ.get('ID_LIST_6')

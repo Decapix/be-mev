@@ -1383,6 +1383,12 @@ section {
   border-radius: 15px;
 }
 
+.cta .container-button {
+  padding: 80px;
+  border-radius: 15px;
+}
+
+
 @media (max-width: 992px) {
   .cta .container {
     padding: 60px;
@@ -1413,7 +1419,7 @@ section {
 
 .cta .content p {
   color: var(--color-secondary);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 18px;
 }
 
@@ -1433,33 +1439,50 @@ section {
   background: var(--color-primary);
 }
 
-.cta .img {
-  position: relative;
+
+
+.cta .inactive {
+  filter: brightness(2); /* Augmenter le filtre pour un effet plus prononcé */
+  opacity: 0.7; /* Rendre l'élément plus transparent */
 }
 
-.cta .img:before {
-  content: "";
+.cta .inactive-arrow {
+  opacity: 0.9; /* Rendre l'élément plus transparent */
+}
+
+
+.cta .arrow {
+  text-align: center;
+  margin: 20px 0; /* Espacement autour de la flèche */
+}
+
+.cta .arrow img {
+  width: 60px; /* Ajuster la taille de l'image de la flèche selon vos besoins */
+  height: auto;
+}
+.cta .current-step-msg .btn-step-msg {
+  background-color: #db8267; /* Couleur orange */
+  color: white; /* Texte en blanc */
+  padding: 10px 20px; /* Espacement interne pour le bouton */
+  border-radius: 20px; /* Coins arrondis */
+  text-align: center; /* Centrer le texte */
+  display: inline-block; /* Garder le format du bouton */
+  font-size: 14px; /* Taille du texte */
+  cursor: default; /* Afficher le curseur par défaut plutôt que pointer */
+}
+
+.cta .current-step-msg {
   position: absolute;
-  inset: 0;
-  background: rgba(var(--color-white-rgb), 0.5);
-  border-radius: 15px;
-  transform: rotate(12deg);
+  left: 15px;
+  top: 15px;
 }
 
-.cta .img:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(var(--color-white-rgb), 0.9);
-  border-radius: 15px;
-  transform: rotate(6deg);
+.cta .btn-danger {
+  border-radius: 20px; /* Coins arrondis */
+  padding: 10px 20px; /* Padding approprié */
 }
 
-.cta .img img {
-  position: relative;
-  z-index: 3;
-  border-radius: 15px;
-}
+
 
 /*--------------------------------------------------------------
 # On Focus Section

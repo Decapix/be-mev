@@ -4,53 +4,136 @@ from .models import Client
 from django.contrib import messages
 import uuid
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import requests
+from django.conf import settings
 
 
-@csrf_exempt
-def google_sheets_webhook(request):
-    if request.method == 'POST':
-        data = request.POST
-        # Supposons que le payload contient 'name' et 'description'
-        Item.objects.create(
-            name=data.get('name'),
-            description=data.get('description')
-        )
-        return JsonResponse({"status": "success"}, status=200)
-    return JsonResponse({"error": "Méthode non autorisée"}, status=405)
+
 
 
 # Create your views here.
 def client(request):
     """view for track project"""
     client_id = request.session.get('client_id')
+
     if client_id is None:
         # Si aucun ID client n'est trouvé dans la session, rediriger vers la page de connexion
         return redirect('requestnumber')
     try:
-        client_id = uuid.UUID(client_id)  # Convertir la chaîne en UUID
-        clien = Client.objects.get(id=client_id)
-    except Client.DoesNotExist:
+        # aller chercher le cliet sur trello
+        search_id = client_id
+        board_id = settings.BOARD_ID
+        key = settings.KEY_TRELLO
+        token = settings.TOKEN_TRELLO
+        list_id, description = find_card_by_id(board_id, key, token, search_id)
+
+        match list_id:
+            case settings.ID_LIST_1 :
+                advancement = 1
+            case settings.ID_LIST_2 :
+                advancement = 2
+            case settings.ID_LIST_3 :
+                advancement = 3
+            case settings.ID_LIST_4 :
+                advancement = 4
+            case settings.ID_LIST_5 :
+                advancement = 5
+            case settings.ID_LIST_6 :
+                advancement = 6
+        
+        steps = range(1, 7)
+        
+    except :
         # Gérer l'erreur si l'ID de session ne correspond à aucun client
         return redirect('requestnumber')
+    
+
 
     # Passer le client au template
-    return render(request, 'client/client.html', context={"client": clien})
+    return render(request, 'client/client.html', context={"advancement": advancement, "description": description, 'steps': steps})
 
 def request_number(request):
+    """juste check if the client exist and put id in session"""
     if request.method == 'POST':
         identification_number = request.POST.get('identification_number')
+        print("okokoko10", identification_number)
         try:
-            client = Client.objects.get(identification_number=identification_number)
-            # Ici, vous pouvez gérer la session de connexion selon vos besoins
-            # Par exemple, stocker l'ID client dans la session
-            request.session['client_id'] = str(client.id)
-            return redirect('client')  # Redirige vers l'interface du client
+            search_id = identification_number
+            board_id = settings.BOARD_ID
+            key = settings.KEY_TRELLO
+            token = settings.TOKEN_TRELLO
+            # aller chercher le client sur trello (juste verifier si il existe)
+            check = check_card_by_id(board_id, key, token, search_id)
+
+            if check :
+                print("okokok2")
+                # Par exemple, stocker l'ID client dans la session
+                request.session['client_id'] = str(identification_number)
+                return redirect('client')  # Redirige vers l'interface du client
+            else :
+                messages.error(request, 'Numéro d\'identification invalide.')
         except Client.DoesNotExist:
             messages.error(request, 'Numéro d\'identification invalide.')
     return render(request, 'client/request-number.html')
+
+
+
+def finish_session(request):
+    """Supprime l'ID client de la session et redirige vers l'entrée de nouveau numéro."""
+    if 'client_id' in request.session:
+        del request.session['client_id']
+    return redirect('requestnumber')  # Assurez-vous que le nom d'URL est correct
+
+
+
+# function 
+
+
+def trello_func_base(board_id, key, token):
+        # URL de l'API pour obtenir toutes les cartes du tableau
+    url = f"https://api.trello.com/1/boards/{board_id}/cards?key={key}&token={token}"
+    
+    # Faire la requête GET à l'API de Trello
+    response = requests.get(url)
+    if response.status_code != 200:
+        return None, "Failed to retrieve cards"
+
+    # Charger les données JSON des cartes
+    cards = response.json()
+    return cards
+
+
+def find_card_by_id(board_id, key, token, search_id):
+    cards = trello_func_base(board_id, key, token)
+    
+    # Rechercher la carte avec l'ID spécifié dans la description
+    for card in cards:
+        if search_id in card['name']:
+            # Extraire l'ID de la liste et la description
+            list_id = card['idList']
+            description = card['desc']
+            return list_id, description
+
+    return None, "Card not found"
+
+
+
+def check_card_by_id(board_id, key, token, search_id):
+    cards = trello_func_base(board_id, key, token)
+
+    
+    # Rechercher la carte avec l'ID spécifié dans la description
+    for card in cards:
+        if search_id in card['name']:
+
+            return True
+    print("false")
+    return False
+
+
+
 
 
 

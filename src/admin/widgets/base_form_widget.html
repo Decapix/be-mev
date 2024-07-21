@@ -1,0 +1,3 @@
+{% for form in base_forms %}
+    <a href="{% url 'admin:client_form_clientform_duplicate' form.id %}" class="button">{{ form.description }}</a>
+{% endfor %}

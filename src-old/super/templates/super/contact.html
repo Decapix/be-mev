@@ -1,0 +1,94 @@
+
+{% extends "index.html" %} {% load widget_tweaks %} {% block content %}
+
+<!-- ======= Team Section ======= -->
+<section id="team" class="team">
+  <div class="container mt-4" data-aos="fade-up">
+    <div class="section-header">
+      <h2>Contactez Notre Équipe</h2>
+      <p>
+        À votre écoute, notre équipe d'experts est prête à vous accompagner dans vos projets d'efficacité énergétique et de diagnostic immobilier. Que ce soit pour une demande de devis, une question technique ou toute autre information, n'hésitez pas à nous contacter. Ensemble, construisons un avenir plus durable.
+      </p>
+    </div>
+
+
+
+
+    <div class="info mb-5">
+      <h3>Prenez contact</h3>    
+      <div class="info-item d-flex">
+        <i class="bi bi-geo-alt flex-shrink-0"></i>
+        <div>
+          <h4>Adresse :</h4>
+          <p>23 Rue Alfred Nobel, 77420 CHAMPS SUR MARNE</p>
+        </div>
+      </div><!-- End Info Item -->
+    
+      <div class="info-item d-flex">
+        <i class="bi bi-envelope flex-shrink-0"></i>
+        <div>
+          <h4>Email :</h4>
+          <p><strong>info@be-mev.com</strong>&nbsp;&nbsp;&nbsp;&nbsp;Adresse mail général, pour toute question d’ordre général</p>
+          <p><strong>amo@be-mev.com</strong>&nbsp;&nbsp;&nbsp;&nbsp;Pour toute question liée à l’Assistance à maîtrise d’ouvrage</p>
+          <p><strong>dtg@be-mev.com</strong>&nbsp;&nbsp;&nbsp;&nbsp;Pour toute question liée au DTG</p>
+          <p><strong>facture.mev@be-mev.com</strong>&nbsp;&nbsp;&nbsp;&nbsp;Pour toute question liée à la facturation</p>
+          <p><strong>devis@be-mev.com</strong>&nbsp;&nbsp;&nbsp;&nbsp;Pour toute demande de devis</p>
+          <p><strong>mar@be-mev.com</strong>&nbsp;&nbsp;&nbsp;&nbsp;Pour toute question liée à Mon Accompagnateur Rénov</p>
+        </div>
+      </div><!-- End Info Item -->
+    
+      <div class="info-item d-flex">
+        <i class="bi bi-phone flex-shrink-0"></i>
+        <div>
+          <h4>Téléphone :</h4>
+          <p>Tél. : 01 60 33 06 61</p>
+        </div>
+      </div><!-- End Info Item -->
+    
+    </div>
+
+  
+    <div class="info mb-5">
+      <h3 class="mb-3">Envoyez-nous un message</h3>    
+    
+      {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    
+      <form method="post" class="php-email-form">
+        {% csrf_token %}
+        <div class="row">
+          {{ form.non_field_errors }}
+          <div class="col-md-6 form-group">
+            {{ form.email.errors }}
+            <label for="id_email">Votre email</label>
+            {{ form.email|add_class:"form-control" }}
+          </div>
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            {{ form.nom.errors }}
+            <label for="id_nom">Votre nom</label>
+            {{ form.nom|add_class:"form-control" }}
+          </div>
+        </div>
+        <div class="form-group mt-3">
+          {{ form.pour_email.errors }}
+          <label for="id_pour_email">Pour</label>
+          {{ form.pour_email|add_class:"form-select" }}
+        </div>
+        <div class="form-group mt-3">
+          {{ form.message.errors }}
+          <label for="id_message">Votre message</label>
+          {{ form.message|add_class:"form-control" }}
+        </div>
+        <div class="text-center"><button type="submit" class="btn btn-primary">Envoyer</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- End Team Section -->
+
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% load static %}
+
+
+{% block content %}
+    <h1>Étape {{ step }} du Formulaire</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Suivant</button>
+    </form>
+    {% endblock content %}
+    {% block script %}
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const typeIsolantSelect = document.querySelector('#id_type_isolant');
+    const autreIsolantInput = document.querySelector('#id_autre_isolant');
+    const epaisseurIsolantSelect = document.querySelector('#id_epaisseur_isolant');
+    const autreEpaisseurInput = document.querySelector('#id_autre_epaisseur');
+
+    function toggleVisibility() {
+        autreIsolantInput.style.display = typeIsolantSelect.value === 'autre' ? 'block' : 'none';
+        autreEpaisseurInput.style.display = epaisseurIsolantSelect.value === 'autre' ? 'block' : 'none';
+    }
+
+    typeIsolantSelect.addEventListener('change', toggleVisibility);
+    epaisseurIsolantSelect.addEventListener('change', toggleVisibility);
+
+    // Initial check on page load
+    toggleVisibility();
+});
+</script>
+{% endblock %}

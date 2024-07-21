@@ -1,0 +1,84 @@
+{% extends "index.html" %} {% load static%}
+
+{% block content %}
+
+<section id="services" class="services">
+  <div class="container" data-aos="fade-up">
+    <div class="section-header">
+      <h2>Suivi de Projet</h2>
+      <p>
+        Bienvenue sur notre page de suivi de projet. Ici, nous vous offrons une 
+        transparence totale sur l'avancement de nos projets collaboratifs. Grâce à une expertise poussée dans le développement durable et les technologies 
+        énergétiques urbaines, nous nous engageons à transformer vos espaces de vie et de travail en environnements éco-responsables. Suivez en temps réel 
+        le progrès des interventions et découvrez chaque étape qui nous rapproche de la finalisation de votre pojet.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<section id="cta" class="cta">
+  {% for i in steps %}
+  <div class="container" data-aos="zoom-out">
+    <div class="content d-flex flex-column justify-content-center order-last order-md-first {% if i > advancement %}inactive{% endif %}">
+      <div class="card-body">
+        {% if i == advancement %}
+        <div class="current-step-msg">
+          <div class="btn-step-msg">Votre projet en est à cette étape</div>
+        </div>
+        
+        {% endif %}
+        <h4 >{% if i == 1 %}
+          1. Proposition à réaliser
+          {% elif i == 2 %}
+          2. Proposition validée
+          {% elif i == 3 %}
+          3. Audit énergétique en cours
+          {% elif i == 4 %}
+          4. IF (Ingénierie Financière) en cours 
+          {% elif i == 5 %}
+          5. AMO (Assistance à Maîtrise d'Ouvrage) en cours
+          {% elif i == 6 %}
+          6. Étude terminée
+          {% endif %}
+        </h4>
+        <p class="">
+          {% if i == 1 %}
+          Suite à la réunion initiale avec la copropriété, nous élaborons une proposition détaillée 
+          des services et interventions à effectuer. Cette proposition inclut une estimation des coûts 
+          et des bénéfices attendus, ainsi que le calendrier prévisionnel des audits et interventions.
+          {% elif i == 2 %}
+          La proposition soumise est examinée et approuvée par le conseil de copropriété. À cette étape, un accord formel est signé, et nous procédons à la planification des ressources et à la préparation des équipes pour l'audit énergétique.
+          {% elif i == 3 %}
+          Nos experts effectuent un audit complet des installations, analysant la consommation énergétique actuelle et identifiant les possibilités d'amélioration de l'efficacité énergétique. Cela comprend des inspections sur place, des mesures et des évaluations détaillées.
+          {% elif i == 4 %}
+          Nous développons des solutions financières personnalisées pour optimiser les investissements nécessaires aux travaux d'amélioration énergétique. Cela inclut la recherche de subventions, d'aides et de solutions de financement adaptées aux besoins spécifiques de la copropriété.
+          {% elif i == 5 %}
+          Nous accompagnons la copropriété dans la mise en œuvre des recommandations de l'audit, supervisant les travaux et coordonnant les différents intervenants pour assurer la conformité aux normes et aux objectifs fixés.
+          {% elif i == 6 %}
+          L'étude énergétique est complète. Un rapport final est remis à la copropriété, détaillant les interventions réalisées, les performances énergétiques atteintes et les recommandations pour le suivi et l'entretien futur. La copropriété dispose désormais de toutes les informations nécessaires pour maintenir et améliorer son efficacité énergétique.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+  {% if not forloop.last %}
+  <div class="col-12 arrow {% if i > advancement %}inactive-arrow{% endif %}">
+    <img src="{% static 'img/la-fleche.png' %}" alt="Flèche vers le bas">
+  </div>
+  {% endif %}
+  {% endfor %}
+
+
+
+</section><!-- End Call To Action Section -->
+
+
+
+<section id="services" class="services">
+  <div class="container" data-aos="fade-up">
+    <a href="{% url 'finish_session' %}" class="btn btn-danger">Suivre un autre projet</a>
+  </div>
+</section>
+
+{% endblock content %}

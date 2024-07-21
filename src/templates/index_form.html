@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>MEV - Expertise en Performance Énergétique</title>
+  <meta content="MEV, bureau d'études spécialisé en audits énergétiques, études thermiques, AMO, et management environnemental. Découvrez nos solutions pour optimiser l'efficacité énergétique de vos bâtiments et projets industriels." name="description">
+  <meta content="audit énergétique, étude thermique, AMO, management environnemental, performance énergétique, rénovation énergétique, ingénierie du bâtiment, ingénierie environnementale, ingénierie financière" name="keywords">  
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.jpg' %}" rel="icon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Variables CSS Files. Uncomment your preferred color scheme -->
+  <!--  <link href="{% static 'css/variables.css' %}" rel="stylesheet">-->
+  <!-- <link href="{% static 'css/variables-blue.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'css/variables-greeen.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'css/variables-orange.css' %}" rel="stylesheet"> -->
+  <!-- <link href="{% static 'css/variables-purple.css' %}" rel="stylesheet"> -->
+  <!-- <link href="{% static 'css/variables-red.css' %}" rel="stylesheet"> -->
+  <!-- <link href="{% static 'css/variables-pink.css' %}" rel="stylesheet"> -->
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Mev
+  * Author: antly.com
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top" data-scrollto-offset="0">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'form' %}" class="logo d-flex align-items-center scrollto me-auto me-lg-0">
+        <img src="{% static 'img/logo.webp' %}" alt="Mev logo">
+        admin Formulaire
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+
+          <li><a class="nav-link scrollto" href="{% url 'form' %}">Accueil Formulaire</a></li>
+          <li><a class="nav-link scrollto" href="#">Les questions</a></li>
+
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle d-none"></i>
+
+
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+
+
+  <main id="main">
+    {% block content %}
+    {% endblock content %}
+  </main>
+ 
+
+  <!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+
+
+
+  <div class="footer-legal text-center">
+    <div class="container d-flex flex-column flex-lg-row justify-content-center justify-content-lg-between align-items-center">
+
+      <div class="d-flex flex-column align-items-center align-items-lg-start">
+        <div class="copyright">
+          &copy; Copyright <strong><span>MEV</span></strong>. Tous droits réservés
+        </div>
+        <div class="credits">
+          Conçu par <a href="https://dev.antly.fr">Antly Dev</a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+</footer><!-- End Footer -->
+
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+  {% block script %}
+  {% endblock script %}
+
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+{% extends "index_form.html" %}
+{% load static %}
+
+
+{% block content %}
+<!-- Conteneur de notification -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert-okok alert-{{ message.tags }}" id="message">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#message').fadeOut('slow');
+            }, 5000);  // 5000 ms = 5 s
+        });
+    </script>
+{% endif %}
+
+    
+      <!-- ======= Featured Services Section ======= -->
+      <section id="form-okok" class="form-okok">
+        <div class="container">
+    
+               <!-- ======= Featured Services Section ======= -->
+               <h1>Formulaires avec formulaire_type True</h1>
+                <!-- Template section pour lister les formulaires -->
+                <ul>
+                  {% for form in forms_true %}
+                    <li>
+                      {{ form.nom }} - {{ form.id }}
+                      <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('Are you sure?');">Supprimer</button>
+                        <a href="{% url 'download_pdf' form.id %}" class="btn">Télécharger PDF</a>
+                       <a href="{% url 'download_qr' form.id %}" class="btn">Télécharger QR code</a>
+                       <a href="{% url 'download_docx' form.id %}" class="btn">Télécharger le docx</a>
+                       </form>
+          
+                    </li>
+                  {% endfor %}
+                </ul>
+
+               
+               <h1>Formulaires avec formulaire_type False</h1>
+               <ul>
+                 {% for form in forms_false %}
+                   <li>
+                     {{ form.nom }} - {{ form.id }}
+
+                     <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
+                       {% csrf_token %}
+                       <button type="submit" onclick="return confirm('Are you sure?');">Supprimer</button>
+                       <a href="{% url 'download_pdf' form.id %}" class="btn">Télécharger PDF</a>
+                       <a href="{% url 'download_qr' form.id %}" class="btn">Télécharger QR code</a>
+                       <a href="{% url 'download_docx' form.id %}" class="btn">Télécharger le docx</a>
+                      </form>
+                       
+                   </li>
+                 {% endfor %}
+               </ul>
+               
+
+        <a href="{% url 'create_formulaire' %}">creation</a>
+    
+        </div>
+      </section><!-- End Featured Services Section -->
+    
+
+        
+    {% endblock content %}

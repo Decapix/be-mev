@@ -1,0 +1,124 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+<section id="hero-animated" class="hero-animated d-flex align-items-center">
+  <div class="container d-flex flex-column justify-content-center align-items-center text-center position-relative" data-aos="zoom-out">
+    <img src="{% static 'img/hero-carousel/hero-carousel-04.svg' %}" class="img-fluid animated">
+    <h2><span>MEV</span></h2>
+    <h2>Bureau d'étude Maîtrise de l'Énergie en ville</h2>
+    <p>MEV, expert énergie, innove pour des villes durables : efficacité, environnement, avenir, durabilité.</p>
+    
+  </div>
+</section>
+
+<main id="main">
+
+  <!-- ======= Featured Services Section ======= -->
+  <section id="featured-services" class="featured-services">
+    <div class="container">
+
+      <div class="row gy-4">
+
+
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="zoom-out" data-aos-delay="200">
+          <div class="service-item position-relative">
+            <div class="icon"><i class="bi bi-building icon"></i></div>
+            <h4><a href="{% url 'prestation' %}" class="stretched-link">Copropriétés</a></h4>
+            <p>AMO - Audit énergétique - DTG - Ingénierie financière</p>
+          </div>
+        </div><!-- End Service Item -->
+
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="zoom-out">
+          <div class="service-item position-relative">
+            <div class="icon"><i class="bi bi-person-arms-up icon"></i></div>
+            <h4><a href="{% url 'prestation' %}" class="stretched-link">Particuliers</a></h4>
+            <p>Mon Accompagnateur Rénov - Audit et rénovation énergétique</p>
+          </div>
+        </div><!-- End Service Item -->
+
+
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="zoom-out" data-aos-delay="400">
+          <div class="service-item position-relative">
+            <div class="icon"><i class="bi bi-truck-front icon"></i></div>
+            <h4><a href="{% url 'prestation' %}" class="stretched-link">Entreprise</a></h4>
+            <p>Audit énergétique grandes entreprises - Décret tertiaire - Bilan Carbone</p>
+          </div>
+        </div><!-- End Service Item -->
+
+        <div class="col-xl-3 col-md-6 d-flex" data-aos="zoom-out" data-aos-delay="600">
+          <div class="service-item-track position-relative rounded">
+            <div class="icon"><i class="bi bi-duffle icon"></i></div>
+            <h4><a href="{% url 'requestnumber' %}" class="stretched-link">Suivre un projet</a></h4>
+            <p>J'ai mon identifiant de suivi de projets</p>
+          </div>
+        </div><!-- End Service Item -->
+
+      </div>
+
+    </div>
+  </section><!-- End Featured Services Section -->
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+      <div class="section-header">
+        <h2>Bureau d'étude MEV</h2>
+        <p>Expert en performance énergétique, MEV est un bureau d'études spécialisé dans l'audit 
+          énergétique, l'étude thermique, l'Assistance à Maîtrise d'Ouvrage (AMO) et le management 
+          environnemental. Fondé en 2005, nous combinons expertise technique et approche personnalisée 
+          pour accompagner nos clients dans leurs projets de rénovation.</p>
+      </div>
+    
+      <div class="row g-4 g-lg-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-5">
+          <div class="about-img">
+            <img src="{% static 'img/about.webp' %}" class="img-fluid rounded" alt="">
+          </div>
+        </div>
+    
+        <div class="col-lg-7">
+          <h3 class="pt-0 pt-lg-5">Pourquoi choisir MEV ?</h3>
+          <!-- Tabs -->
+          <ul class="nav nav-pills mb-3">
+            <li><a class="nav-link active" data-bs-toggle="pill" href="#tab1">Notre Expertise</a></li>
+          </ul><!-- End Tabs -->
+    
+          <!-- Tab Content -->
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="tab1">
+              <p class="fst-italic">Chez MEV, nous nous engageons à offrir des solutions 
+                sur mesure, adaptées aux spécificités de chaque projet, pour maximiser l'efficacité 
+                énergétique, améliorer le confort et minimiser l'impact environnemental.</p>
+    
+              <div class="d-flex align-items-center mt-4">
+                <i class="bi bi-check2"></i>
+                <h4>Qualifications et Certifications Professionnelles</h4>
+              </div>
+              <p>Reconnus par l'OPQIBI et l'AFNOR, et certifiés RGE, nos experts assurent des prestations conformes aux standards les plus élevés.</p>
+    
+              <div class="d-flex align-items-center mt-4">
+                <i class="bi bi-check2"></i>
+                <h4>Une Approche Centrée sur l'Accompagnement</h4>
+              </div>
+              <p>Nous offrons un suivi personnalisé à chaque étape de votre projet, garantissant une compréhension et
+                 une satisfaction optimales. La continuité est au cœur de notre méthodologie avec des interlocuteurs 
+                 identiques, fiables et présents tout au long de vos projets.</p>
+    
+              <div class="d-flex align-items-center mt-4">
+                <i class="bi bi-check2"></i>
+                <h4>Des Solutions Innovantes et Durables</h4>
+              </div>
+              <p>Notre équipe multidisciplinaire propose des stratégies innovantes pour répondre aux défis de la 
+                rénovation énergétique de votre patrimoine.</p>
+    
+            </div><!-- End Tab 1 Content -->
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </section><!-- End About Section -->
+
+      {% endblock content %}

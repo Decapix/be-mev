@@ -80,6 +80,22 @@ h6 {
   }
 }
 
+
+#messages {
+  position: fixed; /* Utilisez 'fixed' pour garder le message visible même lors du défilement */
+  top: 20px; /* Position du haut */
+  right: 20px; /* Position de droite */
+  width: auto; /* Largeur automatique */
+  z-index: 1000; /* Z-index élevé pour s'assurer qu'il est au-dessus des autres contenus */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Ombre pour mieux distinguer le message */
+  border-radius: 5px; /* Bords arrondis */
+}
+.alert-okok {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
 /*--------------------------------------------------------------
 # Sections & Section Header
 --------------------------------------------------------------*/
@@ -3312,7 +3328,11 @@ section {
 .blog .blog-pagination li:hover a {
   color: var(--color-white);
 }
+/*--------------------------------------------------------------
+# form okok
+--------------------------------------------------------------*/
 
+.form-okok 
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/

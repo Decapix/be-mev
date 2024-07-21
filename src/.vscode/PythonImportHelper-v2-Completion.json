@@ -1,0 +1,1673 @@
+[
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "Client",
+        "importPath": "client.models",
+        "description": "client.models",
+        "isExtraImport": true,
+        "detail": "client.models",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "reverse",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "include",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "JsonResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "FileResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "gspread",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "gspread",
+        "description": "gspread",
+        "detail": "gspread",
+        "documentation": {}
+    },
+    {
+        "label": "ServiceAccountCredentials",
+        "importPath": "oauth2client.service_account",
+        "description": "oauth2client.service_account",
+        "isExtraImport": true,
+        "detail": "oauth2client.service_account",
+        "documentation": {}
+    },
+    {
+        "label": "ServiceAccountCredentials",
+        "importPath": "oauth2client.service_account",
+        "description": "oauth2client.service_account",
+        "isExtraImport": true,
+        "detail": "oauth2client.service_account",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "template",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "staff_member_required",
+        "importPath": "django.contrib.admin.views.decorators",
+        "description": "django.contrib.admin.views.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.admin.views.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "require_POST",
+        "importPath": "django.views.decorators.http",
+        "description": "django.views.decorators.http",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.http",
+        "documentation": {}
+    },
+    {
+        "label": "require_POST",
+        "importPath": "django.views.decorators.http",
+        "description": "django.views.decorators.http",
+        "isExtraImport": true,
+        "detail": "django.views.decorators.http",
+        "documentation": {}
+    },
+    {
+        "label": "mark_safe",
+        "importPath": "django.utils.safestring",
+        "description": "django.utils.safestring",
+        "isExtraImport": true,
+        "detail": "django.utils.safestring",
+        "documentation": {}
+    },
+    {
+        "label": "Ask",
+        "importPath": "faq.models",
+        "description": "faq.models",
+        "isExtraImport": true,
+        "detail": "faq.models",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "get_asgi_application",
+        "importPath": "django.core.asgi",
+        "description": "django.core.asgi",
+        "isExtraImport": true,
+        "detail": "django.core.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "static",
+        "importPath": "django.conf.urls.static",
+        "description": "django.conf.urls.static",
+        "isExtraImport": true,
+        "detail": "django.conf.urls.static",
+        "documentation": {}
+    },
+    {
+        "label": "get_wsgi_application",
+        "importPath": "django.core.wsgi",
+        "description": "django.core.wsgi",
+        "isExtraImport": true,
+        "detail": "django.core.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "send_mail",
+        "importPath": "django.core.mail",
+        "description": "django.core.mail",
+        "isExtraImport": true,
+        "detail": "django.core.mail",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client.migrations.0001_initial",
+        "description": "client.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = []\n    operations = [\n        migrations.CreateModel(\n            name=\"Client\",\n            fields=[\n                (\n                    \"id\",\n                    models.UUIDField(",
+        "detail": "client.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client.migrations.0002_client_identification_number",
+        "description": "client.migrations.0002_client_identification_number",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        (\"client\", \"0001_initial\"),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name=\"client\",\n            name=\"identification_number\",\n            field=models.CharField(default=\"123456\", max_length=6, unique=True),\n        ),",
+        "detail": "client.migrations.0002_client_identification_number",
+        "documentation": {}
+    },
+    {
+        "label": "ClientConfig",
+        "kind": 6,
+        "importPath": "client.apps",
+        "description": "client.apps",
+        "peekOfCode": "class ClientConfig(AppConfig):\n    default_auto_field = \"django.db.models.BigAutoField\"\n    name = \"client\"",
+        "detail": "client.apps",
+        "documentation": {}
+    },
+    {
+        "label": "Client",
+        "kind": 6,
+        "importPath": "client.models",
+        "description": "client.models",
+        "peekOfCode": "class Client(models.Model):\n    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)\n    identification_number = models.CharField(max_length=6, unique=True, default='123456')\n    def __str__(self):\n        return self.identification_number",
+        "detail": "client.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "client.urls",
+        "description": "client.urls",
+        "peekOfCode": "urlpatterns = [\n    path('track/', client, name='client'),\n    path('requestnumber/', request_number, name='requestnumber'),\n    path('finish-session/', finish_session, name='finish_session'),\n]",
+        "detail": "client.urls",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 2,
+        "importPath": "client.views",
+        "description": "client.views",
+        "peekOfCode": "def client(request):\n    \"\"\"view for track project\"\"\"\n    client_id = request.session.get('client_id')\n    if client_id is None:\n        # Si aucun ID client n'est trouvé dans la session, rediriger vers la page de connexion\n        return redirect('requestnumber')\n    try:\n        # aller chercher le cliet sur trello\n        search_id = client_id\n        board_id = settings.BOARD_ID",
+        "detail": "client.views",
+        "documentation": {}
+    },
+    {
+        "label": "request_number",
+        "kind": 2,
+        "importPath": "client.views",
+        "description": "client.views",
+        "peekOfCode": "def request_number(request):\n    \"\"\"juste check if the client exist and put id in session\"\"\"\n    if request.method == 'POST':\n        identification_number = request.POST.get('identification_number')\n        print(\"okokoko10\", identification_number)\n        try:\n            search_id = identification_number\n            board_id = settings.BOARD_ID\n            key = settings.KEY_TRELLO\n            token = settings.TOKEN_TRELLO",
+        "detail": "client.views",
+        "documentation": {}
+    },
+    {
+        "label": "finish_session",
+        "kind": 2,
+        "importPath": "client.views",
+        "description": "client.views",
+        "peekOfCode": "def finish_session(request):\n    \"\"\"Supprime l'ID client de la session et redirige vers l'entrée de nouveau numéro.\"\"\"\n    if 'client_id' in request.session:\n        del request.session['client_id']\n    return redirect('requestnumber')  # Assurez-vous que le nom d'URL est correct\n# function \ndef trello_func_base(board_id, key, token):\n        # URL de l'API pour obtenir toutes les cartes du tableau\n    url = f\"https://api.trello.com/1/boards/{board_id}/cards?key={key}&token={token}\"\n    # Faire la requête GET à l'API de Trello",
+        "detail": "client.views",
+        "documentation": {}
+    },
+    {
+        "label": "trello_func_base",
+        "kind": 2,
+        "importPath": "client.views",
+        "description": "client.views",
+        "peekOfCode": "def trello_func_base(board_id, key, token):\n        # URL de l'API pour obtenir toutes les cartes du tableau\n    url = f\"https://api.trello.com/1/boards/{board_id}/cards?key={key}&token={token}\"\n    # Faire la requête GET à l'API de Trello\n    response = requests.get(url)\n    if response.status_code != 200:\n        return None, \"Failed to retrieve cards\"\n    # Charger les données JSON des cartes\n    cards = response.json()\n    return cards",
+        "detail": "client.views",
+        "documentation": {}
+    },
+    {
+        "label": "find_card_by_id",
+        "kind": 2,
+        "importPath": "client.views",
+        "description": "client.views",
+        "peekOfCode": "def find_card_by_id(board_id, key, token, search_id):\n    cards = trello_func_base(board_id, key, token)\n    # Rechercher la carte avec l'ID spécifié dans la description\n    for card in cards:\n        if search_id in card['name']:\n            # Extraire l'ID de la liste et la description\n            list_id = card['idList']\n            return list_id\n    return None, \"Card not found\"\ndef check_card_by_id(board_id, key, token, search_id):",
+        "detail": "client.views",
+        "documentation": {}
+    },
+    {
+        "label": "check_card_by_id",
+        "kind": 2,
+        "importPath": "client.views",
+        "description": "client.views",
+        "peekOfCode": "def check_card_by_id(board_id, key, token, search_id):\n    cards = trello_func_base(board_id, key, token)\n    # Rechercher la carte avec l'ID spécifié dans la description\n    for card in cards:\n        if search_id in card['name']:\n            return True\n    print(\"false\")\n    return False",
+        "detail": "client.views",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0001_initial",
+        "description": "client_form.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='AidesIndividuelles_fp',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('nombre_personnes', models.IntegerField()),",
+        "detail": "client_form.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0002_formulaire_formulaire_type",
+        "description": "client_form.migrations.0002_formulaire_formulaire_type",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0001_initial'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='formulaire',\n            name='formulaire_type',\n            field=models.BooleanField(default=False),\n        ),",
+        "detail": "client_form.migrations.0002_formulaire_formulaire_type",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0003_alter_formulaire_aides_individuelles_and_more",
+        "description": "client_form.migrations.0003_alter_formulaire_aides_individuelles_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0002_formulaire_formulaire_type'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='formulaire',\n            name='aides_individuelles',\n            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='client_form.aidesindividuelles_fp'),\n        ),",
+        "detail": "client_form.migrations.0003_alter_formulaire_aides_individuelles_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0004_alter_descriptifdeslogement_f_email_and_more",
+        "description": "client_form.migrations.0004_alter_descriptifdeslogement_f_email_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0003_alter_formulaire_aides_individuelles_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='descriptifdeslogement_f',\n            name='email',\n            field=models.CharField(blank=True, max_length=100),\n        ),",
+        "detail": "client_form.migrations.0004_alter_descriptifdeslogement_f_email_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0005_alter_compositionmenage_fp_nombre_personnes",
+        "description": "client_form.migrations.0005_alter_compositionmenage_fp_nombre_personnes",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0004_alter_descriptifdeslogement_f_email_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='compositionmenage_fp',\n            name='nombre_personnes',\n            field=models.IntegerField(null=True),\n        ),",
+        "detail": "client_form.migrations.0005_alter_compositionmenage_fp_nombre_personnes",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0006_alter_aidesindividuelles_fp_nombre_personnes_and_more",
+        "description": "client_form.migrations.0006_alter_aidesindividuelles_fp_nombre_personnes_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0005_alter_compositionmenage_fp_nombre_personnes'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='aidesindividuelles_fp',\n            name='nombre_personnes',\n            field=models.IntegerField(null=True),\n        ),",
+        "detail": "client_form.migrations.0006_alter_aidesindividuelles_fp_nombre_personnes_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0007_alter_aidesindividuelles_fp_aide_anah_and_more",
+        "description": "client_form.migrations.0007_alter_aidesindividuelles_fp_aide_anah_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0006_alter_aidesindividuelles_fp_nombre_personnes_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='aidesindividuelles_fp',\n            name='aide_anah',\n            field=models.BooleanField(default=False),\n        ),",
+        "detail": "client_form.migrations.0007_alter_aidesindividuelles_fp_aide_anah_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0008_alter_aidesindividuelles_fp_menage_bleu_and_more",
+        "description": "client_form.migrations.0008_alter_aidesindividuelles_fp_menage_bleu_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0007_alter_aidesindividuelles_fp_aide_anah_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='aidesindividuelles_fp',\n            name='menage_bleu',\n            field=models.FloatField(blank=True, null=True),\n        ),",
+        "detail": "client_form.migrations.0008_alter_aidesindividuelles_fp_menage_bleu_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "client_form.migrations.0009_formulaire_descriptif_des_logement",
+        "description": "client_form.migrations.0009_formulaire_descriptif_des_logement",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('client_form', '0008_alter_aidesindividuelles_fp_menage_bleu_and_more'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='formulaire',\n            name='descriptif_des_logement',\n            field=models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='client_form.descriptifdeslogement_f'),\n        ),",
+        "detail": "client_form.migrations.0009_formulaire_descriptif_des_logement",
+        "documentation": {}
+    },
+    {
+        "label": "ClientFormConfig",
+        "kind": 6,
+        "importPath": "client_form.apps",
+        "description": "client_form.apps",
+        "peekOfCode": "class ClientFormConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'client_form'",
+        "detail": "client_form.apps",
+        "documentation": {}
+    },
+    {
+        "label": "FormulaireForm",
+        "kind": 6,
+        "importPath": "client_form.forms",
+        "description": "client_form.forms",
+        "peekOfCode": "class FormulaireForm(forms.ModelForm):\n    # Ajout de champs booléens pour chaque groupe de question\n    identification_include = forms.BooleanField(required=False, label='Inclure Identification')\n    descriptif_du_logement_include = forms.BooleanField(required=False, label='Inclure Descriptif du Logement')\n    descriptif_des_logement_include = forms.BooleanField(required=False, label='Inclure Descriptif des Logement')\n    bati_include = forms.BooleanField(required=False, label='Inclure Bâti')\n    chauffage_eau_chaude_include = forms.BooleanField(required=False, label='Inclure Chauffage et Eau Chaude')\n    ventilation_include = forms.BooleanField(required=False, label='Inclure Ventilation')\n    sondage_include = forms.BooleanField(required=False, label='Inclure Sondage')\n    financement_include = forms.BooleanField(required=False, label='Inclure Financement')",
+        "detail": "client_form.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Formulaire",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class Formulaire(models.Model):\n    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)\n    nom = models.CharField(max_length=100)\n    formulaire_type = models.BooleanField(default=False)\n    # Relation Many-to-Many avec différents modèles de groupe\n    identification = models.OneToOneField('Identification_f', null=True, blank=True, on_delete=models.CASCADE)\n    descriptif_du_logement = models.OneToOneField('DescriptifDuLogement_f', null=True, blank=True, on_delete=models.CASCADE)\n    descriptif_des_logement = models.OneToOneField('DescriptifDesLogement_f', null=True, blank=True, on_delete=models.CASCADE)\n    bati = models.OneToOneField('BATI_f', null=True, blank=True, on_delete=models.CASCADE)\n    chauffage_eau_chaude = models.OneToOneField('ChauffageEauChaude_f', null=True, blank=True, on_delete=models.CASCADE)",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "Identification_f",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class Identification_f(models.Model):\n    nom = models.CharField(max_length=100)\n    telephone = models.CharField(max_length=25)\n    prenom = models.CharField(max_length=100)\n    email = models.CharField(max_length=100)\n    def __str__(self):\n        return f'Identification_f {self.id}'\nclass DescriptifDuLogement_f(models.Model):\n    numero_du_lot = models.CharField(max_length=50, blank=True)\n    proprietaire_occupant = models.BooleanField(default=False)  # Utilisation de False comme valeur par défaut",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "DescriptifDuLogement_f",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class DescriptifDuLogement_f(models.Model):\n    numero_du_lot = models.CharField(max_length=50, blank=True)\n    proprietaire_occupant = models.BooleanField(default=False)  # Utilisation de False comme valeur par défaut\n    prenom = models.CharField(max_length=100, blank=True)  # Optionnellement ajout de blank=True si le champ peut être laissé vide\n    email = models.CharField(max_length=100, blank=True)  # De même pour l'email\n    def __str__(self):\n        return f'DescriptifDuLogement_f {self.id}'\nclass DescriptifDesLogement_f(models.Model):\n    numero_du_lot = models.CharField(max_length=50, blank=True)\n    proprietaire_occupant = models.BooleanField(default=False) # false = bailleur",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "DescriptifDesLogement_f",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class DescriptifDesLogement_f(models.Model):\n    numero_du_lot = models.CharField(max_length=50, blank=True)\n    proprietaire_occupant = models.BooleanField(default=False) # false = bailleur\n    prenom = models.CharField(max_length=100, blank=True)\n    email = models.CharField(max_length=100, blank=True)\n    def __str__(self):\n        return f'DescriptifDesLogement_f {self.id}'\nclass LogementPLS_BAT(models.Model):\n    etage = models.PositiveIntegerField()\n    batiment =  models.CharField(max_length=100)",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "LogementPLS_BAT",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class LogementPLS_BAT(models.Model):\n    etage = models.PositiveIntegerField()\n    batiment =  models.CharField(max_length=100)\n    nombre_de_piece = models.PositiveIntegerField()\n    surface = models.CharField(max_length=100)\n    descriptif_du_logements = models.ForeignKey(DescriptifDuLogement_f, on_delete=models.CASCADE, related_name='logements_pls_bat')\n    annee_d_aquisition = models.DateField()\nclass LogementUN_BAT(models.Model):\n    etage = models.PositiveIntegerField()\n    nombre_de_piece = models.PositiveIntegerField()",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "LogementUN_BAT",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class LogementUN_BAT(models.Model):\n    etage = models.PositiveIntegerField()\n    nombre_de_piece = models.PositiveIntegerField()\n    surface = models.CharField(max_length=100)\n    descriptif_du_logements = models.ForeignKey(DescriptifDuLogement_f, on_delete=models.CASCADE, related_name='logements_un_bat')\n    annee_d_aquisition = models.DateField()\n    def __str__(self):\n        return f'Logement {self.id}'\nclass BATI_f (models.Model):\n    travaux_engage = models.BooleanField(default=False)  # False = non engage",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "BATI_",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class BATI_f (models.Model):\n    travaux_engage = models.BooleanField(default=False)  # False = non engage\n    type_isolant = models.CharField(max_length=50, choices=[\n        ('polystyrene', 'Polystyrène'),\n        ('laine_minerale', 'Laine minérale'),\n        ('autre', 'Autre')\n    ], blank=True, null=True)\n    epaisseur_isolant = models.CharField(max_length=50, choices=[\n        ('2_4_cm', '2 à 4 cm'),\n        ('4_6_cm', '4 à 6 cm'),",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "ChauffageEauChaude_f",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class ChauffageEauChaude_f(models.Model):\n    type_chauffage = models.CharField(max_length=50, choices=[\n        ('chaudiere_gaz', 'Chaudière gaz'),\n        ('electrique', 'Electrique'),\n        ('autres', 'Autres')\n    ])\n    chauffage_details = models.TextField(blank=True, null=True)\n    type_eau_chaude = models.CharField(max_length=50, choices=[\n        ('chaudiere_gaz', 'Chaudière gaz'),\n        ('electrique', 'Electrique'),",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "Ventilation_f",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class Ventilation_f(models.Model):\n    grilles_entree_air = models.BooleanField(choices=[\n        (True, 'Oui'),\n        (False, 'Non'),\n        (None, 'Ne sais pas')\n    ], null=True)\n    bouches_extraction_air = models.BooleanField(choices=[\n        (True, 'Oui'),\n        (False, 'Non'),\n        (None, 'Ne sais pas')",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "Sondage_f",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class Sondage_f(models.Model):\n    isolation_facades = models.BooleanField(default=False)\n    isolation_toiture = models.BooleanField(default=False)\n    regulation_chauffage = models.BooleanField(default=False)\n    remplacement_fenetres = models.BooleanField(default=False)\n    amelioration_ventilation = models.BooleanField(default=False)\n    remplacement_chauffage = models.BooleanField(default=False)\n    def __str__(self):\n        return f'Sondage {self.id}'\nclass Financement_f(models.Model):",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "Financement_f",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class Financement_f(models.Model):\n    pret_collectif = models.BooleanField(default=False)\n    pret_individuel = models.BooleanField(default=False)\n    financement_fonds_propres = models.BooleanField(default=False)\n    ne_se_prononce_pas = models.BooleanField(default=False)\n    duree_pret = models.IntegerField(choices=[\n        (3, '3 ans'),\n        (5, '5 ans'),\n        (7, '7 ans'),\n        (10, '10 ans'),",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "SituationProfessionnelle_fp",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class SituationProfessionnelle_fp(models.Model):    \n    SITUATION_CHOICES = [\n        ('salarie_prive', 'Salarié du secteur privé'),\n        ('travailleur_independant', 'Travailleur indépendant'),\n        ('retraite', 'Retraité'),\n        ('fonctionnaire', 'Fonctionnaire'),\n        ('sans_emploi', 'Sans emploi'),\n        ('autre', 'Autre')\n    ]\n    situation_professionnelle = models.CharField(max_length=50, choices=SITUATION_CHOICES)",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "CompositionMenage_fp",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class CompositionMenage_fp(models.Model):    \n    SITUATION_CHOICES = [\n        ('salarie', 'Salarié'),\n        ('liberal', 'Libéral, indépendant, autoentrepreneur'),\n        ('retraite', 'Retraité'),\n        ('demandeur_emploi', 'Demandeur d\\'emploi'),\n        ('etudiant', 'Etudiant, en formation'),\n        ('autre', 'Autre')\n    ]\n    situation = models.CharField(max_length=50, choices=SITUATION_CHOICES)",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "ProprietairesOccupantsIntro_fp",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class ProprietairesOccupantsIntro_fp(models.Model):    \n    residence_principale = models.BooleanField(default=False)  # True = Oui, False = Non\n    difficulte_payer_charges = models.BooleanField(default=False)  # True = Oui, False = Non\n    montant_impayes = models.FloatField(blank=True, null=True)\n    def __str__(self):\n        return f'ProprietairesOccupants {self.id}'\nclass AidesIndividuelles_fp(models.Model):\n    nombre_personnes = models.IntegerField(null=True)\n    menage_bleu = models.FloatField(blank=True, null=True)\n    menage_jaune = models.FloatField(blank=True, null=True)",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "AidesIndividuelles_fp",
+        "kind": 6,
+        "importPath": "client_form.models",
+        "description": "client_form.models",
+        "peekOfCode": "class AidesIndividuelles_fp(models.Model):\n    nombre_personnes = models.IntegerField(null=True)\n    menage_bleu = models.FloatField(blank=True, null=True)\n    menage_jaune = models.FloatField(blank=True, null=True)\n    menage_violet = models.FloatField(blank=True, null=True)\n    menage_rose = models.FloatField(blank=True, null=True)\n    supplement_par_personne = models.FloatField(blank=True, null=True)\n    revenu_fiscal_foyer = models.FloatField(blank=True, null=True)\n    impot_revenu = models.FloatField(blank=True, null=True)\n    pret_taux_zero = models.BooleanField(default=False)  # True = Oui, False = Non",
+        "detail": "client_form.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "client_form.urls",
+        "description": "client_form.urls",
+        "peekOfCode": "urlpatterns = [\n    path('', form, name='form'),\n    path('nouveau-formulaire/', create_formulaire, name='create_formulaire'),\n    path('get-form-details/', get_form_details, name='get_form_details'),\n]",
+        "detail": "client_form.urls",
+        "documentation": {}
+    },
+    {
+        "label": "form",
+        "kind": 2,
+        "importPath": "client_form.views",
+        "description": "client_form.views",
+        "peekOfCode": "def form(request):\n    \"\"\"all form\"\"\"\n    # Récupérer les formulaires où formulaire_type est True\n    forms_true = Formulaire.objects.filter(formulaire_type=True)\n    # Récupérer les formulaires où formulaire_type est False\n    forms_false = Formulaire.objects.filter(formulaire_type=False)\n    context = {\n        'forms_true': forms_true,\n        'forms_false': forms_false\n    }",
+        "detail": "client_form.views",
+        "documentation": {}
+    },
+    {
+        "label": "create_formulaire",
+        "kind": 2,
+        "importPath": "client_form.views",
+        "description": "client_form.views",
+        "peekOfCode": "def create_formulaire(request):\n    form = FormulaireForm()\n    existing_formulaires = Formulaire.objects.filter(formulaire_type=True)  # Récupère les formulaires avec formulaire_type=True\n    if request.method == 'POST':\n        form = FormulaireForm(request.POST)\n        if form.is_valid():\n            formulaire = form.save()\n            # Création conditionnelle des objets de groupe\n            print(\"request.POST\", request.POST)\n            if 'identification_include' in request.POST:",
+        "detail": "client_form.views",
+        "documentation": {}
+    },
+    {
+        "label": "get_form_details",
+        "kind": 2,
+        "importPath": "client_form.views",
+        "description": "client_form.views",
+        "peekOfCode": "def get_form_details(request):\n    form_id = request.GET.get('form_id')\n    if form_id:\n        formulaire = Formulaire.objects.get(id=form_id)\n        print(\"formulaire\", formulaire)\n        form_details = {\n            'identification_include': formulaire.identification is not None,\n            'descriptif_du_logement_include': formulaire.descriptif_du_logement is not None,\n            'descriptif_des_logement_include': formulaire.descriptif_des_logement is not None,\n            'bati_include': formulaire.bati is not None,",
+        "detail": "client_form.views",
+        "documentation": {}
+    },
+    {
+        "label": "delete_form",
+        "kind": 2,
+        "importPath": "client_form.views",
+        "description": "client_form.views",
+        "peekOfCode": "def delete_form(request, form_id):\n    try:\n        form = Formulaire.objects.get(id=form_id)\n        form.delete()\n        messages.success(request, \"Le formulaire a été supprimé avec succès.\")\n    except Formulaire.DoesNotExist:\n        messages.error(request, \"Le formulaire n'a pas été trouvé.\")\n    except Exception as e:\n        messages.error(request, f\"Une erreur s'est produite lors de la suppression: {str(e)}\")\n    return redirect('some_view_name')  # Redirigez vers la vue appropriée après la suppression",
+        "detail": "client_form.views",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "faq.migrations.0001_initial",
+        "description": "faq.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = []\n    operations = [\n        migrations.CreateModel(\n            name=\"Ask\",\n            fields=[\n                (\n                    \"id\",\n                    models.UUIDField(",
+        "detail": "faq.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "format_description",
+        "kind": 2,
+        "importPath": "faq.templatetags.custom_filters",
+        "description": "faq.templatetags.custom_filters",
+        "peekOfCode": "def format_description(value):\n    lines = value.split('\\n')\n    result = []\n    inside_list = False\n    for line in lines:\n        stripped_line = line.strip()\n        if stripped_line.startswith(('–', '-', '•')):\n            if not inside_list:\n                inside_list = True\n                result.append('<ul>')",
+        "detail": "faq.templatetags.custom_filters",
+        "documentation": {}
+    },
+    {
+        "label": "register",
+        "kind": 5,
+        "importPath": "faq.templatetags.custom_filters",
+        "description": "faq.templatetags.custom_filters",
+        "peekOfCode": "register = template.Library()\n@register.filter\ndef format_description(value):\n    lines = value.split('\\n')\n    result = []\n    inside_list = False\n    for line in lines:\n        stripped_line = line.strip()\n        if stripped_line.startswith(('–', '-', '•')):\n            if not inside_list:",
+        "detail": "faq.templatetags.custom_filters",
+        "documentation": {}
+    },
+    {
+        "label": "FaqConfig",
+        "kind": 6,
+        "importPath": "faq.apps",
+        "description": "faq.apps",
+        "peekOfCode": "class FaqConfig(AppConfig):\n    default_auto_field = \"django.db.models.BigAutoField\"\n    name = \"faq\"",
+        "detail": "faq.apps",
+        "documentation": {}
+    },
+    {
+        "label": "Ask",
+        "kind": 6,
+        "importPath": "faq.models",
+        "description": "faq.models",
+        "peekOfCode": "class Ask(models.Model):\n    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)\n    ask = models.TextField(max_length=360)\n    description = models.TextField(max_length=4000)\n    show = models.BooleanField()\n    def __str__(self):\n        return f\"{self.ask}\"",
+        "detail": "faq.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "faq.urls",
+        "description": "faq.urls",
+        "peekOfCode": "urlpatterns = [\n    path('', faq, name='faq'),\n]",
+        "detail": "faq.urls",
+        "documentation": {}
+    },
+    {
+        "label": "faq",
+        "kind": 2,
+        "importPath": "faq.views",
+        "description": "faq.views",
+        "peekOfCode": "def faq(request):\n    \"\"\"view for track project\"\"\"\n    ask = Ask.objects.filter(show=True)\n    return render(request, 'faq/ask.html', context={\"ask\": ask})",
+        "detail": "faq.views",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "mevsite.asgi",
+        "description": "mevsite.asgi",
+        "peekOfCode": "application = get_asgi_application()",
+        "detail": "mevsite.asgi",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_DIR",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "BASE_DIR = Path(__file__).resolve().parent.parent\n# Quick-start development settings - unsuitable for production\n# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/\n# SECURITY WARNING: keep the secret key used in production secret!\nSECRET_KEY = 'django-insecure-y=l*j+4jr9$wr0swla$9i796y1psy5!!z#^cd8e-k2f_voag%#'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-y=l*j+4jr9$wr0swla$9i796y1psy5!!z#^cd8e-k2f_voag%#'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEBUG",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOWED_HOSTS",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'widget_tweaks',",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "INSTALLED_APPS",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'widget_tweaks',\n    'faq',\n    'client',",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MIDDLEWARE",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]\nROOT_URLCONF = 'mevsite.urls'",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "ROOT_URLCONF",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "ROOT_URLCONF = 'mevsite.urls'\nTEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [BASE_DIR / \"templates\"],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.debug',\n                'django.template.context_processors.request',",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TEMPLATES",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "TEMPLATES = [\n    {\n        'BACKEND': 'django.template.backends.django.DjangoTemplates',\n        'DIRS': [BASE_DIR / \"templates\"],\n        'APP_DIRS': True,\n        'OPTIONS': {\n            'context_processors': [\n                'django.template.context_processors.debug',\n                'django.template.context_processors.request',\n                'django.contrib.auth.context_processors.auth',",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "WSGI_APPLICATION",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "WSGI_APPLICATION = 'mevsite.wsgi.application'\n# Database\n# https://docs.djangoproject.com/en/5.0/ref/settings/#databases\nDATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': 'mevdb2',\n        'USER': 'postgres',\n        'PASSWORD': ':)Solenops1s<$o',\n        'HOST': 'localhost',",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DATABASES",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "DATABASES = {\n    'default': {\n        'ENGINE': 'django.db.backends.postgresql_psycopg2',\n        'NAME': 'mevdb2',\n        'USER': 'postgres',\n        'PASSWORD': ':)Solenops1s<$o',\n        'HOST': 'localhost',\n        'PORT': '5432',\n    }\n}",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "AUTH_PASSWORD_VALIDATORS",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "AUTH_PASSWORD_VALIDATORS = [\n    {\n        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',\n    },\n    {\n        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',\n    },",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "LANGUAGE_CODE",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nSTATICFILES_DIRS = [BASE_DIR / 'static']\nSTATIC_ROOT = BASE_DIR / 'staticfiles'",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "TIME_ZONE",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nSTATICFILES_DIRS = [BASE_DIR / 'static']\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\n# Default primary key field type",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_I18N",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nSTATICFILES_DIRS = [BASE_DIR / 'static']\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "USE_TZ",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.0/howto/static-files/\nSTATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nSTATICFILES_DIRS = [BASE_DIR / 'static']\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_URL",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "STATIC_URL = 'static/'\nMEDIA_URL = '/media/'\nSTATICFILES_DIRS = [BASE_DIR / 'static']\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_FROM = 'mev.message@gmail.com'",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MEDIA_URL",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "MEDIA_URL = '/media/'\nSTATICFILES_DIRS = [BASE_DIR / 'static']\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_FROM = 'mev.message@gmail.com'\nEMAIL_HOST_USER = 'mev.message@gmail.com'",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATICFILES_DIRS",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "STATICFILES_DIRS = [BASE_DIR / 'static']\nSTATIC_ROOT = BASE_DIR / 'staticfiles'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_FROM = 'mev.message@gmail.com'\nEMAIL_HOST_USER = 'mev.message@gmail.com'\nEMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_ROOT",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "STATIC_ROOT = BASE_DIR / 'staticfiles'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_FROM = 'mev.message@gmail.com'\nEMAIL_HOST_USER = 'mev.message@gmail.com'\nEMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')\nEMAIL_PORT = 587",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_AUTO_FIELD",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nEMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_FROM = 'mev.message@gmail.com'\nEMAIL_HOST_USER = 'mev.message@gmail.com'\nEMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_BACKEND",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'\nEMAIL_HOST = 'smtp.gmail.com'\nEMAIL_FROM = 'mev.message@gmail.com'\nEMAIL_HOST_USER = 'mev.message@gmail.com'\nEMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_HOST",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "EMAIL_HOST = 'smtp.gmail.com'\nEMAIL_FROM = 'mev.message@gmail.com'\nEMAIL_HOST_USER = 'mev.message@gmail.com'\nEMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_FROM",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "EMAIL_FROM = 'mev.message@gmail.com'\nEMAIL_HOST_USER = 'mev.message@gmail.com'\nEMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_HOST_USER",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "EMAIL_HOST_USER = 'mev.message@gmail.com'\nEMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_HOST_PASSWORD",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')\nEMAIL_PORT = 587\nEMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_PORT",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "EMAIL_PORT = 587\nEMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "EMAIL_USE_TLS",
+        "kind": 5,
+        "importPath": "mevsite.settings",
+        "description": "mevsite.settings",
+        "peekOfCode": "EMAIL_USE_TLS = True",
+        "detail": "mevsite.settings",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "mevsite.urls",
+        "description": "mevsite.urls",
+        "peekOfCode": "urlpatterns = [] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)\nurlpatterns = [\n    path(\"admin/\", admin.site.urls),\n    path(\"client/\", include(\"client.urls\")),\n    path(\"admin_form/\", include(\"client_form.urls\")),\n    path('faq/', include(\"faq.urls\")),\n    path('', include(\"super.urls\")),\n]",
+        "detail": "mevsite.urls",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "mevsite.urls",
+        "description": "mevsite.urls",
+        "peekOfCode": "urlpatterns = [\n    path(\"admin/\", admin.site.urls),\n    path(\"client/\", include(\"client.urls\")),\n    path(\"admin_form/\", include(\"client_form.urls\")),\n    path('faq/', include(\"faq.urls\")),\n    path('', include(\"super.urls\")),\n]",
+        "detail": "mevsite.urls",
+        "documentation": {}
+    },
+    {
+        "label": "application",
+        "kind": 5,
+        "importPath": "mevsite.wsgi",
+        "description": "mevsite.wsgi",
+        "peekOfCode": "application = get_wsgi_application()",
+        "detail": "mevsite.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "super.migrations.0001_initial",
+        "description": "super.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = []\n    operations = [\n        migrations.CreateModel(\n            name=\"Profile\",\n            fields=[\n                (\n                    \"id\",\n                    models.UUIDField(",
+        "detail": "super.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "SuperConfig",
+        "kind": 6,
+        "importPath": "super.apps",
+        "description": "super.apps",
+        "peekOfCode": "class SuperConfig(AppConfig):\n    default_auto_field = \"django.db.models.BigAutoField\"\n    name = \"super\"",
+        "detail": "super.apps",
+        "documentation": {}
+    },
+    {
+        "label": "ContactForm",
+        "kind": 6,
+        "importPath": "super.forms",
+        "description": "super.forms",
+        "peekOfCode": "class ContactForm(forms.Form):\n    email = forms.EmailField(label='Votre email', required=True)\n    nom = forms.CharField(label='Votre nom', max_length=100, required=True)\n    pour_email = forms.ChoiceField(label='Pour', choices=[('info@be-mev.com', 'info@be-mev.com'),\n                                                          ('dtg@be-mev.com', 'dtg@be-mev.com'), \n                                                          ('amo@be-mev.com', 'amo@be-mev.com'), \n                                                          ('facture.mev@be-mev.com', 'facture.mev@be-mev.com'),\n                                                          ('devis@be-mev.com', 'devis@be-mev.com'),\n                                                          ('mar@be-mev.com', 'mar@be-mev.com')], required=True)\n    message = forms.CharField(label='Votre message', widget=forms.Textarea, required=True)",
+        "detail": "super.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Profile",
+        "kind": 6,
+        "importPath": "super.models",
+        "description": "super.models",
+        "peekOfCode": "class Profile(models.Model):\n    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)\n    name = models.TextField(max_length=100)\n    description = models.TextField(max_length=400)\n    role = models.TextField(max_length=250)\n    show = models.BooleanField(default=True)\n    def __str__(self):\n        return f\"{self.name}\"",
+        "detail": "super.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "super.urls",
+        "description": "super.urls",
+        "peekOfCode": "urlpatterns = [\n    path('', home, name=\"home\"),\n    path('prestation/', prestation, name=\"prestation\"),\n    path('contact/', contact, name=\"contact\"),\n    path('entreprise/', entreprise, name=\"entreprise\"),\n    path('prestation/dgt/', presta_dgt, name='presta_dgt'),\n    path('prestation/amo/', presta_amo, name='presta_amo'),\n    path('prestation/dpe/', presta_dpe, name='presta_dpe'),\n    path('prestation/audit/', presta_audit, name='presta_audit'),\n    path('prestation/renove/', presta_renove, name='presta_renove'),",
+        "detail": "super.urls",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def home(request):\n    \"\"\"view for homepage\"\"\"\n    return render(request, 'super/home.html')\ndef prestation(request):\n    \"\"\"view for homepage\"\"\"\n    return render(request, 'super/prestation.html')\ndef contact(request):\n    if request.method == 'POST':\n        form = ContactForm(request.POST)\n        if form.is_valid():",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "prestation",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def prestation(request):\n    \"\"\"view for homepage\"\"\"\n    return render(request, 'super/prestation.html')\ndef contact(request):\n    if request.method == 'POST':\n        form = ContactForm(request.POST)\n        if form.is_valid():\n            # Extraction des données du formulaire\n            nom = form.cleaned_data['nom']\n            email = form.cleaned_data['email']",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "contact",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def contact(request):\n    if request.method == 'POST':\n        form = ContactForm(request.POST)\n        if form.is_valid():\n            # Extraction des données du formulaire\n            nom = form.cleaned_data['nom']\n            email = form.cleaned_data['email']\n            pour_email = form.cleaned_data['pour_email']\n            message = form.cleaned_data['message']\n            # Préparation et envoi de l'email",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "entreprise",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def entreprise(request):\n    \"\"\"view for homepage\"\"\"\n    profile = Profile.objects.filter(show=True)\n    return render(request, 'super/entreprise.html', {'profile':profile})\n# presta \ndef presta_dgt(request):\n    \"\"\"Vue pour la prestation DGT\"\"\"\n    return render(request, 'super/prestation/presta_dgt.html')\ndef presta_amo(request):\n    \"\"\"Vue pour la prestation AMO\"\"\"",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "presta_dgt",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def presta_dgt(request):\n    \"\"\"Vue pour la prestation DGT\"\"\"\n    return render(request, 'super/prestation/presta_dgt.html')\ndef presta_amo(request):\n    \"\"\"Vue pour la prestation AMO\"\"\"\n    return render(request, 'super/prestation/presta_amo.html')\ndef presta_dpe(request):\n    \"\"\"Vue pour la prestation DPE\"\"\"\n    return render(request, 'super/prestation/presta_dpe.html')\ndef presta_audit(request):",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "presta_amo",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def presta_amo(request):\n    \"\"\"Vue pour la prestation AMO\"\"\"\n    return render(request, 'super/prestation/presta_amo.html')\ndef presta_dpe(request):\n    \"\"\"Vue pour la prestation DPE\"\"\"\n    return render(request, 'super/prestation/presta_dpe.html')\ndef presta_audit(request):\n    \"\"\"Vue pour la prestation d'audit\"\"\"\n    return render(request, 'super/prestation/presta_audit.html')\ndef presta_renove(request):",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "presta_dpe",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def presta_dpe(request):\n    \"\"\"Vue pour la prestation DPE\"\"\"\n    return render(request, 'super/prestation/presta_dpe.html')\ndef presta_audit(request):\n    \"\"\"Vue pour la prestation d'audit\"\"\"\n    return render(request, 'super/prestation/presta_audit.html')\ndef presta_renove(request):\n    \"\"\"Vue pour la prestation de rénovation\"\"\"\n    return render(request, 'super/prestation/presta_renove.html')\ndef presta_audit_regle(request):",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "presta_audit",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def presta_audit(request):\n    \"\"\"Vue pour la prestation d'audit\"\"\"\n    return render(request, 'super/prestation/presta_audit.html')\ndef presta_renove(request):\n    \"\"\"Vue pour la prestation de rénovation\"\"\"\n    return render(request, 'super/prestation/presta_renove.html')\ndef presta_audit_regle(request):\n    \"\"\"Vue pour la prestation d'audit réglementaire\"\"\"\n    return render(request, 'super/prestation/presta_audit_regle.html')\ndef presta_bilan(request):",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "presta_renove",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def presta_renove(request):\n    \"\"\"Vue pour la prestation de rénovation\"\"\"\n    return render(request, 'super/prestation/presta_renove.html')\ndef presta_audit_regle(request):\n    \"\"\"Vue pour la prestation d'audit réglementaire\"\"\"\n    return render(request, 'super/prestation/presta_audit_regle.html')\ndef presta_bilan(request):\n    \"\"\"Vue pour la prestation de bilan\"\"\"\n    return render(request, 'super/prestation/presta_bilan.html')",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "presta_audit_regle",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def presta_audit_regle(request):\n    \"\"\"Vue pour la prestation d'audit réglementaire\"\"\"\n    return render(request, 'super/prestation/presta_audit_regle.html')\ndef presta_bilan(request):\n    \"\"\"Vue pour la prestation de bilan\"\"\"\n    return render(request, 'super/prestation/presta_bilan.html')",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "presta_bilan",
+        "kind": 2,
+        "importPath": "super.views",
+        "description": "super.views",
+        "peekOfCode": "def presta_bilan(request):\n    \"\"\"Vue pour la prestation de bilan\"\"\"\n    return render(request, 'super/prestation/presta_bilan.html')",
+        "detail": "super.views",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "manage",
+        "description": "manage",
+        "peekOfCode": "def main():\n    \"\"\"Run administrative tasks.\"\"\"\n    os.environ.setdefault(\"DJANGO_SETTINGS_MODULE\", \"mevsite.settings\")\n    try:\n        from django.core.management import execute_from_command_line\n    except ImportError as exc:\n        raise ImportError(\n            \"Couldn't import Django. Are you sure it's installed and \"\n            \"available on your PYTHONPATH environment variable? Did you \"\n            \"forget to activate a virtual environment?\"",
+        "detail": "manage",
+        "documentation": {}
+    }
+]

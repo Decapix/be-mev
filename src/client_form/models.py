@@ -17,14 +17,17 @@ CHOICES_VENTILATION = [
 ]
 
 
+
 class Campagne(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date_de_creation = models.DateTimeField(auto_now_add=True)
     nom = models.CharField(max_length=255)
     description = models.TextField()
     excel = models.FileField(upload_to='media/excels/', blank=True, null=True)
-
-
+    
+    def __str__(self):
+        return f'{self.nom}'
+        
 class Formulaire(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     campagne = models.ForeignKey(

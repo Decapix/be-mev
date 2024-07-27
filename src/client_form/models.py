@@ -589,8 +589,7 @@ class Ventilation_f(models.Model):
             0, 10, f"Nettoyage régulier: Oui [] Non [] Je ne sais pas []", ln=True)
         pdf.cell(
             0, 10, f"Ventilation motorisée: Oui [] Non [] Je ne sais pas []", ln=True)
-        pdf.cell(0, 10, f"Temps ouverte pour ventilation: {
-                 self.ventilation_ouverte_temps}", ln=True)
+        pdf.cell(0, 10, f"Temps ouverte pour ventilation: {self.ventilation_ouverte_temps}", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
@@ -603,8 +602,7 @@ class Ventilation_f(models.Model):
             f"Nettoyage régulier: Oui [] Non [] Je ne sais pas []")
         doc.add_paragraph(
             f"Ventilation motorisée: Oui [] Non [] Je ne sais pas []")
-        doc.add_paragraph(f"Temps ouverte pour ventilation: {
-                          self.ventilation_ouverte_temps}")
+        doc.add_paragraph(f"Temps ouverte pour ventilation: {self.ventilation_ouverte_temps}")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
     def to_excel_row(self):

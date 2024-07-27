@@ -3,31 +3,44 @@
 
 
 {% block content %}
-    <h1>Étape {{ step }} du Formulaire</h1>
-    <form method="post">
+<section id="form-okok" class="form-okok">
+    <div class="container mt-10">
+        <!-- Cadre de texte rétractable -->
+         {% if infoText == True %}
+        <div id="infoText" style="border: 1px solid black; padding: 10px;" class="my-4">
+            Dans le cadre des travaux de rénovation votés lors de la dernière AG, plusieurs aides financières et solutions de financement sont mobilisables. Nous
+            vous faisons parvenir ce questionnaire afin d’obtenir les justificatifs nécessaires pour effectuer les demandes de subventions et les aides auxquelles
+            vous pouvez prétendre. Ce questionnaire nous permettra également, le cas échéant, de reprendre contact avec vous au moment du montage des
+            dossiers. Il est donc très important d’y répondre.
+            <br><br>
+            Précisions :
+            <ul>
+                <li>Ce questionnaire ne constitue pas une demande d’aides.</li>
+                <li>Ce questionnaire reste entièrement confidentiel à destination unique du bureau d’études. Les données sont exploitées le temps de la mission
+                puis supprimées à la fin de l’étude.</li>
+            </ul>
+        </div>
+        {% endif %}
+    <h2>Étape {{ step_affich }} du Formulaire</h2>
+
+    <div class="description">
+        <p>{{ description|linebreaksbr }}</p>
+    </div>
+
+    <div class="">
+        {{ render_html|safe }}
+    </div>
+    
+    
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Suivant</button>
+        <button type="submit" class="btn btn-primary">Suivant</button>
+
     </form>
+
+</div>
+</section>
     {% endblock content %}
-    {% block script %}
-    <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const typeIsolantSelect = document.querySelector('#id_type_isolant');
-    const autreIsolantInput = document.querySelector('#id_autre_isolant');
-    const epaisseurIsolantSelect = document.querySelector('#id_epaisseur_isolant');
-    const autreEpaisseurInput = document.querySelector('#id_autre_epaisseur');
 
-    function toggleVisibility() {
-        autreIsolantInput.style.display = typeIsolantSelect.value === 'autre' ? 'block' : 'none';
-        autreEpaisseurInput.style.display = epaisseurIsolantSelect.value === 'autre' ? 'block' : 'none';
-    }
 
-    typeIsolantSelect.addEventListener('change', toggleVisibility);
-    epaisseurIsolantSelect.addEventListener('change', toggleVisibility);
-
-    // Initial check on page load
-    toggleVisibility();
-});
-</script>
-{% endblock %}

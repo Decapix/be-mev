@@ -4,70 +4,73 @@
 
 {% block content %}
 <!-- Conteneur de notification -->
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert-okok alert-{{ message.tags }}" id="message">
-            {{ message }}
-        </div>
-    {% endfor %}
 
-    <script>
-        $(document).ready(function() {
-            setTimeout(function() {
-                $('#message').fadeOut('slow');
-            }, 5000);  // 5000 ms = 5 s
-        });
-    </script>
-{% endif %}
 
     
-      <!-- ======= Featured Services Section ======= -->
-      <section id="form-okok" class="form-okok">
-        <div class="container">
-    
-               <!-- ======= Featured Services Section ======= -->
-               <h1>Formulaires avec formulaire_type True</h1>
-                <!-- Template section pour lister les formulaires -->
-                <ul>
-                  {% for form in forms_true %}
-                    <li>
-                      {{ form.nom }} - {{ form.id }}
+<!-- ======= Featured Services Section ======= -->
+<section id="form-okok" class="form-okok">
+  <div class="container mt-4">
+      <div class="section-header text-center mb-5">
+          <h2>Interface de création de formulaire</h2>
+      </div>
+
+      <!-- Formulaires Type -->
+      <div class="mb-4">
+          <h4>Formulaires Type</h4>
+          <p>Les formulaires déjà faits qui servent de base</p>
+          <ul class="list-group">
+              {% for form in forms_true %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ form.nom }}
+                  <div>
                       <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" onclick="return confirm('Are you sure?');">Supprimer</button>
-                        <a href="{% url 'download_pdf' form.id %}" class="btn">Télécharger PDF</a>
-                       <a href="{% url 'download_qr' form.id %}" class="btn">Télécharger QR code</a>
-                       <a href="{% url 'download_docx' form.id %}" class="btn">Télécharger le docx</a>
-                       </form>
-          
-                    </li>
-                  {% endfor %}
-                </ul>
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Supprimer</button>
+                          <a href="{% url 'download_qr' form.id %}" class="btn btn-secondary btn-sm">Télécharger QR code</a>
+                          <a href="{% url 'download_pdf' form.id %}" class="btn btn-primary btn-sm">Télécharger PDF</a>
 
-               
-               <h1>Formulaires avec formulaire_type False</h1>
-               <ul>
-                 {% for form in forms_false %}
-                   <li>
-                     {{ form.nom }} - {{ form.id }}
-
-                     <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
-                       {% csrf_token %}
-                       <button type="submit" onclick="return confirm('Are you sure?');">Supprimer</button>
-                       <a href="{% url 'download_pdf' form.id %}" class="btn">Télécharger PDF</a>
-                       <a href="{% url 'download_qr' form.id %}" class="btn">Télécharger QR code</a>
-                       <a href="{% url 'download_docx' form.id %}" class="btn">Télécharger le docx</a>
+                          <a href="{% url 'download_docx' form.id %}" class="btn btn-success btn-sm">Télécharger le docx</a>
                       </form>
-                       
-                   </li>
-                 {% endfor %}
-               </ul>
-               
+                  </div>
+              </li>
+              {% endfor %}
+          </ul>
+      </div>
 
-        <a href="{% url 'create_formulaire' %}">creation</a>
-    
-        </div>
-      </section><!-- End Featured Services Section -->
+      <!-- Les autres -->
+      <div>
+          <h4>Les autres</h4>
+          <p>Les formulaires de campagnes</p>
+          <ul class="list-group">
+              {% for form in forms_false %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                  {{ form.nom }}
+                  <div>
+                      <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
+                          {% csrf_token %}
+                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Supprimer</button>
+                          <a href="{% url 'download_qr' form.id %}" class="btn btn-secondary btn-sm">Télécharger QR code</a>
+                          <a href="{% url 'download_pdf' form.id %}" class="btn btn-primary btn-sm">Télécharger PDF</a>
+
+                          <a href="{% url 'download_docx' form.id %}" class="btn btn-success btn-sm">Télécharger le docx</a>
+                      </form>
+                  </div>
+              </li>
+              {% endfor %}
+          </ul>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="mt-4">
+          <a href="{% url 'create_formulaire' %}" class="btn btn-info">Création de formulaire</a>
+          <a href="{% url 'create_campagne' %}" class="btn btn-info">Création de campagne</a>
+          <a href="{% url 'campagne_list' %}" class="btn btn-info">Voir toutes les campagnes</a>
+          <a href="{% url 'download_documents' %}" class="btn btn-info">Documents complementaire</a>
+      </div>
+  </div>
+</section>
+<!-- End Featured Services Section -->
+
     
 
         

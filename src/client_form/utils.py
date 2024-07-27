@@ -1,6 +1,11 @@
 
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
+import pandas as pd
+from django.conf import settings
+import os
+from django.core.exceptions import ImproperlyConfigured
+from django.apps import apps
 
 
 def set_cell_border(cell, **kwargs):
@@ -43,3 +48,20 @@ def set_cell_border(cell, **kwargs):
                     element.set(qn('w:{}'.format(key)), str(edge_data[key]))
 
 
+def get_form_for_model(instance):
+    """
+    Obtient le formulaire lié à une instance de modèle.
+    Suppose que le formulaire est nommé en suivant le format <NomDuModèle>Form.
+    """
+    model_class = type(instance)  # Obtient la classe de l'instance
+    model_name = model_class.__name__
+    form_class_name = f"{model_name}Form"
+
+    try:
+        # Essaie de récupérer l'application dans laquelle le modèle est défini.
+        app_config = apps.get_app_config(model_class._meta.app_label)
+        # Tente de récupérer la classe du formulaire à partir du module `forms` de l'application.
+        form_class = getattr(app_config.module.forms, form_class_name)
+        return form_class
+    except (LookupError, AttributeError):
+        raise ImproperlyConfigured(f"Aucun formulaire nommé '{form_class_name}' trouvé pour le modèle '{model_name}'.")

@@ -3332,7 +3332,12 @@ section {
 # form okok
 --------------------------------------------------------------*/
 
-.form-okok 
+.form-okok .helptext {
+  font-size: 0.875rem; /* Taille de police plus petite pour une meilleure lisibilité */
+  color: #cac576; /* Couleur gris foncé pour un contraste doux */
+  margin-bottom: 10px; /* Espace au-dessous du texte d'aide */
+}
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/

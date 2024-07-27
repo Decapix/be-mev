@@ -178,6 +178,20 @@ CONSTANCE_CONFIG = {
     'aide_individuel-Rose4': ('82839', 'aide_individuel-Rose4'),
     'aide_individuel-Rose5': ('94844', 'aide_individuel-Rose5'),
     'aide_individuel-Rose+': ('12006', 'aide_individuel-Rose+'),
+    
+    "Identification_f_description":(" ", "Identification_f_description"),
+    "DescriptifDuLogement_f_description":(" ", "DescriptifDuLogement_f_description"),
+    "BATI_f_description":(" ", "BATI_f_description"),
+    "ChauffageEauChaude_f_description":(" ", "ChauffageEauChaude_f_description"),
+    "Ventilation_f_description":(" ", "Ventilation_f_description"),
+    "Sondage_f_description":(" ", "Sondage_f_description"),
+    "Financement_f_description":(" ", "Financement_f_description"),
+    "SituationProfessionnelle_fp_description":(" ", "SituationProfessionnelle_fp_description"),
+    "CompositionMenage_fp_description":(" ", "CompositionMenage_fp_description"),
+    "ProprietairesOccupantsIntro_fp_description":(" ", "ProprietairesOccupantsIntro_fp_description"),
+    "AidesIndividuelles_fp_description":(" ", "AidesIndividuelles_fp_description"),
+    "AidesIndividuellesQuestionComplementaire_fp_description":(" ", "AidesIndividuellesQuestionComplementaire_fp_description"),
+    "DocumentComplementaire_f_description":(" ", "DocumentComplementaire_f_description"),
     # Ajoutez d'autres paramètres ici
 }
 
@@ -186,4 +200,4 @@ CONSTANCE_CONFIG = {
 # from constance import config
 # print(config.MY_SETTING)
 
-URL_QR = "https://be-mev.com/client_form/form/"
+URL_QR = "https://be-mev.com/client_form/init-formulaire/"

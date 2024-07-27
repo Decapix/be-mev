@@ -1,40 +1,38 @@
-
 {% extends "index_form.html" %}
 {% load static %}
 
 {% block content %}
-</br></br></br></br></br>
-    <h1>Créer un Formulaire</h1>
-    <form method="post">
+<div class="container mt-10">
+    <h1 class="mb-4">Créer un Formulaire</h1>
+    <form method="post" class="needs-validation mb-4" novalidate>
         {% csrf_token %}
-        <label for="existing_forms">Choisir un formulaire existant pour préremplir:</label>
-        <select id="existing_forms" name="existing_forms">
-            <option value="">Sélectionnez un formulaire</option>
-            {% for form in existing_formulaires %}
-                <option value="{{ form.id }}">{{ form.nom }}</option>
-            {% endfor %}
-        </select>
+        <div class="mb-3">
+            <label for="existing_forms" class="form-label">Choisir un formulaire existant pour préremplir:</label>
+            <select id="existing_forms" name="existing_forms" class="form-select">
+                <option value="">Sélectionnez un formulaire</option>
+                {% for form in existing_formulaires %}
+                    <option value="{{ form.id }}">{{ form.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
         {{ form.as_p }}
-        <button type="submit">Créer le Formulaire</button>
+        <button type="submit" class="btn btn-primary">Créer le Formulaire</button>
     </form>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
 
 {% block script %}
-
-
 <script>
     $(document).ready(function() {
         $('#existing_forms').change(function() {
             var selectedForm = $(this).val();
             if (selectedForm) {
                 $.ajax({
-                    url: '{% url "get_form_details" %}',  // Utilisation du nom de l'URL
+                    url: '{% url "get_form_details" %}',
                     data: {'form_id': selectedForm},
                     dataType: 'json',
                     success: function(data) {
-                        // Mettre à jour chaque champ en fonction des données reçues
                         console.log('recu', data)
                         for (const [key, value] of Object.entries(data)) {
                             $('input[name="' + key + '"]').prop('checked', value);
@@ -48,5 +46,4 @@
         });
     });
 </script>
-
 {% endblock %}

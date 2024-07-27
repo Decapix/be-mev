@@ -1,0 +1,35 @@
+
+{% extends "index_form.html" %}
+{% load static %}
+
+{% block content %}
+<section id="form-okok" class="form-okok">
+
+    <div class="container mt-5">
+        <h2 class="mb-4">Liste des Campagnes</h2>
+        <ul class="list-group">
+            {% for campagne in campagnes %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h4>{{ campagne.nom }}</h4>
+                        <p>{{ campagne.description }}</p>
+                        <p><small class="text-muted">Créée le : {{ campagne.date_de_creation|date:"d/m/Y H:i" }}</small></p>
+                    </div>
+                    <div class="ml-auto">
+                        <a href="{% url 'create_excel' campagne.id %}" class="btn btn-primary mb-2">Créer Excel</a>
+                        <form action="{% url 'delete_campagne' campagne.id %}" method="post" >
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette campagne ?');">Supprimer</button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            {% empty %}
+            <li class="list-group-item">Aucune campagne disponible.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
+

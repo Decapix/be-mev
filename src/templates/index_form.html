@@ -59,7 +59,7 @@
         <ul>
 
           <li><a class="nav-link scrollto" href="{% url 'form' %}">Accueil Formulaire</a></li>
-          <li><a class="nav-link scrollto" href="#">Les questions</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'campagne_list' %}"">Les Campagnes</a></li>
 
         </ul>
         <i class="bi bi-list mobile-nav-toggle d-none"></i>
@@ -73,6 +73,22 @@
 
 
   <main id="main">
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert-okok alert-{{ message.tags }}" id="message">
+            {{ message }}
+        </div>
+    {% endfor %}
+  
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('#message').fadeOut('slow');
+            }, 5000);  // 5000 ms = 5 s
+        });
+    </script>
+  {% endif %}
+  
     {% block content %}
     {% endblock content %}
   </main>

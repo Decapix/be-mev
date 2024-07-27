@@ -10,6 +10,11 @@ from docx.oxml import OxmlElement
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 # Vos modèles existants
 # ... (Assurez-vous que vos autres modèles sont définis ici)
+CHOICES_VENTILATION = [
+    ('OUI', 'Oui'),
+    ('NON', 'Non'),
+    ('NSP', 'Ne sais pas')
+]
 
 
 class Campagne(models.Model):
@@ -17,7 +22,7 @@ class Campagne(models.Model):
     date_de_creation = models.DateTimeField(auto_now_add=True)
     nom = models.CharField(max_length=255)
     description = models.TextField()
-    lien_excel = models.URLField()
+    excel = models.FileField(upload_to='media/excels/', blank=True, null=True)
 
 
 class Formulaire(models.Model):
@@ -25,7 +30,7 @@ class Formulaire(models.Model):
     campagne = models.ForeignKey(
         Campagne, on_delete=models.CASCADE, related_name='formulaires', blank=True, null=True)
     nom = models.CharField(max_length=100)
-    formulaire_type = models.BooleanField(default=False)
+    formulaire_type = models.BooleanField(default=False, blank=True, null=True)
     # Relation Many-to-Many avec différents modèles de groupe
     clone = models.BooleanField(default=False)
     identification = models.OneToOneField('Identification_f',
@@ -36,10 +41,6 @@ class Formulaire(models.Model):
                                                   null=True,
                                                   blank=True,
                                                   on_delete=models.CASCADE)
-    descriptif_des_logement = models.OneToOneField('DescriptifDesLogement_f',
-                                                   null=True,
-                                                   blank=True,
-                                                   on_delete=models.CASCADE)
     bati = models.OneToOneField('BATI_f',
                                 null=True,
                                 blank=True,
@@ -69,6 +70,11 @@ class Formulaire(models.Model):
                                               null=True,
                                               blank=True,
                                               on_delete=models.CASCADE)
+
+    proprietaires_occupants_intro = models.OneToOneField('ProprietairesOccupantsIntro_fp',
+                                                         null=True,
+                                                         blank=True,
+                                                         on_delete=models.CASCADE)
     aides_individuelles = models.OneToOneField('AidesIndividuelles_fp',
                                                null=True,
                                                blank=True,
@@ -77,9 +83,28 @@ class Formulaire(models.Model):
                                                                        null=True,
                                                                        blank=True,
                                                                        on_delete=models.CASCADE)
+    document_complementaire = models.OneToOneField('DocumentComplementaire_f',
+                                                   null=True,
+                                                   blank=True,
+                                                   on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.nom} (ID: {self.id})'
+
+    def get_linked_objects(self):
+        linked_objects = []
+        fields = [
+            self.identification, self.descriptif_du_logement, self.bati,
+            self.chauffage_eau_chaude, self.ventilation, self.sondage,
+            self.financement, self.situation_professionnelle, self.composition_menage,
+            self.aides_individuelles, self.aides_individuelles_question_complementaire,
+            self.document_complementaire
+        ]
+        for obj in fields:
+            if obj is not None:
+                linked_objects.append(obj)
+
+        return linked_objects
 
 
 class MiseEnPage(models.Model):
@@ -90,19 +115,19 @@ class MiseEnPage(models.Model):
         verbose_name='Formulaire associé'
     )
     qr_code = models.ImageField(
-        upload_to='qr_codes/',
+        upload_to='media/qr_codes/',
         verbose_name='QR Code',
         blank=True,
         null=True
     )
     pdf = models.FileField(
-        upload_to='pdfs/',
+        upload_to='media/pdfs/',
         verbose_name='PDF',
         blank=True,
         null=True
     )
     docx = models.FileField(
-        upload_to='docx_files/',
+        upload_to='media/docx_files/',
         verbose_name='Document Word',
         blank=True,
         null=True
@@ -122,13 +147,13 @@ class Identification_f(models.Model):
         return f'Identification_f {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Questionnaire d\'Identification', ln=True)
         pdf.cell(0, 10, f"Nom: ___________________________________________", ln=True)
         pdf.cell(0, 10, f"Prénom: ______________________________________", ln=True)
         pdf.cell(0, 10, f"Téléphone: _________________________________", ln=True)
         pdf.cell(0, 10, f"Email: ________________________________________", ln=True)
-        pdf.ln(10)  # Ajoute un espace entre les sections
+        pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire d\'Identification', level=2)
@@ -138,17 +163,25 @@ class Identification_f(models.Model):
         doc.add_paragraph(f"Email:\n______________________________________")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
+    def to_excel_row(self):
+        return {
+            'Nom': self.nom,
+            'Téléphone': self.telephone,
+            'Prénom': self.prenom,
+            'Email': self.email
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.Identification_f_description
+
 
 class DescriptifDuLogement_f(models.Model):
     numero_du_lot = models.CharField(max_length=50, blank=True)
     proprietaire_occupant = models.BooleanField(
         default=False)  # Utilisation de False comme valeur par défaut
-    prenom = models.CharField(
-        max_length=100, blank=True
-    )  # Optionnellement ajout de blank=True si le champ peut être laissé vide
-    email = models.CharField(max_length=100,
-                             blank=True)  # De même pour l'email
     etage = models.PositiveIntegerField(blank=True, null=True)
+    batiment = models.CharField(max_length=100, blank=True, null=True)
     nombre_de_piece = models.PositiveIntegerField(blank=True, null=True)
     surface = models.CharField(max_length=100, blank=True, null=True)
     annee_d_aquisition = models.DateField(blank=True, null=True)
@@ -157,80 +190,46 @@ class DescriptifDuLogement_f(models.Model):
         return f'DescriptifDuLogement_f {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Questionnaire du Descriptif du Logement', ln=True)
         pdf.cell(0, 10, f"Numéro du lot: __________________________________", ln=True)
         pdf.cell(0, 10, f"Propriétaire occupant: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Prénom: _________________________________________", ln=True)
-        pdf.cell(0, 10, f"Email: __________________________________________", ln=True)
         pdf.cell(0, 10, 'Questionnaire du Logement UN BAT', ln=True)
         pdf.cell(0, 10, f"Étage: _________", ln=True)
+        pdf.cell(0, 10, f"Bâtiment: _________", ln=True)
         pdf.cell(0, 10, f"Nombre de pièces: _________", ln=True)
         pdf.cell(0, 10, f"Surface: _________ m²", ln=True)
         pdf.cell(0, 10, f"Année d'acquisition: _________", ln=True)
-        pdf.ln(10)
+        pdf.ln(4)
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire du Descriptif du Logement', level=2)
         doc.add_paragraph(
             f"Numéro du lot: \n__________________________________")
         doc.add_paragraph(f"Propriétaire occupant: Oui [] Non []")
-        doc.add_paragraph(f"Prénom: \n_______________________________________")
-        doc.add_paragraph(f"Email:\n________________________________________")
         doc.add_paragraph("")
         doc.add_heading('Questionnaire du Logement UN BAT', level=2)
-        doc.add_paragraph(f"Étage: _________")
-        doc.add_paragraph(f"Nombre de pièces: _________")
-        doc.add_paragraph(f"Surface: _________ m²")
-        doc.add_paragraph(f"Année d'acquisition: _________")
-        doc.add_paragraph("")
-
-
-class DescriptifDesLogement_f(models.Model):
-    numero_du_lot = models.CharField(max_length=50, blank=True)
-    proprietaire_occupant = models.BooleanField(
-        default=False)  # false = bailleur
-    prenom = models.CharField(max_length=100, blank=True)
-    email = models.CharField(max_length=100, blank=True)
-
-    etage = models.PositiveIntegerField(blank=True, null=True)
-    batiment = models.CharField(max_length=100, blank=True, null=True)
-    nombre_de_piece = models.PositiveIntegerField(blank=True, null=True)
-    surface = models.CharField(max_length=100, blank=True, null=True)
-    annee_d_aquisition = models.DateField(blank=True, null=True)
-
-    def __str__(self):
-        return f'DescriptifDesLogement_f {self.id}'
-
-    def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
-        pdf.cell(0, 10, 'Questionnaire du Descriptif des Logements', ln=True)
-        pdf.cell(0, 10, f"Numéro du lot: __________________________________", ln=True)
-        pdf.cell(0, 10, f"Propriétaire occupant: Oui [] Non []")
-        pdf.cell(0, 10, f"Prénom: _________________________________________", ln=True)
-        pdf.cell(0, 10, f"Email: __________________________________________", ln=True)
-        pdf.cell(0, 10, 'Questionnaire du Logement PLS BAT', ln=True)
-        pdf.cell(0, 10, f"Étage: _________", ln=True)
-        pdf.cell(0, 10, f"Bâtiment: _________", ln=True)
-        pdf.cell(0, 10, f"Nombre de pièces: _________", ln=True)
-        pdf.cell(0, 10, f"Surface: _________ m²", ln=True)
-        pdf.cell(0, 10, f"Année d'acquisition: _________", ln=True)
-        pdf.ln(10)
-
-    def make_docx(self, doc):
-        doc.add_heading('Questionnaire du Descriptif des Logements', level=2)
-        doc.add_paragraph(
-            f"Numéro du lot: \n__________________________________")
-        doc.add_paragraph(f"Propriétaire occupant: Oui [] Non []")
-        doc.add_paragraph(f"Prénom: \n_______________________________________")
-        doc.add_paragraph(f"Email:\n________________________________________")
-        doc.add_paragraph("")
         doc.add_paragraph(f"Étage: _________")
         doc.add_paragraph(f"Bâtiment: _________")
         doc.add_paragraph(f"Nombre de pièces: _________")
         doc.add_paragraph(f"Surface: _________ m²")
         doc.add_paragraph(f"Année d'acquisition: _________")
         doc.add_paragraph("")
+
+    def to_excel_row(self):
+        return {
+            'Numéro du Lot': self.numero_du_lot,
+            'Propriétaire Occupant': 'Oui' if self.proprietaire_occupant else 'Non',
+            'Étage': self.etage,
+            'Bâtiment': self.batiment,
+            'Nombre de Pièces': self.nombre_de_piece,
+            'Surface (m²)': self.surface,
+            'Année d’Acquisition': self.annee_d_aquisition
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.DescriptifDuLogement_f_description
 
 
 class BATI_f(models.Model):
@@ -262,7 +261,8 @@ class BATI_f(models.Model):
 
     VOLET_CHOICES = [('origine', 'Origine'), ('renovee', 'Rénovée')]
 
-    sejour1_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    sejour1_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     sejour1_date = models.CharField(max_length=10,
                                     choices=DATE_CHOICES,
                                     blank=True,
@@ -272,7 +272,8 @@ class BATI_f(models.Model):
                                      blank=True,
                                      null=True)
 
-    sejour2_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    sejour2_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     sejour2_date = models.CharField(max_length=10,
                                     choices=DATE_CHOICES,
                                     blank=True,
@@ -282,7 +283,8 @@ class BATI_f(models.Model):
                                      blank=True,
                                      null=True)
 
-    cuisine_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    cuisine_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     cuisine_date = models.CharField(max_length=10,
                                     choices=DATE_CHOICES,
                                     blank=True,
@@ -292,7 +294,8 @@ class BATI_f(models.Model):
                                      blank=True,
                                      null=True)
 
-    chambre1_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    chambre1_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     chambre1_date = models.CharField(max_length=10,
                                      choices=DATE_CHOICES,
                                      blank=True,
@@ -302,7 +305,8 @@ class BATI_f(models.Model):
                                       blank=True,
                                       null=True)
 
-    chambre2_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    chambre2_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     chambre2_date = models.CharField(max_length=10,
                                      choices=DATE_CHOICES,
                                      blank=True,
@@ -312,7 +316,8 @@ class BATI_f(models.Model):
                                       blank=True,
                                       null=True)
 
-    chambre3_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    chambre3_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     chambre3_date = models.CharField(max_length=10,
                                      choices=DATE_CHOICES,
                                      blank=True,
@@ -322,7 +327,8 @@ class BATI_f(models.Model):
                                       blank=True,
                                       null=True)
 
-    chambre4_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    chambre4_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     chambre4_date = models.CharField(max_length=10,
                                      choices=DATE_CHOICES,
                                      blank=True,
@@ -333,7 +339,7 @@ class BATI_f(models.Model):
                                       null=True)
 
     salle_de_bain_vitrage = models.CharField(max_length=6,
-                                             choices=VITRAGE_CHOICES)
+                                             choices=VITRAGE_CHOICES, blank=True, null=True)
     salle_de_bain_date = models.CharField(max_length=10,
                                           choices=DATE_CHOICES,
                                           blank=True,
@@ -343,7 +349,8 @@ class BATI_f(models.Model):
                                            blank=True,
                                            null=True)
 
-    wc_vitrage = models.CharField(max_length=6, choices=VITRAGE_CHOICES)
+    wc_vitrage = models.CharField(
+        max_length=6, choices=VITRAGE_CHOICES, blank=True, null=True)
     wc_date = models.CharField(max_length=10,
                                choices=DATE_CHOICES,
                                blank=True,
@@ -358,7 +365,7 @@ class BATI_f(models.Model):
 
     def make_pdf(self, pdf):
         # Police plus petite pour tout faire tenir
-        pdf.set_font("Arial", size=10)
+        pdf.set_font("DejaVu", size=10)
         pdf.add_page()
 
         # Titre du questionnaire
@@ -376,7 +383,7 @@ class BATI_f(models.Model):
             0, 10, '2 à 4 cm [ ]   4 à 6 cm [ ]   6 à 8 cm [ ]   Autre (préciser) ___________________', ln=True)
 
         # Espacement
-        pdf.ln(10)
+        pdf.ln(4)
 
         # En-tête pour les détails des pièces
         pdf.set_fill_color(200, 220, 255)  # Couleur de fond pour l'en-tête
@@ -433,6 +440,46 @@ class BATI_f(models.Model):
 
         doc.add_paragraph('')
 
+    def to_excel_row(self):
+        return {
+            'Travaux Engagés': 'Oui' if self.travaux_engage else 'Non',
+            'Type Isolant': self.type_isolant,
+            'Épaisseur Isolant': self.epaisseur_isolant,
+            'Autre Isolant': self.autre_isolant,
+            'Autre Épaisseur': self.autre_epaisseur,
+            'Séjour 1 Vitrage': self.sejour1_vitrage,
+            'Séjour 1 Date': self.sejour1_date,
+            'Séjour 1 Volet': self.sejour1_volet,
+            'Séjour 2 Vitrage': self.sejour2_vitrage,
+            'Séjour 2 Date': self.sejour2_date,
+            'Séjour 2 Volet': self.sejour2_volet,
+            'Cuisine Vitrage': self.cuisine_vitrage,
+            'Cuisine Date': self.cuisine_date,
+            'Cuisine Volet': self.cuisine_volet,
+            'Chambre 1 Vitrage': self.chambre1_vitrage,
+            'Chambre 1 Date': self.chambre1_date,
+            'Chambre 1 Volet': self.chambre1_volet,
+            'Chambre 2 Vitrage': self.chambre2_vitrage,
+            'Chambre 2 Date': self.chambre2_date,
+            'Chambre 2 Volet': self.chambre2_volet,
+            'Chambre 3 Vitrage': self.chambre3_vitrage,
+            'Chambre 3 Date': self.chambre3_date,
+            'Chambre 3 Volet': self.chambre3_volet,
+            'Chambre 4 Vitrage': self.chambre4_vitrage,
+            'Chambre 4 Date': self.chambre4_date,
+            'Chambre 4 Volet': self.chambre4_volet,
+            'SDB Vitrage': self.salle_de_bain_vitrage,
+            'SDB Date': self.salle_de_bain_date,
+            'SDB Volet': self.salle_de_bain_volet,
+            'WC Vitrage': self.wc_vitrage,
+            'WC Date': self.wc_date,
+            'WC Volet': self.wc_volet
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.BATI_f_description
+
 
 class ChauffageEauChaude_f(models.Model):
     type_chauffage = models.CharField(max_length=50,
@@ -458,7 +505,7 @@ class ChauffageEauChaude_f(models.Model):
         return f'ChauffageEauChaude {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, "Détails du Chauffage et de l'Eau Chaude", ln=True)
         pdf.cell(
             0, 10, f"Type de chauffage: ___________________________________", ln=True)
@@ -476,7 +523,7 @@ class ChauffageEauChaude_f(models.Model):
             0, 10, f"Consommation en kWh: ________________________________", ln=True)
         pdf.cell(
             0, 10, f"Coût total TTC: _____________________________________", ln=True)
-        pdf.ln(10)
+        pdf.ln(4)
 
     def make_docx(self, doc):
         doc.add_heading("Détails du Chauffage et de l'Eau Chaude", level=2)
@@ -498,39 +545,41 @@ class ChauffageEauChaude_f(models.Model):
             f"Coût total TTC: \n____________________________________")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
+    def to_excel_row(self):
+        return {
+            'Type de Chauffage': self.type_chauffage,
+            'Détails Chauffage': self.chauffage_details,
+            'Type d\'Eau Chaude': self.type_eau_chaude,
+            'Détails Eau Chaude': self.eau_chaude_details,
+            'Début de la Période': self.periode_debut,
+            'Fin de la Période': self.periode_fin,
+            'Consommation kWh': self.consommation_kwh,
+            'Coût TTC': self.cout_ttc
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.ChauffageEauChaude_f_description
+
 
 class Ventilation_f(models.Model):
-    grilles_entree_air = models.BooleanField(choices=[(True, 'Oui'),
-                                                      (False, 'Non'),
-                                                      (None, 'Ne sais pas')],
-                                             null=True)
 
-    bouches_extraction_air = models.BooleanField(choices=[(True, 'Oui'),
-                                                          (False, 'Non'),
-                                                          (None, 'Ne sais pas')
-                                                          ],
-                                                 null=True)
-
-    nettoyage_regulier = models.BooleanField(choices=[(True, 'Oui'),
-                                                      (False, 'Non'),
-                                                      (None, 'Ne sais pas')],
-                                             null=True)
-
-    ventilation_motorisee = models.BooleanField(choices=[(True, 'Oui'),
-                                                         (False, 'Non'),
-                                                         (None, 'Ne sais pas')
-                                                         ],
-                                                null=True)
-
-    ventilation_ouverte_temps = models.CharField(max_length=100,
-                                                 blank=True,
-                                                 null=True)
+    grilles_entree_air = models.CharField(
+        max_length=3, choices=CHOICES_VENTILATION, null=True)
+    bouches_extraction_air = models.CharField(
+        max_length=3, choices=CHOICES_VENTILATION, null=True)
+    nettoyage_regulier = models.CharField(
+        max_length=3, choices=CHOICES_VENTILATION, null=True)
+    ventilation_motorisee = models.CharField(
+        max_length=3, choices=CHOICES_VENTILATION, null=True)
+    ventilation_ouverte_temps = models.CharField(
+        max_length=100, blank=True, null=True)
 
     def __str__(self):
         return f'Ventilation {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Questionnaire de Ventilation', ln=True)
         pdf.cell(
             0, 10, f"Grilles d'entrée d'air: Oui [] Non [] Je ne sais pas []", ln=True)
@@ -542,7 +591,7 @@ class Ventilation_f(models.Model):
             0, 10, f"Ventilation motorisée: Oui [] Non [] Je ne sais pas []", ln=True)
         pdf.cell(0, 10, f"Temps ouverte pour ventilation: {
                  self.ventilation_ouverte_temps}", ln=True)
-        pdf.ln(10)  # Ajoute un espace entre les sections
+        pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire de Ventilation', level=2)
@@ -558,6 +607,19 @@ class Ventilation_f(models.Model):
                           self.ventilation_ouverte_temps}")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
+    def to_excel_row(self):
+        return {
+            'Grilles Entrée Air': self.grilles_entree_air,
+            'Bouches Extraction Air': self.bouches_extraction_air,
+            'Nettoyage Régulier': self.nettoyage_regulier,
+            'Ventilation Motorisée': self.ventilation_motorisee,
+            'Ventilation Ouverte Temps': self.ventilation_ouverte_temps
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.Ventilation_f_description
+
 
 class Sondage_f(models.Model):
     isolation_facades = models.BooleanField(default=False)
@@ -571,7 +633,7 @@ class Sondage_f(models.Model):
         return f'Sondage {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Sondage des améliorations de maison', ln=True)
         pdf.cell(0, 10, f"Isolation des façades: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Isolation de la toiture: Oui [] Non []", ln=True)
@@ -579,7 +641,7 @@ class Sondage_f(models.Model):
         pdf.cell(0, 10, f"Remplacement des fenêtres: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Amélioration de la ventilation: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Remplacement du chauffage: Oui [] Non []", ln=True)
-        pdf.ln(10)  # Ajoute un espace entre les sections
+        pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Sondage des améliorations de maison', level=2)
@@ -590,6 +652,20 @@ class Sondage_f(models.Model):
         doc.add_paragraph(f"Amélioration de la ventilation: Oui [] Non []")
         doc.add_paragraph(f"Remplacement du chauffage: Oui [] Non []")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
+
+    def to_excel_row(self):
+        return {
+            'Isolation des Façades': 'Oui' if self.isolation_facades else 'Non',
+            'Isolation de la Toiture': 'Oui' if self.isolation_toiture else 'Non',
+            'Régulation du Chauffage': 'Oui' if self.regulation_chauffage else 'Non',
+            'Remplacement des Fenêtres': 'Oui' if self.remplacement_fenetres else 'Non',
+            'Amélioration de la Ventilation': 'Oui' if self.amelioration_ventilation else 'Non',
+            'Remplacement du Chauffage': 'Oui' if self.remplacement_chauffage else 'Non'
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.Sondage_f_description
 
 
 class Financement_f(models.Model):
@@ -609,14 +685,14 @@ class Financement_f(models.Model):
         return f'Financement {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Questionnaire de Financement', ln=True)
         pdf.cell(0, 10, f"Prêt collectif: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Prêt individuel: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Financement par fonds propres: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Ne se prononce pas: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Durée du prêt: ________ ans", ln=True)
-        pdf.ln(10)  # Ajoute un espace entre les sections
+        pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire de Financement', level=2)
@@ -627,7 +703,19 @@ class Financement_f(models.Model):
         doc.add_paragraph(f"Durée du prêt: ________ ans")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
+    def to_excel_row(self):
+        # Convert boolean to 'Oui'/'Non' for better readability in Excel
+        return {
+            'Prêt Collectif': 'Oui' if self.pret_collectif else 'Non',
+            'Prêt Individuel': 'Oui' if self.pret_individuel else 'Non',
+            'Financement par Fonds Propres': 'Oui' if self.financement_fonds_propres else 'Non',
+            'Ne se prononce pas': 'Oui' if self.ne_se_prononce_pas else 'Non',
+            'Durée du Prêt (ans)': self.get_duree_pret_display() if self.duree_pret else 'N/A'
+        }
 
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.Financement_f_description
 # reserver au proprietaire occupant
 
 
@@ -660,7 +748,7 @@ class SituationProfessionnelle_fp(models.Model):
         return f'SituationProfessionnelle {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Questionnaire de Situation Professionnelle', ln=True)
         pdf.cell(0, 10, f"Situation professionnelle: ______________________", ln=True)
         pdf.cell(0, 10, f"Détails fonctionnaire: _________________________", ln=True)
@@ -673,7 +761,7 @@ class SituationProfessionnelle_fp(models.Model):
         pdf.cell(0, 10, f"Bénéficie de prestations PCH: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Bénéficie de prestations ACTP: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Bénéficie de prestations PSD: Oui [] Non []", ln=True)
-        pdf.ln(10)  # Ajoute un espace entre les sections
+        pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire de Situation Professionnelle', level=2)
@@ -689,6 +777,23 @@ class SituationProfessionnelle_fp(models.Model):
         doc.add_paragraph(f"Bénéficie de prestations ACTP: Oui [] Non []")
         doc.add_paragraph(f"Bénéficie de prestations PSD: Oui [] Non []")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
+
+    def to_excel_row(self):
+        return {
+            'Situation Professionnelle': self.get_situation_professionnelle_display(),
+            'Détails Fonctionnaire': self.fonctionnaire_details,
+            'Situation Professionnelle Conjoint': self.get_situation_professionnelle_conjoint_display(),
+            'Détails Fonctionnaire Conjoint': self.fonctionnaire_conjoint_details,
+            'Bénéficie Prestation CAF': 'Oui' if self.beneficie_prestation_caf else 'Non',
+            'Prestation APA': 'Oui' if self.prestation_apa else 'Non',
+            'Prestation PCH': 'Oui' if self.prestation_pch else 'Non',
+            'Prestation ACTP': 'Oui' if self.prestation_actp else 'Non',
+            'Prestation PSD': 'Oui' if self.prestation_psd else 'Non'
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.SituationProfessionnelle_fp_description
 
 
 class CompositionMenage_fp(models.Model):
@@ -714,13 +819,13 @@ class CompositionMenage_fp(models.Model):
         return f'CompositionMenage {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Composition du ménage', ln=True)
         for choice, label in self.SITUATION_CHOICES:
             checkbox = '[ ]' if getattr(self, 'situation') != choice else '[X]'
             pdf.cell(0, 10, f"{checkbox} {label}", ln=True)
         pdf.cell(0, 10, f"Autre (préciser): {self.situation_details}", ln=True)
-        pdf.ln(10)  # Ajoute un espace entre les sections
+        pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Composition du ménage', level=2)
@@ -729,6 +834,21 @@ class CompositionMenage_fp(models.Model):
             doc.add_paragraph(f"{checkbox} {label}")
         doc.add_paragraph(f"Autre (préciser): {self.situation_details}")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
+
+    def to_excel_row(self):
+        return {
+            'Situation du Ménage': self.get_situation_display(),
+            'Détails de la Situation': self.situation_details,
+            'Nombre Total de Personnes': self.nombre_personnes,
+            'Nombre d\'Adultes': self.nombre_adultes,
+            'Nombre d\'Enfants Mineurs': self.nombre_enfants_mineurs,
+            'Nombre d\'Enfants Majeurs': self.nombre_enfants_majeurs,
+            'Personne(s) en Situation de Handicap': 'Oui' if self.personne_handicap else 'Non'
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.CompositionMenage_fp_description
 
 
 class ProprietairesOccupantsIntro_fp(models.Model):
@@ -742,7 +862,7 @@ class ProprietairesOccupantsIntro_fp(models.Model):
         return f'ProprietairesOccupants {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("Arial", size=12)
+        pdf.set_font("DejaVu", size=10)
         pdf.cell(0, 10, 'Introducion propriétaire occupant', ln=True)
         pdf.cell(0, 10, f"Résidence principale: Oui [] Non []", ln=True)
         pdf.cell(0, 10, f"Difficulté à payer les charges: Oui [] Non []", ln=True)
@@ -754,6 +874,17 @@ class ProprietairesOccupantsIntro_fp(models.Model):
         doc.add_paragraph(f"Difficulté à payer les charges: Oui [] Non []")
         doc.add_paragraph(f"Montant impayé: _______ ")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
+
+    def to_excel_row(self):
+        return {
+            'Résidence Principale': 'Oui' if self.residence_principale else 'Non',
+            'Difficulté à Payer les Charges': 'Oui' if self.difficulte_payer_charges else 'Non',
+            'Montant des Impayés': self.montant_impayes if self.montant_impayes is not None else 'N/A'
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.ProprietairesOccupantsIntro_fp_description
 
 
 def set_cell_background(cell, color):
@@ -776,7 +907,7 @@ class AidesIndividuelles_fp(models.Model):
 
     def make_pdf(self, pdf):
         # Police plus petite pour tout faire tenir
-        pdf.set_font("Arial", size=8)
+        pdf.set_font("DejaVu", size=8)
         pdf.add_page()
 
         # Titre du questionnaire
@@ -832,7 +963,7 @@ class AidesIndividuelles_fp(models.Model):
         for _ in range(4):
             pdf.cell(col_widths[1], row_height,
                      '[ ]', border=1, ln=0, align='C')
-        pdf.ln(10)
+        pdf.ln(4)
 
     def make_docx(self, doc):
         # Ajout d'un titre au document
@@ -887,6 +1018,54 @@ class AidesIndividuelles_fp(models.Model):
         # Ajout d'espacement après le tableau
         doc.add_paragraph('')
 
+    def to_excel_row(self):
+        return {
+            'Profil du Ménage': self.get_profile_menage_display()
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.AidesIndividuelles_fp_description
+
+    def get_html(self):
+        # Sous-titre et instructions
+        html = """
+        <div class="container">
+            <p>(Pour vous situer, merci de vous référer à votre dernier avis d'imposition.)</p>
+            <p>Précision: Si plusieurs déclarations de revenus composent le ménage, additionner vos revenus fiscaux de référence.</p>
+            
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="background-color: #C8DCF0;">
+                        <th>Nombre de personnes</th>
+                        <th style="background-color: #ADD8E6;">Ménage Bleu</th>
+                        <th style="background-color: #FFFF66;">Ménage Jaune</th>
+                        <th style="background-color: #E6E6FA;">Ménage Violet</th>
+                        <th style="background-color: #FFB6C1;">Ménage Rose</th>
+                    </tr>
+                </thead>
+                <tbody>"""
+
+        # Lignes de données pour 1 à 5 personnes
+        colors = ['#ADD8E6', '#FFFF66', '#E6E6FA', '#FFB6C1']
+        for i in range(1, 6):
+            html += f"<tr><td align='center'>{i}</td>"
+            for j, profil in enumerate(['Bleu', 'Jaune', 'Violet', 'Rose']):
+                key = f'aide_individuel-{profil}{i}'
+                value = getattr(config, key, 'default_value')  # Assurez-vous que config est défini correctement
+                html += f"<td style='background-color: {colors[j]};' align='center'>{value}</td>"
+            html += "</tr>"
+
+        # Ligne pour chaque personne supplémentaire
+        html += "<tr><td align='center'>Par personne supplémentaire</td>"
+        for j, profil in enumerate(['Bleu', 'Jaune', 'Violet', 'Rose']):
+            key = f'aide_individuel-{profil}+'
+            value = getattr(config, key, 'default_value')  # Utilisez la même logique pour récupérer les valeurs
+            html += f"<td style='background-color: {colors[j]};' align='center'>{value}</td>"
+        html += "</tr></tbody></table></div>"
+        
+        return html
+
 
 class AidesIndividuellesQuestionComplementaire_fp(models.Model):
 
@@ -899,11 +1078,11 @@ class AidesIndividuellesQuestionComplementaire_fp(models.Model):
     annee_aide_anah = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return f'AidesIndividuelles {self.id}'
+        return f'AidesIndividuellesQuestionComplementaire {self.id}'
 
     def make_pdf(self, pdf):
         # Police plus petite pour tout faire tenir
-        pdf.set_font("Arial", size=8)
+        pdf.set_font("DejaVu", size=8)
         pdf.add_page()
 
         # Section des informations fiscales et aides
@@ -931,11 +1110,54 @@ class AidesIndividuellesQuestionComplementaire_fp(models.Model):
         doc.add_paragraph(
             'Avez-vous bénéficié d\'une aide ANAH pour le logement dans les 5 dernières années ? Oui [ ] Non [ ], préciser le montant et l\'année : ____________  en ______')
 
+    def to_excel_row(self):
+        return {
+            'Revenu Fiscal de Référence du Foyer': self.revenu_fiscal_foyer if self.revenu_fiscal_foyer is not None else 'N/A',
+            'Impôt sur le Revenu': self.impot_revenu if self.impot_revenu is not None else 'N/A',
+            'Prêt à Taux Zéro': 'Oui' if self.pret_taux_zero else 'Non',
+            'Aide de l\'ANAH': 'Oui' if self.aide_anah else 'Non',
+            'Montant de l\'Aide ANAH': self.montant_aide_anah if self.montant_aide_anah is not None else 'N/A',
+            'Année de l\'Aide ANAH': self.annee_aide_anah if self.annee_aide_anah is not None else 'N/A'
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.AidesIndividuellesQuestionComplementaire_fp_description
+
+
+class DocumentComplementaire_f(models.Model):
+    doc1 = models.FileField(upload_to='media/doc/', blank=True, null=True)
+    doc2 = models.FileField(upload_to='media/doc/', blank=True, null=True)
+    doc3 = models.FileField(upload_to='media/doc/', blank=True, null=True)
+    doc4 = models.FileField(upload_to='media/doc/', blank=True, null=True)
+    doc5 = models.FileField(upload_to='media/doc/', blank=True, null=True)
+
+    def __str__(self):
+        return f'DocumentComplementaire {self.id}'
+
+    def make_pdf(self, pdf):
+        # Police plus petite pour tout faire tenir
+        pdf.set_font("DejaVu", size=8)
+        pdf.add_page()
+        # Section des informations fiscales et aides
+        pdf.cell(0, 10, 'Documents complémentaire', ln=True)
+
+    def make_docx(self, doc):
+        doc.add_paragraph('Documents complémentaire')
+
+    def to_excel_row(self):
+        # Création d'un dictionnaire pour stocker les noms de fichier
+        docs = [self.doc1, self.doc2, self.doc3, self.doc4, self.doc5]
+        return {f'Document {i+1}': doc.name if doc else '' for i, doc in enumerate(docs)}
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.DocumentComplementaire_f_description
+
 
 related_fields = {
     'identification': Identification_f,
     'descriptif_du_logement': DescriptifDuLogement_f,
-    'descriptif_des_logement': DescriptifDesLogement_f,
     'bati': BATI_f,
     'chauffage_eau_chaude': ChauffageEauChaude_f,
     'ventilation': Ventilation_f,
@@ -943,6 +1165,8 @@ related_fields = {
     'financement': Financement_f,
     'situation_professionnelle': SituationProfessionnelle_fp,
     'composition_menage': CompositionMenage_fp,
+    'proprietaires_occupants_intro': ProprietairesOccupantsIntro_fp,
     'aides_individuelles': AidesIndividuelles_fp,
-    'aides_individuelles_question_complementaire': AidesIndividuellesQuestionComplementaire_fp
+    'aides_individuelles_question_complementaire': AidesIndividuellesQuestionComplementaire_fp,
+    "document_complementaire": DocumentComplementaire_f
 }

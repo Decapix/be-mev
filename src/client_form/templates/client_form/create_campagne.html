@@ -1,0 +1,16 @@
+
+{% extends "index_form.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-10 mb-4">
+    <h2>Créer une nouvelle campagne</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Créer</button>
+    </form>
+</div>
+{% endblock %}
+
+

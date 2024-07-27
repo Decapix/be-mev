@@ -1,3 +1,4 @@
+import io
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse, FileResponse
 from django.contrib import messages
@@ -8,6 +9,7 @@ from django.views.decorators.http import require_POST
 from .models import *
 from .make_form import *
 from .forms import *
+from .utils import get_form_for_model
 from fpdf import FPDF
 import qrcode
 import os
@@ -21,6 +23,7 @@ from docx import Document
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
+from django.core.files import File
 
 # Create your views here.
 
@@ -30,10 +33,10 @@ def form(request):
     """all form"""
 
     # Récupérer les formulaires où formulaire_type est True
-    forms_true = Formulaire.objects.filter(formulaire_type=True)
+    forms_true = Formulaire.objects.filter(formulaire_type=True, clone=False)
 
     # Récupérer les formulaires où formulaire_type est False
-    forms_false = Formulaire.objects.filter(formulaire_type=False)
+    forms_false = Formulaire.objects.filter(formulaire_type=False, clone=False)
 
     context = {'forms_true': forms_true, 'forms_false': forms_false}
 
@@ -163,7 +166,7 @@ def init_formulaire(request, existing_form_id):
     new_form = Formulaire.objects.create(
         campagne=original_form.campagne,
         nom=original_form.nom,
-        formulaire_type=original_form.formulaire_type,
+        formulaire_type=None,
         clone=True,
     )
 
@@ -182,31 +185,149 @@ def init_formulaire(request, existing_form_id):
     return redirect('formulaire_step', form_id=new_form.id, step=0)
 
 
+
+
+
 def formulaire_step_view(request, form_id, step):
     formulaire = get_object_or_404(Formulaire, pk=form_id)
-    # Liste de vos formulaires
-    FormClasses = [IdentificationForm, DescriptifDuLogementForm, DescriptifDesLogementForm, BATIForm, ChauffageEauChaudeForm, VentilationForm, SondageForm,FinancementForm, SituationProfessionnelleForm, CompositionMenageForm,ProprietairesOccupantsIntroForm] 
-    form_class = FormClasses[step]
-
+    linked_objects = formulaire.get_linked_objects()
+    
+    # Vérifier si le numéro d'étape dépasse le nombre de formulaires disponibles
+    if step >= len(linked_objects):
+        # Si toutes les étapes sont terminées, rediriger vers une page de succès
+        return redirect('success')
+    
+    instance = linked_objects[step]
+    
+    print("instance", instance)
+    description = instance.get_description() if instance and hasattr(instance, 'get_description') else " "
+    render_html = instance.get_html() if instance and hasattr(instance, 'get_html') else " "
+    form_class = get_form_for_model(instance)
     if request.method == 'POST':
-        form = form_class(request.POST)
+        form = form_class(request.POST, request.FILES, instance=instance)
         if form.is_valid():
-            # Créer une nouvelle instance pour le groupe de données
+
             new_instance = form.save(commit=False)
             new_instance.formulaire = formulaire
             new_instance.save()
-
-            # Déterminer la prochaine étape
-            next_step = step + 1 if step + 1 < len(FormClasses) else None
-            if next_step is not None:
-                return redirect('formulaire_step', form_id=form_id, step=next_step)
-            else:
-                return redirect('form_completion_view', form_id=form_id)
-        else:
-            # Gérer le cas d'un formulaire non valide
-            pass
+            return redirect('formulaire_step', form_id=form_id, step=step + 1)
     else:
-        form = form_class()  # Pas d'instance à charger puisqu'on crée de nouveaux objets
+        form = form_class(instance=instance)
 
-    context = {'form': form, 'step': step, 'form_id': form_id}
+    if step == 0 :
+        infoText = True
+    else :
+        infoText = False
+    context = {'form': form, 'step_affich': step + 1, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html}
     return render(request, 'client_form/qr_form.html', context)
+
+
+
+def success(request):
+    return render(request, 'client_form/success.html')
+
+@staff_member_required
+def create_campagne(request):
+    if request.method == 'POST':
+        form = CampagneForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('campagne_list')  # Redirigez vers la liste des campagnes ou une autre page appropriée
+    else:
+        form = CampagneForm()
+    return render(request, 'client_form/create_campagne.html', {'form': form})
+
+
+
+@staff_member_required
+def campagne_list(request):
+    campagnes = Campagne.objects.all()  # Récupère toutes les campagnes
+    return render(request, 'client_form/campagne_list.html', {'campagnes': campagnes})
+
+@staff_member_required
+def delete_campagne(request, campagne_id):
+    campagne = get_object_or_404(Campagne, id=campagne_id)
+    campagne.delete()
+    return redirect('campagne_list')  
+
+
+from django.contrib.admin.views.decorators import staff_member_required
+import pandas as pd
+import io
+from django.http import HttpResponse
+from django.core.files import File
+
+@staff_member_required
+def create_excel(request, campagne_id):
+    global related_fields
+    campagne = Campagne.objects.get(id=campagne_id)
+    formulaires = campagne.formulaires.filter(clone=True)
+    data_rows = []
+
+    for form in formulaires:
+        row = {}
+        # Parcourir chaque modèle possible et ajouter ses données au dictionnaire de ligne
+        for key, form_class in related_fields.items():
+            form_instance = getattr(form, key, None)
+            if form_instance:
+                row.update(form_instance.to_excel_row())
+
+        data_rows.append(row)  # Ajouter le dictionnaire complet pour ce formulaire à la liste après avoir traité tous les champs
+
+    # Création du DataFrame
+    df = pd.DataFrame(data_rows)
+
+    # Enregistrer le DataFrame en mémoire tampon avec BytesIO
+    excel_file = io.BytesIO()
+    with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
+        df.to_excel(writer, sheet_name='Summary', index=False)
+    excel_file.seek(0)  # Remet le pointeur au début du fichier après écriture
+
+    # Sauvegarder le fichier Excel dans le modèle Campagne
+    filename = f'{campagne.nom}_{campagne.id}.xlsx'
+    campagne.excel.save(filename, File(excel_file, name=filename), save=True)
+
+    # Préparer la réponse pour renvoyer le fichier Excel au client
+    response = HttpResponse(excel_file.getvalue(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+    return response
+
+
+@staff_member_required
+def download_documents_view(request):
+    campagnes_data = []
+    campagnes = Campagne.objects.all()  # Récupérer toutes les campagnes
+
+    for campagne in campagnes:
+        # Filtrer directement les formulaires clonés ayant des documents complémentaires
+        formulaires = campagne.formulaires.filter(clone=True, document_complementaire__isnull=False)
+        
+        # Préparer les documents pour chaque formulaire
+        formulaires_data = []
+        for formulaire in formulaires:
+            docs = []
+            for i in range(1, 6):
+                doc = getattr(formulaire.document_complementaire, f'doc{i}', None)
+                if doc:
+                    docs.append({'name': doc.name})
+            # Ajouter les documents au formulaire
+            formulaires_data.append({
+                'formulaire': formulaire,
+                'docs': docs
+            })
+        
+        # Ajouter les formulaires et la campagne au tableau général
+        campagnes_data.append({
+            'campagne': campagne,
+            'formulaires': formulaires_data
+        })
+        print("campagnes_data", campagnes_data)
+
+    return render(request, 'client_form/download_documents.html', {'campagnes_data': campagnes_data})
+
+
+def download_file_view(request, file_path):
+    print("file_path", file_path)
+    response = FileResponse(open(file_path, 'rb'))
+    return response

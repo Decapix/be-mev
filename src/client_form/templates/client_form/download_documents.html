@@ -1,0 +1,41 @@
+{% extends "index_form.html" %}
+{% block content %}
+<div class="container mt-10">
+    <h2>Documents Complémentaires par Campagne</h2>
+    {% for item in campagnes_data %}
+    <div class="campagne">
+        <h3>{{ item.campagne.nom }}</h3>
+        <p>{{ item.campagne.description }}</p>
+        {% for form_data in item.formulaires %}
+        
+        <div class="formulaire" id="formulaire-{{ form_data.formulaire.id }}">
+            <h5>Formulaire: {{ form_data.formulaire.nom }}</h5>
+            <p>Identifié par: {{ form_data.formulaire.identification.nom }} {{ form_data.formulaire.identification.prenom }}</p>
+            <div class="documents">
+                {% if form_data.docs %}
+                <button class="btn btn-info" onclick="downloadAll('{{ form_data.formulaire.id }}')">Télécharger tous les documents</button>
+                <ul>
+                    {% for doc in form_data.docs %}
+                    <li>
+                        <a href="{% url 'download_file' file_path=doc.name %}" download="{{ doc.name }}">{{ doc.name }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Aucun document complémentaire disponible.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% empty %}
+    <p>Aucune campagne disponible.</p>
+    {% endfor %}
+</div>
+<script>
+function downloadAll(formulaireId) {
+    var links = document.querySelectorAll(`#formulaire-${formulaireId} a`);
+    links.forEach(link => link.click());
+}
+</script>
+{% endblock %}

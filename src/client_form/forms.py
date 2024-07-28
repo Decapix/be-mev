@@ -28,6 +28,7 @@ class FormulaireForm( forms.ModelForm):
     sondage_include = forms.BooleanField(required=False, label='Inclure Sondage')
     financement_include = forms.BooleanField(required=False, label='Inclure Financement')
     situation_professionnelle_include = forms.BooleanField(required=False, label='Inclure Situation Professionnelle')
+    proprietaires_occupants_intro = forms.BooleanField(required=False, label='Inclure Proprietaire occupant intro')
     composition_menage_include = forms.BooleanField(required=False, label='Inclure Composition Ménage')
     aides_individuelles_include = forms.BooleanField(required=False, label='Inclure Aides Individuelles')
     aides_individuelles_question_complementaire_include = forms.BooleanField(required=False, label='Inclure Aides Individuelles Questions complementaires')
@@ -43,12 +44,13 @@ class FormulaireForm( forms.ModelForm):
 class Identification_fForm(forms.ModelForm):
     class Meta:
         model = Identification_f
-        fields = ['nom', 'prenom', 'telephone', 'email']
+        fields = ['nom', 'prenom', 'telephone', 'email', "address"]
         widgets = {
             'nom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre nom'}),
             'prenom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre prénom'}),
             'telephone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre téléphone'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre email'})
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre email'}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre adresse'})
         }
 
 
@@ -236,19 +238,28 @@ class SituationProfessionnelle_fpForm(forms.ModelForm):
         }
 
 
+
+
 class CompositionMenage_fpForm(forms.ModelForm):
     class Meta:
         model = CompositionMenage_fp
-        fields = ['situation', 'situation_details', 'nombre_personnes', 'nombre_adultes', 'nombre_enfants_mineurs', 'nombre_enfants_majeurs', 'personne_handicap']
+        fields = [
+            'situation', 'situation_familiale', 'situation_details', 
+            'nombre_personnes', 'nombre_adultes', 'nombre_enfants_mineurs', 
+            'nombre_enfants_majeurs', 'personne_handicap', 'infos_supplementaires'
+        ]
         widgets = {
             'situation': forms.Select(attrs={'class': 'form-control'}),
+            'situation_familiale': forms.Select(attrs={'class': 'form-control'}),
             'situation_details': forms.TextInput(attrs={'placeholder': 'Précisez si autre', 'class': 'form-control'}),
             'nombre_personnes': forms.NumberInput(attrs={'min': 0, 'class': 'form-control'}),
             'nombre_adultes': forms.NumberInput(attrs={'min': 0, 'class': 'form-control'}),
             'nombre_enfants_mineurs': forms.NumberInput(attrs={'min': 0, 'class': 'form-control'}),
             'nombre_enfants_majeurs': forms.NumberInput(attrs={'min': 0, 'class': 'form-control'}),
             'personne_handicap': forms.CheckboxInput,
+            'infos_supplementaires': forms.Textarea(attrs={'class': 'form-control'})
         }
+
 
 
 class ProprietairesOccupantsIntro_fpForm(forms.ModelForm):

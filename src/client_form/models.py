@@ -17,7 +17,6 @@ CHOICES_VENTILATION = [
 ]
 
 
-
 class Campagne(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date_de_creation = models.DateTimeField(auto_now_add=True)
@@ -27,7 +26,8 @@ class Campagne(models.Model):
     
     def __str__(self):
         return f'{self.nom}'
-        
+
+
 class Formulaire(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     campagne = models.ForeignKey(
@@ -141,10 +141,11 @@ class MiseEnPage(models.Model):
 
 
 class Identification_f(models.Model):
-    nom = models.CharField(max_length=100)
-    telephone = models.CharField(max_length=25)
-    prenom = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
+    nom = models.CharField(max_length=100, blank=True, null=True)
+    telephone = models.CharField(max_length=25, blank=True, null=True)
+    prenom = models.CharField(max_length=100, blank=True, null=True)
+    email = models.CharField(max_length=100, blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return f'Identification_f {self.id}'
@@ -156,6 +157,7 @@ class Identification_f(models.Model):
         pdf.cell(0, 10, f"Prénom: ______________________________________", ln=True)
         pdf.cell(0, 10, f"Téléphone: _________________________________", ln=True)
         pdf.cell(0, 10, f"Email: ________________________________________", ln=True)
+        pdf.cell(0, 10, f"Adresse: ________________________________________", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
@@ -164,6 +166,7 @@ class Identification_f(models.Model):
         doc.add_paragraph(f"Prénom: \n____________________________________")
         doc.add_paragraph(f"Téléphone: \n_______________________________")
         doc.add_paragraph(f"Email:\n______________________________________")
+        doc.add_paragraph(f"Adresse:\n______________________________________")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
     def to_excel_row(self):
@@ -188,6 +191,7 @@ class DescriptifDuLogement_f(models.Model):
     nombre_de_piece = models.PositiveIntegerField(blank=True, null=True)
     surface = models.CharField(max_length=100, blank=True, null=True)
     annee_d_aquisition = models.DateField(blank=True, null=True)
+    
 
     def __str__(self):
         return f'DescriptifDuLogement_f {self.id}'
@@ -489,14 +493,14 @@ class ChauffageEauChaude_f(models.Model):
                                       choices=[('chaudiere_gaz',
                                                 'Chaudière gaz'),
                                                ('electrique', 'Electrique'),
-                                               ('autres', 'Autres')])
+                                               ('autres', 'Autres')], blank=True, null=True)
     chauffage_details = models.TextField(blank=True, null=True)
 
     type_eau_chaude = models.CharField(max_length=50,
                                        choices=[('chaudiere_gaz',
                                                  'Chaudière gaz'),
                                                 ('electrique', 'Electrique'),
-                                                ('autres', 'Autres')])
+                                                ('autres', 'Autres')], blank=True, null=True)
     eau_chaude_details = models.TextField(blank=True, null=True)
 
     periode_debut = models.DateField(blank=True, null=True)
@@ -568,13 +572,13 @@ class ChauffageEauChaude_f(models.Model):
 class Ventilation_f(models.Model):
 
     grilles_entree_air = models.CharField(
-        max_length=3, choices=CHOICES_VENTILATION, null=True)
+        max_length=3, choices=CHOICES_VENTILATION, blank=True, null=True)
     bouches_extraction_air = models.CharField(
-        max_length=3, choices=CHOICES_VENTILATION, null=True)
+        max_length=3, choices=CHOICES_VENTILATION, blank=True, null=True)
     nettoyage_regulier = models.CharField(
-        max_length=3, choices=CHOICES_VENTILATION, null=True)
+        max_length=3, choices=CHOICES_VENTILATION, blank=True, null=True)
     ventilation_motorisee = models.CharField(
-        max_length=3, choices=CHOICES_VENTILATION, null=True)
+        max_length=3, choices=CHOICES_VENTILATION, blank=True, null=True)
     ventilation_ouverte_temps = models.CharField(
         max_length=100, blank=True, null=True)
 
@@ -623,12 +627,12 @@ class Ventilation_f(models.Model):
 
 
 class Sondage_f(models.Model):
-    isolation_facades = models.BooleanField(default=False)
-    isolation_toiture = models.BooleanField(default=False)
-    regulation_chauffage = models.BooleanField(default=False)
-    remplacement_fenetres = models.BooleanField(default=False)
-    amelioration_ventilation = models.BooleanField(default=False)
-    remplacement_chauffage = models.BooleanField(default=False)
+    isolation_facades = models.BooleanField(default=False, blank=True, null=True)
+    isolation_toiture = models.BooleanField(default=False, blank=True, null=True)
+    regulation_chauffage = models.BooleanField(default=False, blank=True, null=True)
+    remplacement_fenetres = models.BooleanField(default=False, blank=True, null=True)
+    amelioration_ventilation = models.BooleanField(default=False, blank=True, null=True)
+    remplacement_chauffage = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         return f'Sondage {self.id}'
@@ -670,10 +674,10 @@ class Sondage_f(models.Model):
 
 
 class Financement_f(models.Model):
-    pret_collectif = models.BooleanField(default=False)
-    pret_individuel = models.BooleanField(default=False)
-    financement_fonds_propres = models.BooleanField(default=False)
-    ne_se_prononce_pas = models.BooleanField(default=False)
+    pret_collectif = models.BooleanField(default=False, blank=True, null=True)
+    pret_individuel = models.BooleanField(default=False, blank=True, null=True)
+    financement_fonds_propres = models.BooleanField(default=False, blank=True, null=True)
+    ne_se_prononce_pas = models.BooleanField(default=False, blank=True, null=True)
 
     duree_pret = models.IntegerField(choices=[(3, '3 ans'), (5, '5 ans'),
                                               (7, '7 ans'), (10, '10 ans'),
@@ -728,22 +732,22 @@ class SituationProfessionnelle_fp(models.Model):
                          ('sans_emploi', 'Sans emploi'), ('autre', 'Autre')]
 
     situation_professionnelle = models.CharField(max_length=50,
-                                                 choices=SITUATION_CHOICES)
+                                                 choices=SITUATION_CHOICES, blank=True, null=True)
     fonctionnaire_details = models.CharField(max_length=100,
                                              blank=True,
                                              null=True)
     situation_professionnelle_conjoint = models.CharField(
-        max_length=50, choices=SITUATION_CHOICES)
+        max_length=50, choices=SITUATION_CHOICES, blank=True, null=True)
     fonctionnaire_conjoint_details = models.CharField(max_length=100,
                                                       blank=True,
                                                       null=True)
 
     beneficie_prestation_caf = models.BooleanField(
-        default=False)  # True = Oui, False = Non
-    prestation_apa = models.BooleanField(default=False)
-    prestation_pch = models.BooleanField(default=False)
-    prestation_actp = models.BooleanField(default=False)
-    prestation_psd = models.BooleanField(default=False)
+        default=False, blank=True, null=True)  # True = Oui, False = Non
+    prestation_apa = models.BooleanField(default=False, blank=True, null=True)
+    prestation_pch = models.BooleanField(default=False, blank=True, null=True)
+    prestation_actp = models.BooleanField(default=False, blank=True, null=True)
+    prestation_psd = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         return f'SituationProfessionnelle {self.id}'
@@ -797,55 +801,100 @@ class SituationProfessionnelle_fp(models.Model):
         return config.SituationProfessionnelle_fp_description
 
 
-class CompositionMenage_fp(models.Model):
-    SITUATION_CHOICES = [('salarie', 'Salarié'),
-                         ('liberal', 'Libéral, indépendant, autoentrepreneur'),
-                         ('retraite', 'Retraité'),
-                         ('demandeur_emploi', 'Demandeur d\'emploi'),
-                         ('etudiant', 'Etudiant, en formation'),
-                         ('autre', 'Autre')]
 
+
+class CompositionMenage_fp(models.Model):
+    SITUATION_CHOICES = [
+        ('salarie', 'Salarié'),
+        ('liberal', 'Libéral, indépendant, autoentrepreneur'),
+        ('retraite', 'Retraité'),
+        ('demandeur_emploi', 'Demandeur d\'emploi'),
+        ('etudiant', 'Etudiant, en formation'),
+        ('autre', 'Autre')
+    ]
+    SITUATION_FAMILIALE_CHOICES = [
+        ('celibataire', 'Célibataire'),
+        ('marie_pacse', 'Marié / Pacsé / En concubinage'),
+        ('divorce', 'Divorcé'),
+        ('veuf', 'Veuf / Veuve')
+    ]
+    
     situation = models.CharField(max_length=50, choices=SITUATION_CHOICES)
+    situation_familiale = models.CharField(max_length=50, choices=SITUATION_FAMILIALE_CHOICES, blank=True, null=True)
     situation_details = models.CharField(max_length=100, blank=True, null=True)
 
-    nombre_personnes = models.IntegerField(null=True)
-    nombre_adultes = models.IntegerField(null=True)
-    nombre_enfants_mineurs = models.IntegerField(null=True)
-    nombre_enfants_majeurs = models.IntegerField(null=True)
+    nombre_personnes = models.IntegerField(null=True, blank=True)
+    nombre_adultes = models.IntegerField(null=True, blank=True)
+    nombre_enfants_mineurs = models.IntegerField(null=True, blank=True)
+    nombre_enfants_majeurs = models.IntegerField(null=True, blank=True)
 
-    personne_handicap = models.BooleanField(
-        default=False)  # True = Oui, False = Non
+    personne_handicap = models.BooleanField(default=False, blank=True, null=True)  # True = Oui, False = Non
+    infos_supplementaires = models.TextField(blank=True, null=True)  # Informations complémentaires
 
     def __str__(self):
         return f'CompositionMenage {self.id}'
 
+
+
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
-        pdf.cell(0, 10, 'Composition du ménage', ln=True)
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        pdf.cell(200, 10, 'Composition du ménage', ln=True)
+
+        # Affichage de la situation
         for choice, label in self.SITUATION_CHOICES:
-            checkbox = '[ ]' if getattr(self, 'situation') != choice else '[X]'
-            pdf.cell(0, 10, f"{checkbox} {label}", ln=True)
-        pdf.cell(0, 10, f"Autre (préciser): {self.situation_details}", ln=True)
-        pdf.ln(4)  # Ajoute un espace entre les sections
+            checkbox = '[ ]' if self.situation != choice else '[X]'
+            pdf.cell(200, 10, f"{checkbox} {label}", ln=True)
+
+        # Affichage de la situation familiale
+        pdf.cell(200, 10, 'Situation familiale:', ln=True)
+        for choice, label in self.SITUATION_FAMILIALE_CHOICES:
+            checkbox = '[ ]' if self.situation_familiale != choice else '[X]'
+            pdf.cell(200, 10, f"{checkbox} {label}", ln=True)
+
+        # Détails de la situation et autres informations
+        pdf.cell(200, 10, f"Détails: {self.situation_details}", ln=True)
+        pdf.cell(200, 10, f"Nombre de personnes: {self.nombre_personnes}", ln=True)
+        pdf.cell(200, 10, f"Adultes: {self.nombre_adultes}, Enfants mineurs: {self.nombre_enfants_mineurs}, Enfants majeurs: {self.nombre_enfants_majeurs}", ln=True)
+        pdf.cell(200, 10, f"Personne en situation de handicap: {'Oui' if self.personne_handicap else 'Non'}", ln=True)
+        pdf.cell(200, 10, f"Infos supplémentaires: {self.infos_supplementaires}", ln=True)
+
 
     def make_docx(self, doc):
-        doc.add_heading('Composition du ménage', level=2)
+        doc.add_heading('Composition du ménage', level=1)
+        
+        # Situation
+        doc.add_heading('Situation:', level=2)
         for choice, label in self.SITUATION_CHOICES:
-            checkbox = '[ ]' if getattr(self, 'situation') != choice else '[X]'
+            checkbox = '[ ]' if self.situation != choice else '[X]'
             doc.add_paragraph(f"{checkbox} {label}")
-        doc.add_paragraph(f"Autre (préciser): {self.situation_details}")
-        doc.add_paragraph("")  # Ajoute un espace entre les sections
+
+        # Situation familiale
+        doc.add_heading('Situation familiale:', level=2)
+        for choice, label in self.SITUATION_FAMILIALE_CHOICES:
+            checkbox = '[ ]' if self.situation_familiale != choice else '[X]'
+            doc.add_paragraph(f"{checkbox} {label}")
+
+        # Autres informations
+        doc.add_paragraph(f"Détails: {self.situation_details}")
+        doc.add_paragraph(f"Nombre de personnes: {self.nombre_personnes}")
+        doc.add_paragraph(f"Adultes: {self.nombre_adultes}, Enfants mineurs: {self.nombre_enfants_mineurs}, Enfants majeurs: {self.nombre_enfants_majeurs}")
+        doc.add_paragraph(f"Personne en situation de handicap: {'Oui' if self.personne_handicap else 'Non'}")
+        doc.add_paragraph(f"Infos supplémentaires: {self.infos_supplementaires}")
 
     def to_excel_row(self):
         return {
             'Situation du Ménage': self.get_situation_display(),
+            'Situation Familiale': self.get_situation_familiale_display(),
             'Détails de la Situation': self.situation_details,
             'Nombre Total de Personnes': self.nombre_personnes,
             'Nombre d\'Adultes': self.nombre_adultes,
             'Nombre d\'Enfants Mineurs': self.nombre_enfants_mineurs,
             'Nombre d\'Enfants Majeurs': self.nombre_enfants_majeurs,
-            'Personne(s) en Situation de Handicap': 'Oui' if self.personne_handicap else 'Non'
+            'Personne(s) en Situation de Handicap': 'Oui' if self.personne_handicap else 'Non',
+            'Informations Supplémentaires': self.infos_supplementaires
         }
+
 
     def get_description(self):
         # Retourne une description dynamique basée sur les attributs du modèle
@@ -854,9 +903,9 @@ class CompositionMenage_fp(models.Model):
 
 class ProprietairesOccupantsIntro_fp(models.Model):
     residence_principale = models.BooleanField(
-        default=False)  # True = Oui, False = Non
+        default=False, blank=True, null=True)  # True = Oui, False = Non
     difficulte_payer_charges = models.BooleanField(
-        default=False)  # True = Oui, False = Non
+        default=False, blank=True, null=True)  # True = Oui, False = Non
     montant_impayes = models.FloatField(blank=True, null=True)
 
     def __str__(self):
@@ -901,7 +950,7 @@ class AidesIndividuelles_fp(models.Model):
                       ('Violet', 'Violet'),
                       ('Rose', 'Rose')]
 
-    profile_menage = models.CharField(max_length=50, choices=PROFIL_CHOICES)
+    profile_menage = models.CharField(max_length=50, choices=PROFIL_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return f'AidesIndividuelles {self.id}'
@@ -1073,8 +1122,8 @@ class AidesIndividuellesQuestionComplementaire_fp(models.Model):
     revenu_fiscal_foyer = models.FloatField(blank=True, null=True)
     impot_revenu = models.FloatField(blank=True, null=True)
     pret_taux_zero = models.BooleanField(
-        default=False)  # True = Oui, False = Non
-    aide_anah = models.BooleanField(default=False)  # True = Oui, False = Non
+        default=False, blank=True, null=True)  # True = Oui, False = Non
+    aide_anah = models.BooleanField(default=False, blank=True, null=True)  # True = Oui, False = Non
     montant_aide_anah = models.FloatField(blank=True, null=True)
     annee_aide_anah = models.IntegerField(blank=True, null=True)
 

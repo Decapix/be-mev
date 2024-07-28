@@ -4,3 +4,5 @@
     related_fields
 2. client_form/forms
     fair le formualire
+3. settings.py
+    rajouter la description

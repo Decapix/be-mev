@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'django.contrib.sites',  
 
+    'storages',
     'constance.backends.database',
     'constance',
     'widget_tweaks',
@@ -244,3 +245,17 @@ CONSTANCE_CONFIG = {
 # print(config.MY_SETTING)
 
 URL_QR = "https://be-mev.com/client_form/init-formulaire/"
+
+
+# Paramètres de Scaleway
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+ }
+AWS_LOCATION = os.environ.get('AWS_LOCATION')
+
+DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
+

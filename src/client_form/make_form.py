@@ -17,20 +17,35 @@ def make_pdf(formulaire, qr_path):
 
     pdf = PDF()
     pdf.add_page()
-    pdf.set_font("DejaVu", 'B', 16)
+    pdf.set_font("DejaVu", 'B', 14)
+
+    # Calcul de la largeur du texte pour 'nom' et ajout du texte
     nom_width = pdf.get_string_width(formulaire.nom) + 6  # +6 pour une petite marge
-    if nom_width + 165 > 190:  # 190 mm est la largeur utilisable typique sur A4
-        pdf.multi_cell(165, 10, formulaire.nom, 0, 'L')  # Utilise multi_cell si le texte est trop long
+    if nom_width + 150 > 190:  # 190 mm est la largeur utilisable typique sur A4
+        pdf.multi_cell(150, 10, formulaire.nom, 0, 'L')  # Utilise multi_cell si le texte est trop long
     else:
         pdf.cell(0, 10, formulaire.nom, 0, 1, 'L')  # Utilise cell si le texte est assez court
 
-    # Ajouter le QR code en haut à droite
+    # Calcul de la largeur du texte pour 'nom' et ajout du texte
+    campagne_width = pdf.get_string_width(formulaire.campagne.nom) + 6  # +6 pour une petite marge
+    if campagne_width + 150 > 190:  # 190 mm est la largeur utilisable typique sur A4
+        pdf.multi_cell(150, 10, formulaire.campagne.nom, 0, 'L')  # Utilise multi_cell si le texte est trop long
+    else:
+        pdf.cell(0, 10, formulaire.campagne.nom, 0, 1, 'L')  # Utilise cell si le texte est assez court
+
     pdf.image(qr_path, x=165, y=20, w=30)
-    
- 
-    # Texte placeholder
+    # Ajouter un texte explicatif sous le QR code
+    pdf.set_font("DejaVu", size=8)
+    pdf.set_xy(165, 55)  # Ajustez la position y si nécessaire pour que le texte soit juste sous le QR code
+
+    # Utiliser multi_cell pour permettre le retour à la ligne
+    text = "Pour répondre au formulaire\nen ligne, scanner"
+    pdf.multi_cell(30, 4, text, border=0, align='C')  # La hauteur de la ligne est réglée à 4, ajustez selon le besoin
+
+    # Repositionner pour le reste du texte
     pdf.set_font("DejaVu", size=10)
-    pdf.ln(7)
+    pdf.set_y(pdf.get_y() + 2)  # Ajustez cette valeur selon le besoin de l'espacement après le QR code et le texte explicatif
+
     pdf.multi_cell(190, 5, """Dans le cadre des travaux de rénovation votés lors de la derniere AG, plusieurs aides financieres et solution de financement sont mobilisables nous
 vous faisons parvenir ce questionnaire afin d’obtenir les justificatifs nécessaires pour effecuter les demandes de subventions les aides auxquelles
 vous pouvez pretendre. Ce questionnaire nous permettra également, le cas echeant, de reprendre contact avec vous au moment du montage des
@@ -93,7 +108,8 @@ def make_docx(formulaire, qr_code_path):
     
     # Ajouter le titre du formulaire dans la première colonne
     cell = table.cell(0, 0)
-    cell.text = f'{formulaire.nom} (ID: {formulaire.id})'
+    cell.text = f'{formulaire.nom}'
+    cell.text = f'{formulaire.campagne}'
     
     # Ajouter le QR code dans la deuxième colonne
     cell = table.cell(0, 1)

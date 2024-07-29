@@ -36,6 +36,10 @@ class FormulaireForm( forms.ModelForm):
     class Meta:
         model = Formulaire
         fields = ['nom', "formulaire_type", "campagne"]
+    def __init__(self, *args, **kwargs):
+        super(FormulaireForm, self).__init__(*args, **kwargs)
+        self.fields['nom'].required = True
+        self.fields['campagne'].required = True
 
 
 

@@ -151,17 +151,35 @@ class Identification_f(models.Model):
         return f'Identification_f {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Questionnaire d\'Identification', ln=True)
-        pdf.cell(0, 10, f"Nom: ___________________________________________", ln=True)
-        pdf.cell(0, 10, f"Prénom: ______________________________________", ln=True)
-        pdf.cell(0, 10, f"Téléphone: _________________________________", ln=True)
-        pdf.cell(0, 10, f"Email: ________________________________________", ln=True)
-        pdf.cell(0, 10, f"Adresse: ________________________________________", ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
+        pdf.cell(0, 7, f"Nom: ___________________________________________", ln=True)
+        pdf.cell(0, 7, f"Prénom: ______________________________________", ln=True)
+        pdf.cell(0, 7, f"Téléphone: _________________________________", ln=True)
+        pdf.cell(0, 7, f"Email: ________________________________________", ln=True)
+        pdf.cell(0, 7, f"Adresse: ________________________________________", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire d\'Identification', level=2)
+        # Ajout de la description avec gestion automatique du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
         doc.add_paragraph(f"Nom: \n__________________________________________")
         doc.add_paragraph(f"Prénom: \n____________________________________")
         doc.add_paragraph(f"Téléphone: \n_______________________________")
@@ -197,10 +215,24 @@ class DescriptifDuLogement_f(models.Model):
         return f'DescriptifDuLogement_f {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Questionnaire du Descriptif du Logement', ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
         pdf.cell(0, 10, f"Numéro du lot: __________________________________", ln=True)
-        pdf.cell(0, 10, f"Propriétaire occupant: Oui [] Non []", ln=True)
+        pdf.cell(0, 10, f"Propriétaire occupant: Oui ☐ Non ☐", ln=True)
         pdf.cell(0, 10, 'Questionnaire du Logement UN BAT', ln=True)
         pdf.cell(0, 10, f"Étage: _________", ln=True)
         pdf.cell(0, 10, f"Bâtiment: _________", ln=True)
@@ -211,9 +243,15 @@ class DescriptifDuLogement_f(models.Model):
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire du Descriptif du Logement', level=2)
+        
+        # Ajout de la description avec gestion automatique du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
+        
         doc.add_paragraph(
             f"Numéro du lot: \n__________________________________")
-        doc.add_paragraph(f"Propriétaire occupant: Oui [] Non []")
+        doc.add_paragraph(f"Propriétaire occupant: Oui ☐ Non ☐")
         doc.add_paragraph("")
         doc.add_heading('Questionnaire du Logement UN BAT', level=2)
         doc.add_paragraph(f"Étage: _________")
@@ -371,23 +409,33 @@ class BATI_f(models.Model):
         return f'BATI {self.id}'
 
     def make_pdf(self, pdf):
-        # Police plus petite pour tout faire tenir
-        pdf.set_font("DejaVu", size=10)
-        pdf.add_page()
+        pdf.set_font("DejaVu", 'B', size=12)
+        pdf.cell(0, 10, 'Questionnaire BATI', ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
 
-        # Titre du questionnaire
-        pdf.cell(0, 10, 'Questionnaire BATI', ln=True, align='C')
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
 
         # Questions sur l'isolation
         pdf.cell(
             0, 10, 'Avez-vous engagé des travaux d\'isolation intérieure des murs ?', ln=True)
-        pdf.cell(0, 10, 'Oui [ ]   Non [ ]', ln=True)
+        pdf.cell(0, 10, 'Oui ☐  Non ☐', ln=True)
         pdf.cell(
             0, 10, 'Si oui, quel est le type d\'isolant et l\'épaisseur mise en place ?', ln=True)
         pdf.cell(
-            0, 10, 'Polystyrène [ ]   Laine minérale [ ]   Autre (préciser) ___________________', ln=True)
+            0, 10, 'Polystyrène ☐  Laine minérale ☐  Autre (préciser) ___________________', ln=True)
         pdf.cell(
-            0, 10, '2 à 4 cm [ ]   4 à 6 cm [ ]   6 à 8 cm [ ]   Autre (préciser) ___________________', ln=True)
+            0, 10, '2 à 4 cm ☐  4 à 6 cm ☐  6 à 8 cm ☐  Autre (préciser) ___________________', ln=True)
 
         # Espacement
         pdf.ln(4)
@@ -404,24 +452,26 @@ class BATI_f(models.Model):
                   'Chambre 2', 'Chambre 3', 'Chambre 4', 'Salle de bain', 'WC']
         for piece in pieces:
             pdf.cell(46, 10, piece, border=1, ln=0)
-            pdf.cell(46, 10, 'Origine [ ]  Rénové [ ]', border=1, ln=0)
+            pdf.cell(46, 10, 'Origine ☐  Rénové ☐', border=1, ln=0)
             pdf.cell(46, 10, 'Date _______________', border=1, ln=0)
-            pdf.cell(46, 10, 'Origine [ ]  Rénové [ ]', border=1, ln=1)
+            pdf.cell(46, 10, 'Origine ☐  Rénové ☐', border=1, ln=1)
 
     def make_docx(self, doc):
         # Titre du questionnaire
         doc.add_heading('Questionnaire BATI', level=1)
-
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
         # Questions sur l'isolation
         doc.add_paragraph(
             'Avez-vous engagé des travaux d\'isolation intérieure des murs ?')
-        doc.add_paragraph('Oui [ ]   Non [ ]')
+        doc.add_paragraph('Oui ☐   Non ☐')
         doc.add_paragraph(
             'Si oui, quel est le type d\'isolant et l\'épaisseur mise en place ?')
         doc.add_paragraph(
-            'Polystyrène [ ]   Laine minérale [ ]   Autre (préciser) ___________________')
+            'Polystyrène ☐   Laine minérale ☐   Autre (préciser) ___________________')
         doc.add_paragraph(
-            '2 à 4 cm [ ]   4 à 6 cm [ ]   6 à 8 cm [ ]   Autre (préciser) ___________________')
+            '2 à 4 cm ☐   4 à 6 cm ☐   6 à 8 cm ☐   Autre (préciser) ___________________')
 
         # Espacementzz
         doc.add_paragraph('')
@@ -441,9 +491,9 @@ class BATI_f(models.Model):
         for piece in pieces:
             row_cells = table.add_row().cells
             row_cells[0].text = piece
-            row_cells[1].text = 'Origine []  Rénové [ ]'
+            row_cells[1].text = 'Origine ☐  Rénové ☐'
             row_cells[2].text = 'Date ________________'
-            row_cells[3].text = 'Origine []  Rénové [ ]'
+            row_cells[3].text = 'Origine ☐  Rénové ☐'
 
         doc.add_paragraph('')
 
@@ -512,8 +562,22 @@ class ChauffageEauChaude_f(models.Model):
         return f'ChauffageEauChaude {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
-        pdf.cell(0, 10, "Détails du Chauffage et de l'Eau Chaude", ln=True)
+        pdf.set_font("DejaVu", 'B', size=12)
+        pdf.cell(0, 10, 'Détails du Chauffage et de l\'Eau Chaude', ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
         pdf.cell(
             0, 10, f"Type de chauffage: ___________________________________", ln=True)
         pdf.cell(
@@ -534,6 +598,9 @@ class ChauffageEauChaude_f(models.Model):
 
     def make_docx(self, doc):
         doc.add_heading("Détails du Chauffage et de l'Eau Chaude", level=2)
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
         doc.add_paragraph(
             f"Type de chauffage: \n__________________________________")
         doc.add_paragraph(
@@ -586,29 +653,46 @@ class Ventilation_f(models.Model):
         return f'Ventilation {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Questionnaire de Ventilation', ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
         pdf.cell(
-            0, 10, f"Grilles d'entrée d'air: Oui [] Non [] Je ne sais pas []", ln=True)
+            0, 10, f"Grilles d'entrée d'air: Oui ☐ Non ☐ Je ne sais pas ☐", ln=True)
         pdf.cell(
-            0, 10, f"Bouches d'extraction d'air: Oui [] Non [] Je ne sais pas []", ln=True)
+            0, 10, f"Bouches d'extraction d'air: Oui ☐ Non ☐ Je ne sais pas ☐", ln=True)
         pdf.cell(
-            0, 10, f"Nettoyage régulier: Oui [] Non [] Je ne sais pas []", ln=True)
+            0, 10, f"Nettoyage régulier: Oui ☐ Non ☐ Je ne sais pas ☐", ln=True)
         pdf.cell(
-            0, 10, f"Ventilation motorisée: Oui [] Non [] Je ne sais pas []", ln=True)
+            0, 10, f"Ventilation motorisée: Oui ☐ Non ☐ Je ne sais pas ☐", ln=True)
         pdf.cell(0, 10, f"Temps ouverte pour ventilation: {self.ventilation_ouverte_temps}", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire de Ventilation', level=2)
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
         doc.add_paragraph(
-            f"Grilles d'entrée d'air: Oui [] Non [] Je ne sais pas []")
+            f"Grilles d'entrée d'air: Oui ☐ Non ☐ Je ne sais pas ☐")
         doc.add_paragraph(
-            f"Bouches d'extraction d'air: Oui [] Non [] Je ne sais pas []")
+            f"Bouches d'extraction d'air: Oui ☐ Non ☐ Je ne sais pas ☐")
         doc.add_paragraph(
-            f"Nettoyage régulier: Oui [] Non [] Je ne sais pas []")
+            f"Nettoyage régulier: Oui ☐ Non ☐ Je ne sais pas ☐")
         doc.add_paragraph(
-            f"Ventilation motorisée: Oui [] Non [] Je ne sais pas []")
+            f"Ventilation motorisée: Oui ☐ Non ☐ Je ne sais pas ☐")
         doc.add_paragraph(f"Temps ouverte pour ventilation: {self.ventilation_ouverte_temps}")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
@@ -638,24 +722,42 @@ class Sondage_f(models.Model):
         return f'Sondage {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Sondage des améliorations de maison', ln=True)
-        pdf.cell(0, 10, f"Isolation des façades: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Isolation de la toiture: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Régulation du chauffage: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Remplacement des fenêtres: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Amélioration de la ventilation: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Remplacement du chauffage: Oui [] Non []", ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
+   
+        pdf.cell(0, 10, f"Isolation des façades: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Isolation de la toiture: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Régulation du chauffage: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Remplacement des fenêtres: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Amélioration de la ventilation: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Remplacement du chauffage: Oui ☐ Non ☐", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Sondage des améliorations de maison', level=2)
-        doc.add_paragraph(f"Isolation des façades: Oui [] Non []")
-        doc.add_paragraph(f"Isolation de la toiture: Oui [] Non []")
-        doc.add_paragraph(f"Régulation du chauffage: Oui [] Non []")
-        doc.add_paragraph(f"Remplacement des fenêtres: Oui [] Non []")
-        doc.add_paragraph(f"Amélioration de la ventilation: Oui [] Non []")
-        doc.add_paragraph(f"Remplacement du chauffage: Oui [] Non []")
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
+        doc.add_paragraph(f"Isolation des façades: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Isolation de la toiture: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Régulation du chauffage: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Remplacement des fenêtres: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Amélioration de la ventilation: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Remplacement du chauffage: Oui ☐ Non ☐")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
     def to_excel_row(self):
@@ -690,21 +792,39 @@ class Financement_f(models.Model):
         return f'Financement {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Questionnaire de Financement', ln=True)
-        pdf.cell(0, 10, f"Prêt collectif: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Prêt individuel: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Financement par fonds propres: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Ne se prononce pas: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Durée du prêt: ________ ans", ln=True)
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+                # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+
+        pdf.ln(2)  # Ajoute un espace entre les sections
+        pdf.cell(0, 7, f"Prêt collectif: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Prêt individuel: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Financement par fonds propres: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Ne se prononce pas: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Durée du prêt: ________ ans", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
+
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire de Financement', level=2)
-        doc.add_paragraph(f"Prêt collectif: Oui [] Non []")
-        doc.add_paragraph(f"Prêt individuel: Oui [] Non []")
-        doc.add_paragraph(f"Financement par fonds propres: Oui [] Non []")
-        doc.add_paragraph(f"Ne se prononce pas: Oui [] Non []")
+        # Ajout de la description avec gestion automatique du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
+        doc.add_paragraph(f"Prêt collectif: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Prêt individuel: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Financement par fonds propres: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Ne se prononce pas: Oui ☐ Non ☐")
         doc.add_paragraph(f"Durée du prêt: ________ ans")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
@@ -753,34 +873,51 @@ class SituationProfessionnelle_fp(models.Model):
         return f'SituationProfessionnelle {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Questionnaire de Situation Professionnelle', ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
         pdf.cell(0, 10, f"Situation professionnelle: ______________________", ln=True)
         pdf.cell(0, 10, f"Détails fonctionnaire: _________________________", ln=True)
         pdf.cell(
             0, 10, f"Situation professionnelle conjoint: _______________", ln=True)
         pdf.cell(
             0, 10, f"Détails fonctionnaire conjoint: __________________", ln=True)
-        pdf.cell(0, 10, f"Bénéficie de prestations CAF: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Bénéficie de prestations APA: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Bénéficie de prestations PCH: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Bénéficie de prestations ACTP: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Bénéficie de prestations PSD: Oui [] Non []", ln=True)
+        pdf.cell(0, 10, f"Bénéficie de prestations CAF: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Bénéficie de prestations APA: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Bénéficie de prestations PCH: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Bénéficie de prestations ACTP: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Bénéficie de prestations PSD: Oui ☐ Non ☐", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire de Situation Professionnelle', level=2)
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
         doc.add_paragraph(
             f"Situation professionnelle:\n______________________")
         doc.add_paragraph(f"Détails fonctionnaire:\n_______________________")
         doc.add_paragraph(
             f"Situation professionnelle conjoint:\n_____________")
         doc.add_paragraph(f"Détails fonctionnaire conjoint:\n________________")
-        doc.add_paragraph(f"Bénéficie de prestations CAF: Oui [] Non []")
-        doc.add_paragraph(f"Bénéficie de prestations APA: Oui [] Non []")
-        doc.add_paragraph(f"Bénéficie de prestations PCH: Oui [] Non []")
-        doc.add_paragraph(f"Bénéficie de prestations ACTP: Oui [] Non []")
-        doc.add_paragraph(f"Bénéficie de prestations PSD: Oui [] Non []")
+        doc.add_paragraph(f"Bénéficie de prestations CAF: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Bénéficie de prestations APA: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Bénéficie de prestations PCH: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Bénéficie de prestations ACTP: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Bénéficie de prestations PSD: Oui ☐ Non ☐")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
     def to_excel_row(self):
@@ -837,19 +974,33 @@ class CompositionMenage_fp(models.Model):
 
 
     def make_pdf(self, pdf):
-        pdf.add_page()
-        pdf.set_font("Arial", size=12)
-        pdf.cell(200, 10, 'Composition du ménage', ln=True)
+        pdf.set_font("DejaVu", 'B', size=12)
+        pdf.cell(0, 10, 'Composition du ménage', ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
+        
 
         # Affichage de la situation
         for choice, label in self.SITUATION_CHOICES:
-            checkbox = '[ ]' if self.situation != choice else '[X]'
+            checkbox = '☐' if self.situation != choice else '[X]'
             pdf.cell(200, 10, f"{checkbox} {label}", ln=True)
 
         # Affichage de la situation familiale
         pdf.cell(200, 10, 'Situation familiale:', ln=True)
         for choice, label in self.SITUATION_FAMILIALE_CHOICES:
-            checkbox = '[ ]' if self.situation_familiale != choice else '[X]'
+            checkbox = '☐' if self.situation_familiale != choice else '[X]'
             pdf.cell(200, 10, f"{checkbox} {label}", ln=True)
 
         # Détails de la situation et autres informations
@@ -862,17 +1013,19 @@ class CompositionMenage_fp(models.Model):
 
     def make_docx(self, doc):
         doc.add_heading('Composition du ménage', level=1)
-        
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4)        
         # Situation
         doc.add_heading('Situation:', level=2)
         for choice, label in self.SITUATION_CHOICES:
-            checkbox = '[ ]' if self.situation != choice else '[X]'
+            checkbox = '☐' if self.situation != choice else '[X]'
             doc.add_paragraph(f"{checkbox} {label}")
 
         # Situation familiale
         doc.add_heading('Situation familiale:', level=2)
         for choice, label in self.SITUATION_FAMILIALE_CHOICES:
-            checkbox = '[ ]' if self.situation_familiale != choice else '[X]'
+            checkbox = '☐' if self.situation_familiale != choice else '[X]'
             doc.add_paragraph(f"{checkbox} {label}")
 
         # Autres informations
@@ -912,16 +1065,33 @@ class ProprietairesOccupantsIntro_fp(models.Model):
         return f'ProprietairesOccupants {self.id}'
 
     def make_pdf(self, pdf):
-        pdf.set_font("DejaVu", size=10)
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Introducion propriétaire occupant', ln=True)
-        pdf.cell(0, 10, f"Résidence principale: Oui [] Non []", ln=True)
-        pdf.cell(0, 10, f"Difficulté à payer les charges: Oui [] Non []", ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
+        pdf.cell(0, 10, f"Résidence principale: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Difficulté à payer les charges: Oui ☐ Non ☐", ln=True)
         pdf.cell(0, 10, f"Montant impayé: _______ ", ln=True)
 
     def make_docx(self, doc):
         doc.add_heading('Introducion propriétaire occupant', level=2)
-        doc.add_paragraph(f"Résidence principale: Oui [] Non []")
-        doc.add_paragraph(f"Difficulté à payer les charges: Oui [] Non []")
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
+        doc.add_paragraph(f"Résidence principale: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Difficulté à payer les charges: Oui ☐ Non ☐")
         doc.add_paragraph(f"Montant impayé: _______ ")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
@@ -957,12 +1127,23 @@ class AidesIndividuelles_fp(models.Model):
 
     def make_pdf(self, pdf):
         # Police plus petite pour tout faire tenir
+        pdf.set_font("DejaVu", 'B', size=12)
+        pdf.cell(0, 10, 'AIDES INDIVIDUELLES - Formulaire d\'Evaluation', ln=True)
+        
         pdf.set_font("DejaVu", size=8)
-        pdf.add_page()
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
 
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
         # Titre du questionnaire
-        pdf.cell(0, 10, 'AIDES INDIVIDUELLES - Formulaire d\'Evaluation',
-                 ln=True, align='C')
 
         # Sous-titre et instructions
         pdf.cell(0, 10, 'Vous pouvez bénéficier d\'un bonus aux aides si votre revenu fiscal de référence est inférieur aux plafonds suivants:', ln=True)
@@ -1012,7 +1193,7 @@ class AidesIndividuelles_fp(models.Model):
                  'Sélectionner', border=1, ln=0, align='C')
         for _ in range(4):
             pdf.cell(col_widths[1], row_height,
-                     '[ ]', border=1, ln=0, align='C')
+                     '☐', border=1, ln=0, align='C')
         pdf.ln(4)
 
     def make_docx(self, doc):
@@ -1022,14 +1203,9 @@ class AidesIndividuelles_fp(models.Model):
             'AIDES INDIVIDUELLES - Formulaire d\'Evaluation')
         title_run.bold = True
         title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-
-        # Introduction et instructions
-        doc.add_paragraph(
-            'Vous pouvez bénéficier d\'un bonus aux aides si votre revenu fiscal de référence est inférieur aux plafonds suivants:')
-        doc.add_paragraph(
-            '(Pour vous situer, merci de vous référer à votre dernier avis d\'imposition.)')
-        doc.add_paragraph(
-            'Précision: Si plusieurs déclarations de revenus composent le ménage, additionner vos revenus fiscaux de référence.')
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
 
         # Ajout d'un tableau pour les plafonds de revenu
         table = doc.add_table(rows=1, cols=5)
@@ -1063,7 +1239,7 @@ class AidesIndividuelles_fp(models.Model):
         row_cells = table.add_row().cells
         row_cells[0].text = 'Sélectionner'
         for i in range(1, 5):
-            row_cells[i].text = '[ ]'
+            row_cells[i].text = '☐'
 
         # Ajout d'espacement après le tableau
         doc.add_paragraph('')
@@ -1132,33 +1308,50 @@ class AidesIndividuellesQuestionComplementaire_fp(models.Model):
 
     def make_pdf(self, pdf):
         # Police plus petite pour tout faire tenir
+        pdf.set_font("DejaVu", 'B', size=12)
+        pdf.cell(0, 10, 'Informations Fiscales et Aides Reçues:', ln=True)
+        
         pdf.set_font("DejaVu", size=8)
-        pdf.add_page()
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
+        # Titre du questionnaire
 
         # Section des informations fiscales et aides
-        pdf.cell(0, 10, 'Informations Fiscales et Aides Reçues:', ln=True)
         pdf.cell(
             0, 10, 'Revenu fiscal du foyer: _____________________________ ', ln=True)
         pdf.cell(
             0, 10, 'Montant de l\'impôt sur le revenu: ____________________ ', ln=True)
         pdf.cell(
-            0, 10, 'Avez-vous contracté un prêt à taux zéro de l\'État pour l\'achat de votre logement dans les 5 dernières années ? Oui [ ] Non [ ]', ln=True)
+            0, 10, 'Avez-vous contracté un prêt à taux zéro de l\'État pour l\'achat de votre logement dans les 5 dernières années ? Oui ☐ Non ☐', ln=True)
         pdf.cell(
-            0, 10, 'Avez-vous bénéficié d\'une aide ANAH pour le logement dans les 5 dernières années ? Oui [ ] Non [ ], préciser le montant et l\'année : ____________  en ______', ln=True)
+            0, 10, 'Avez-vous bénéficié d\'une aide ANAH pour le logement dans les 5 dernières années ? Oui ☐ Non ☐, préciser le montant et l\'année : ____________  en ______', ln=True)
 
     def make_docx(self, doc):
         # Ajout d'un titre au document
 
         # Section des informations fiscales et aides
         doc.add_paragraph('Informations Fiscales et Aides Reçues:')
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
         doc.add_paragraph(
             'Revenu fiscal du foyer: _____________________________ ')
         doc.add_paragraph(
             'Montant de l\'impôt sur le revenu: ____________________ ')
         doc.add_paragraph(
-            'Avez-vous contracté un prêt à taux zéro de l\'État pour l\'achat de votre logement dans les 5 dernières années ? Oui [ ] Non [ ]')
+            'Avez-vous contracté un prêt à taux zéro de l\'État pour l\'achat de votre logement dans les 5 dernières années ? Oui ☐ Non ☐')
         doc.add_paragraph(
-            'Avez-vous bénéficié d\'une aide ANAH pour le logement dans les 5 dernières années ? Oui [ ] Non [ ], préciser le montant et l\'année : ____________  en ______')
+            'Avez-vous bénéficié d\'une aide ANAH pour le logement dans les 5 dernières années ? Oui ☐ Non ☐, préciser le montant et l\'année : ____________  en ______')
 
     def to_excel_row(self):
         return {
@@ -1186,14 +1379,30 @@ class DocumentComplementaire_f(models.Model):
         return f'DocumentComplementaire {self.id}'
 
     def make_pdf(self, pdf):
-        # Police plus petite pour tout faire tenir
-        pdf.set_font("DejaVu", size=8)
-        pdf.add_page()
-        # Section des informations fiscales et aides
+                # Police plus petite pour tout faire tenir
+        pdf.set_font("DejaVu", 'B', size=12)
         pdf.cell(0, 10, 'Documents complémentaire', ln=True)
+        
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+
+        # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+        pdf.ln(2)
+ 
 
     def make_docx(self, doc):
         doc.add_paragraph('Documents complémentaire')
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
 
     def to_excel_row(self):
         # Création d'un dictionnaire pour stocker les noms de fichier

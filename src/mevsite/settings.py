@@ -7,6 +7,8 @@ import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import dj_database_url
+import cloudinary
+import cloudinary_storage
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -146,9 +148,17 @@ if os.environ.get('ENV') == "PRODUCTION":
     DATABASES['default'].update(db_from_env)
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     STATIC_ROOT = BASE_DIR / 'staticfiles'
-    MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
     MEDIA_URL = '/media/'
 
+MEDIA_ROOT = BASE_DIR / "media"
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'he8kyfyn7',
+    'API_KEY': '131631381727338',
+    'API_SECRET': os.environ.get('API_SECRET_CLOUDINARY_STORAGE')
+}
+cloudinary.config(**CLOUDINARY_STORAGE)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 STATIC_URL = 'static/'
@@ -247,14 +257,4 @@ CONSTANCE_CONFIG = {
 URL_QR = "https://be-mev.com/client_form/init-formulaire/"
 
 
-# Paramètres de Scaleway
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY =os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
- }
-
-DEFAULT_FILE_STORAGE = os.environ.get('DEFAULT_FILE_STORAGE')
 

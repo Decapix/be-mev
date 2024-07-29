@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 from fpdf import FPDF
 from constance import config
-
+from django.core.files import File
 from docx import Document
 from docx.shared import Pt
 from docx.oxml.ns import qn

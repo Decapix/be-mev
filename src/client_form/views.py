@@ -2,7 +2,6 @@ import io
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse, FileResponse
 from django.contrib import messages
-from django.urls import reverse
 from django.contrib.admin.views.decorators import staff_member_required
 from django.views.decorators.http import require_POST
 
@@ -12,18 +11,14 @@ from .forms import *
 from .utils import get_form_for_model
 from fpdf import FPDF
 import qrcode
-import os
-import pypandoc
-import uuid
-import gspread
-import requests
+
 from oauth2client.service_account import ServiceAccountCredentials
 from django.conf import settings
-from docx import Document
 from django.http import JsonResponse
-from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
 from django.core.files import File
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 
 # Create your views here.
 
@@ -43,6 +38,7 @@ def form(request):
     return render(request, 'client_form/form.html', context)
 
 
+
 @staff_member_required
 def create_formulaire(request):
     form = FormulaireForm()
@@ -51,7 +47,6 @@ def create_formulaire(request):
         form = FormulaireForm(request.POST)
         if form.is_valid():
             formulaire = form.save()
-            # Création conditionnelle des objets de groupe en utilisant une boucle sur related_fields
             for field_name, model in related_fields.items():
                 field_include_key = f"{field_name}_include"
                 if field_include_key in request.POST:
@@ -59,7 +54,7 @@ def create_formulaire(request):
                     setattr(formulaire, field_name, obj)
             formulaire.save()
 
-            # Créer un QR code
+            # Créer et enregistrer un QR code
             qr = qrcode.QRCode(
                 version=1,
                 error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -69,13 +64,10 @@ def create_formulaire(request):
             qr.add_data(f"{settings.URL_QR}{formulaire.id}")
             qr.make(fit=True)
             qr_img = qr.make_image(fill_color="black", back_color="white")
-            # Assurez-vous que le répertoire existe
-            qr_directory = os.path.join('media', 'qr_codes')
-            if not os.path.exists(qr_directory):
-                os.makedirs(qr_directory)
-
-            qr_path = os.path.join(qr_directory, f'{formulaire.id}.png')
-            qr_img.save(qr_path)
+            
+            # Enregistrer l'image du QR Code avec Django Storage
+            qr_name = f'qr_codes/{formulaire.id}.png'
+            qr_path = default_storage.save(qr_name, ContentFile(qr_img.get_image().tobytes()))
 
             pdf_path = make_pdf(formulaire, qr_path)
             docx_path = make_docx(formulaire, qr_path)
@@ -83,7 +75,7 @@ def create_formulaire(request):
             # Enregistrer les fichiers dans MiseEnPage
             mise_en_page = MiseEnPage.objects.create(
                 formulaire=formulaire,
-                qr_code=qr_path,
+                qr_code=qr_name,  # Enregistrez uniquement le nom du fichier
                 pdf=pdf_path,
                 docx=docx_path
             )
@@ -94,6 +86,7 @@ def create_formulaire(request):
         'form': form,
         'existing_formulaires': existing_formulaires
     })
+
 
 
 def get_form_details(request):
@@ -133,21 +126,21 @@ def delete_form(request, form_id):
 @staff_member_required
 def download_pdf(request, form_id):
     mise_en_page = get_object_or_404(MiseEnPage, formulaire_id=form_id)
-    pdf_path = mise_en_page.pdf.path
+    pdf_path = mise_en_page.pdf.url
     return FileResponse(open(pdf_path, 'rb'), as_attachment=True, filename=f'{mise_en_page.formulaire.nom}.pdf')
 
 
 @staff_member_required
 def download_qr(request, form_id):
     mise_en_page = get_object_or_404(MiseEnPage, formulaire_id=form_id)
-    qr_path = mise_en_page.qr_code.path
+    qr_path = mise_en_page.qr_code.url
     return FileResponse(open(qr_path, 'rb'), as_attachment=True, filename=f'QR_{mise_en_page.formulaire.nom}.png')
 
 
 @staff_member_required
 def download_docx(request, form_id):
     mise_en_page = get_object_or_404(MiseEnPage, formulaire_id=form_id)
-    docx_path = mise_en_page.docx.path
+    docx_path = mise_en_page.docx.url
     return FileResponse(open(docx_path, 'rb'), as_attachment=True, filename=f'{mise_en_page.formulaire.nom}.docx')
 
 

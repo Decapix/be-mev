@@ -17,8 +17,9 @@ from django.forms.models import model_to_dict
 from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-
+from cloudinary.uploader import upload
 # Create your views here.
+import pandas as pd
 
 
 @staff_member_required
@@ -45,15 +46,9 @@ def create_formulaire(request):
     if request.method == 'POST':
         form = FormulaireForm(request.POST)
         if form.is_valid():
-            formulaire = form.save()
-            for field_name, model in related_fields.items():
-                field_include_key = f"{field_name}_include"
-                if field_include_key in request.POST:
-                    obj = model.objects.create()
-                    setattr(formulaire, field_name, obj)
-            formulaire.save()
-
-            # Créer et enregistrer un QR code
+            formulaire = form.save(commit=False)
+            
+            # Créer un QR code
             qr = qrcode.QRCode(
                 version=1,
                 error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -62,30 +57,35 @@ def create_formulaire(request):
             )
             qr.add_data(f"{settings.URL_QR}{formulaire.id}")
             qr.make(fit=True)
-            qr_img = qr.make_image(fill='black', back_color='white')
+            qr_img = qr.make_image(fill_color="black", back_color="white")
 
-            # Convertir l'image QR en bytes
-            byte_arr = io.BytesIO()
-            qr_img.save(byte_arr, format='PNG')
-            byte_arr = byte_arr.getvalue()
+            # Convertir le QR code en bytes et enregistrer via Cloudinary
+            qr_bytes = qr_img.get_image().tobytes()
+            qr_response = upload(
+                qr_bytes,
+                folder="qr_codes",
+                public_id=f"{formulaire.id}",
+                resource_type="image"
+            )
 
-            # Enregistrer l'image du QR Code avec Django Storage
-            qr_name = f'qr_codes/{formulaire.id}.png'
-            qr_path = default_storage.save(qr_name, ContentFile(byte_arr))
+            # Les URLs Cloudinary sont directement utilisables
+            qr_url = qr_response['secure_url']
+            formulaire.qr_code = qr_url
+            formulaire.save()
 
-            pdf_path = make_pdf(formulaire, qr_path)
-            docx_path = make_docx(formulaire, qr_path)
+            # Création du PDF et du DOCX après la sauvegarde du formulaire
+            pdf_path = make_pdf(formulaire, qr_url)
+            docx_path = make_docx(formulaire, qr_url)
 
-            # Enregistrer les fichiers dans MiseEnPage
-            mise_en_page = MiseEnPage.objects.create(
+            # Enregistrer les chemins dans l'objet MiseEnPage
+            MiseEnPage.objects.create(
                 formulaire=formulaire,
-                qr_code=qr_name,  # Enregistrez uniquement le nom du fichier
+                qr_code=qr_url,
                 pdf=pdf_path,
                 docx=docx_path
             )
 
             return redirect('form')
-
     return render(request, 'client_form/create_formulaire.html', {
         'form': form,
         'existing_formulaires': existing_formulaires
@@ -249,11 +249,6 @@ def delete_campagne(request, campagne_id):
     return redirect('campagne_list')  
 
 
-from django.contrib.admin.views.decorators import staff_member_required
-import pandas as pd
-import io
-from django.http import HttpResponse
-from django.core.files import File
 
 @staff_member_required
 def create_excel(request, campagne_id):

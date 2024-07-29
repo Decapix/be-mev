@@ -328,6 +328,5 @@ def download_documents_view(request):
 
 
 def download_file_view(request, file_path):
-    print("file_path", file_path)
-    response = FileResponse(open(file_path, 'rb'))
-    return response
+    # Redirection directe vers l'URL Cloudinary
+    return redirect(file_path)

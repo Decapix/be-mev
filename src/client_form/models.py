@@ -22,7 +22,7 @@ class Campagne(models.Model):
     date_de_creation = models.DateTimeField(auto_now_add=True)
     nom = models.CharField(max_length=255)
     description = models.TextField()
-    excel = models.FileField(upload_to='media/excels/', blank=True, null=True)
+    excel = models.FileField(blank=True, null=True)
     
     def __str__(self):
         return f'{self.nom}'
@@ -118,19 +118,16 @@ class MiseEnPage(models.Model):
         verbose_name='Formulaire associé'
     )
     qr_code = models.ImageField(
-        upload_to='media/qr_codes/',
         verbose_name='QR Code',
         blank=True,
         null=True
     )
     pdf = models.FileField(
-        upload_to='media/pdfs/',
         verbose_name='PDF',
         blank=True,
         null=True
     )
     docx = models.FileField(
-        upload_to='media/docx_files/',
         verbose_name='Document Word',
         blank=True,
         null=True
@@ -1369,11 +1366,11 @@ class AidesIndividuellesQuestionComplementaire_fp(models.Model):
 
 
 class DocumentComplementaire_f(models.Model):
-    doc1 = models.FileField(upload_to='media/doc/', blank=True, null=True)
-    doc2 = models.FileField(upload_to='media/doc/', blank=True, null=True)
-    doc3 = models.FileField(upload_to='media/doc/', blank=True, null=True)
-    doc4 = models.FileField(upload_to='media/doc/', blank=True, null=True)
-    doc5 = models.FileField(upload_to='media/doc/', blank=True, null=True)
+    doc1 = models.FileField(blank=True, null=True)
+    doc2 = models.FileField(blank=True, null=True)
+    doc3 = models.FileField(blank=True, null=True)
+    doc4 = models.FileField(blank=True, null=True)
+    doc5 = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return f'DocumentComplementaire {self.id}'

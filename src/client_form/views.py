@@ -63,11 +63,16 @@ def create_formulaire(request):
             )
             qr.add_data(f"{settings.URL_QR}{formulaire.id}")
             qr.make(fit=True)
-            qr_img = qr.make_image(fill_color="black", back_color="white")
-            
+            qr_img = qr.make_image(fill='black', back_color='white')
+
+            # Convertir l'image QR en bytes
+            byte_arr = io.BytesIO()
+            qr_img.save(byte_arr, format='PNG')
+            byte_arr = byte_arr.getvalue()
+
             # Enregistrer l'image du QR Code avec Django Storage
             qr_name = f'qr_codes/{formulaire.id}.png'
-            qr_path = default_storage.save(qr_name, ContentFile(qr_img.get_image().tobytes()))
+            qr_path = default_storage.save(qr_name, ContentFile(byte_arr))
 
             pdf_path = make_pdf(formulaire, qr_path)
             docx_path = make_docx(formulaire, qr_path)

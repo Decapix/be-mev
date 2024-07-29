@@ -3,12 +3,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse, FileResponse
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.http import require_POST
 
 from .models import *
 from .make_form import *
 from .forms import *
 from .utils import get_form_for_model
-from fpdf import FPDF
 import qrcode
 
 from django.conf import settings
@@ -17,9 +17,9 @@ from django.forms.models import model_to_dict
 from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-from cloudinary.uploader import upload
+import io
+
 # Create your views here.
-import pandas as pd
 
 
 @staff_member_required
@@ -46,46 +46,48 @@ def create_formulaire(request):
     if request.method == 'POST':
         form = FormulaireForm(request.POST)
         if form.is_valid():
-            formulaire = form.save(commit=False)
-            
-            # Créer un QR code
-            qr = qrcode.QRCode(
-                version=1,
-                error_correction=qrcode.constants.ERROR_CORRECT_L,
-                box_size=10,
-                border=4,
-            )
-            qr.add_data(f"{settings.URL_QR}{formulaire.id}")
-            qr.make(fit=True)
-            qr_img = qr.make_image(fill_color="black", back_color="white")
-
-            # Convertir le QR code en bytes et enregistrer via Cloudinary
-            qr_bytes = qr_img.get_image().tobytes()
-            qr_response = upload(
-                qr_bytes,
-                folder="qr_codes",
-                public_id=f"{formulaire.id}",
-                resource_type="image"
-            )
-
-            # Les URLs Cloudinary sont directement utilisables
-            qr_url = qr_response['secure_url']
-            formulaire.qr_code = qr_url
+            formulaire = form.save()
+            for field_name, model in related_fields.items():
+                field_include_key = f"{field_name}_include"
+                if field_include_key in request.POST:
+                    obj = model.objects.create()
+                    setattr(formulaire, field_name, obj)
             formulaire.save()
 
-            # Création du PDF et du DOCX après la sauvegarde du formulaire
-            pdf_path = make_pdf(formulaire, qr_url)
-            docx_path = make_docx(formulaire, qr_url)
 
-            # Enregistrer les chemins dans l'objet MiseEnPage
-            MiseEnPage.objects.create(
-                formulaire=formulaire,
-                qr_code=qr_url,
-                pdf=pdf_path,
-                docx=docx_path
-            )
+            # Créer et enregistrer un QR code
+            # qr = qrcode.QRCode(
+            #     version=1,
+            #     error_correction=qrcode.constants.ERROR_CORRECT_L,
+            #     box_size=10,
+            #     border=4,
+            # )
+            # qr.add_data(f"{settings.URL_QR}{formulaire.id}")
+            # qr.make(fit=True)
+            # qr_img = qr.make_image(fill='black', back_color='white')
 
+            # Convertir l'image QR en bytes
+            # byte_arr = io.BytesIO()
+            # qr_img.save(byte_arr, format='PNG')
+            # byte_arr = byte_arr.getvalue()
+
+            # Enregistrer l'image du QR Code avec Django Storage
+            # qr_name = f'qr_codes/{formulaire.id}.png'
+            # qr_path = default_storage.save(qr_name, ContentFile(byte_arr))
+
+            # pdf_path = make_pdf(formulaire, qr_path)
+            # docx_path = make_docx(formulaire, qr_path)
+
+            # Enregistrer les fichiers dans MiseEnPage
+            # mise_en_page = MiseEnPage.objects.create(
+            #     formulaire=formulaire,
+            #     qr_code=qr_name,  # Enregistrez uniquement le nom du fichier
+            #     pdf=pdf_path,
+            #     docx=docx_path
+            # )
+            
             return redirect('form')
+
     return render(request, 'client_form/create_formulaire.html', {
         'form': form,
         'existing_formulaires': existing_formulaires
@@ -249,6 +251,11 @@ def delete_campagne(request, campagne_id):
     return redirect('campagne_list')  
 
 
+from django.contrib.admin.views.decorators import staff_member_required
+import pandas as pd
+import io
+from django.http import HttpResponse
+from django.core.files import File
 
 @staff_member_required
 def create_excel(request, campagne_id):

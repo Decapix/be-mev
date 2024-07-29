@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponse, FileResponse
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.views.decorators.http import require_POST
 
 from .models import *
 from .make_form import *
@@ -12,7 +11,6 @@ from .utils import get_form_for_model
 from fpdf import FPDF
 import qrcode
 
-from oauth2client.service_account import ServiceAccountCredentials
 from django.conf import settings
 from django.http import JsonResponse
 from django.forms.models import model_to_dict
@@ -36,6 +34,7 @@ def form(request):
     context = {'forms_true': forms_true, 'forms_false': forms_false}
 
     return render(request, 'client_form/form.html', context)
+
 
 
 
@@ -91,6 +90,7 @@ def create_formulaire(request):
         'form': form,
         'existing_formulaires': existing_formulaires
     })
+
 
 
 

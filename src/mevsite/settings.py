@@ -23,7 +23,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['be-mev-e942436feae3.herokuapp.com', '127.0.0.1', 'be-mev.herokuapp.com', 'be-mev.com', 'www.be-mev.com']
@@ -153,8 +153,8 @@ if os.environ.get('ENV') == "PRODUCTION":
 
 MEDIA_ROOT = BASE_DIR / "media"
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'he8kyfyn7',
-    'API_KEY': '131631381727338',
+    'CLOUD_NAME': 'hs7wa6hhi',
+    'API_KEY': '439222969736323',
     'API_SECRET': os.environ.get('API_SECRET_CLOUDINARY_STORAGE')
 }
 cloudinary.config(**CLOUDINARY_STORAGE)

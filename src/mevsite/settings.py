@@ -7,8 +7,7 @@ import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import dj_database_url
-import cloudinary
-import cloudinary_storage
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,8 +37,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     'django.contrib.staticfiles',
-    'cloudinary_storage',
-    'cloudinary',
     'django.contrib.sites',  
 
     'storages',
@@ -154,13 +151,7 @@ if os.environ.get('ENV') == "PRODUCTION":
     MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / "media"
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'hs7wa6hhi',
-    'API_KEY': '439222969736323',
-    'API_SECRET': os.environ.get('API_SECRET_CLOUDINARY_STORAGE')
-}
-cloudinary.config(**CLOUDINARY_STORAGE)
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 
 STATIC_URL = 'static/'
@@ -260,3 +251,20 @@ URL_QR = "https://be-mev.com/client_form/init-formulaire/"
 
 
 
+
+# S3 Configuration pour CloudCube
+AWS_ACCESS_KEY_ID = os.getenv('CLOUDCUBE_ACCESS_KEY_ID')  # Assurez-vous que ces variables d'environnement sont définies
+AWS_SECRET_ACCESS_KEY = os.getenv('CLOUDCUBE_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('CLOUDCUBE_URL').split('/')[2]  # Extrait le nom du bucket de l'URL
+AWS_S3_ENDPOINT_URL = 'https://s3.amazonaws.com'  # Endpoint S3 standard; ajustez si nécessaire
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = os.getenv('CLOUDCUBE_URL').split('/')[3]  # Chemin après le nom du bucket
+
+# Utiliser S3 pour les fichiers médias uniquement
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# URL de base pour accéder aux fichiers médias
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_LOCATION}/'

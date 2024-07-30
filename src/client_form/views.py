@@ -191,7 +191,6 @@ def init_formulaire(request, existing_form_id):
 def formulaire_step_view(request, form_id, step):
     formulaire = get_object_or_404(Formulaire, pk=form_id)
     linked_objects = formulaire.get_linked_objects()
-    url_cloud = settings.cloudcube_url
     
     # Vérifier si le numéro d'étape dépasse le nombre de formulaires disponibles
     if step >= len(linked_objects):
@@ -219,7 +218,7 @@ def formulaire_step_view(request, form_id, step):
         infoText = True
     else :
         infoText = False
-    context = {'form': form, 'step_affich': step + 1, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "url_cloud":url_cloud}
+    context = {'form': form, 'step_affich': step + 1, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html}
     return render(request, 'client_form/qr_form.html', context)
 
 

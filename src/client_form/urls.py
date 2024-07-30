@@ -23,5 +23,5 @@ urlpatterns = [
     path('campagne/delete/<uuid:campagne_id>/', delete_campagne, name='delete_campagne'),
     path('campagnes/', campagnes_list_view, name='download_documents'),
     re_path(r'^campagnes/(?P<campagne_id>[0-9a-f-]+)/$', campagne_detail_view, name='campagne_detail'),
-    path('download/<path:file_key>/', download_file_view, name='download_file'),
+    path('download/<path:file_key>', download_file_view, name='download_file'),
 ]

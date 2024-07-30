@@ -66,6 +66,7 @@
           <a href="{% url 'create_campagne' %}" class="btn btn-info">Création de campagne</a>
           <a href="{% url 'campagne_list' %}" class="btn btn-info">Voir toutes les campagnes</a>
           <a href="{% url 'download_documents' %}" class="btn btn-info">Documents complementaire</a>
+          <button class="btn btn-info btn-sm" onclick="copyToClipboard('{% url 'init_formulaire' form.id %}');">Lien Questionnaire en Ligne</button>
       </div>
   </div>
 </section>
@@ -75,3 +76,15 @@
 
         
     {% endblock content %}
+{% block script %}
+
+<script>
+    function copyToClipboard(url) {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('Lien copié dans le presse-papier!');
+        }).catch(err => {
+            console.error('Erreur lors de la copie:', err);
+        });
+    }
+    </script>
+{% endblock %}

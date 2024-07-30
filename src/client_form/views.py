@@ -53,28 +53,35 @@ def create_formulaire(request):
         form = FormulaireForm(request.POST)
         if form.is_valid():
             formulaire = form.save()
+            # Création conditionnelle des objets de groupe en utilisant une boucle sur related_fields
+            for field_name, model in related_fields.items():
+                field_include_key = f"{field_name}_include"
+                if field_include_key in request.POST:
+                    obj = model.objects.create()
+                    setattr(formulaire, field_name, obj)
+            formulaire.save()
 
             # Génération du QR code
-            qr = qrcode.make(f"{settings.URL_QR}{formulaire.id}")
-            qr_io = io.BytesIO()
-            qr.save(qr_io, format='PNG')
-            qr_file = ContentFile(qr_io.getvalue())
-            qr_filename = f'qr_codes/{formulaire.id}.png'
+              # qr = qrcode.make(f"{settings.URL_QR}{formulaire.id}")
+            # qr_io = io.BytesIO()
+            # qr.save(qr_io, format='PNG')
+            # qr_file = ContentFile(qr_io.getvalue())
+            # qr_filename = f'qr_codes/{formulaire.id}.png'
 
             # Enregistrement de l'objet MiseEnPage avec le QR code
-            mise_en_page = MiseEnPage.objects.create(
-                formulaire=formulaire,
-                qr_code=default_storage.save(qr_filename, qr_file)
-            )
+            # mise_en_page = MiseEnPage.objects.create(
+            #     formulaire=formulaire,
+            #     qr_code=default_storage.save(qr_filename, qr_file)
+            # )
 
             # Génération du PDF et du DOCX
-            pdf_path = make_pdf(formulaire, mise_en_page.qr_code.url)
-            docx_path = make_docx(formulaire, mise_en_page.qr_code.url)
+            # pdf_path = make_pdf(formulaire, mise_en_page.qr_code.url)
+            # docx_path = make_docx(formulaire, mise_en_page.qr_code.url)
 
             # Mise à jour de MiseEnPage avec les chemins des fichiers
-            mise_en_page.pdf = pdf_path
-            mise_en_page.docx = docx_path
-            mise_en_page.save()
+            # mise_en_page.pdf = pdf_path
+            # mise_en_page.docx = docx_path
+            # mise_en_page.save()
 
             return redirect('form')
 

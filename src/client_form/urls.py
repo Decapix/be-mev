@@ -21,7 +21,7 @@ urlpatterns = [
     path('campagne/create/', create_campagne, name='create_campagne'),
     path('campagne/list/', campagne_list, name='campagne_list'),
     path('campagne/delete/<uuid:campagne_id>/', delete_campagne, name='delete_campagne'),
-    path('campagnes/', campagnes_list_view, name='campagnes_list'),
+    path('campagnes/', campagnes_list_view, name='download_documents'),
     path('campagnes/<int:campagne_id>/', campagne_detail_view, name='campagne_detail'),
     path('download/<path:file_key>/', download_file_view, name='download_file'),
 ]

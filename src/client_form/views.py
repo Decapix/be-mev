@@ -299,7 +299,7 @@ def campagne_detail_view(request, campagne_id):
             'docs': docs
         })
 
-    return render(request, 'campagne_detail.html', {'campagne': campagne, 'formulaires': formulaires_data})
+    return render(request, 'client_form/campagne_detail.html', {'campagne': campagne, 'formulaires': formulaires_data})
 
 
 def download_file_view(request, file_key):

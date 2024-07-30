@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import form, download_file_view, campagnes_list_view, campagne_detail_view, init_formulaire,delete_campagne, create_campagne, campagne_list, formulaire_step_view,  create_formulaire, get_form_details, delete_form, download_pdf, download_docx, download_qr, success
 
 urlpatterns = [
@@ -22,6 +22,6 @@ urlpatterns = [
     path('campagne/list/', campagne_list, name='campagne_list'),
     path('campagne/delete/<uuid:campagne_id>/', delete_campagne, name='delete_campagne'),
     path('campagnes/', campagnes_list_view, name='download_documents'),
-    path('campagnes/<int:campagne_id>/', campagne_detail_view, name='campagne_detail'),
+    re_path(r'^campagnes/(?P<campagne_id>[0-9a-f-]+)/$', campagne_detail_view, name='campagne_detail'),
     path('download/<path:file_key>/', download_file_view, name='download_file'),
 ]

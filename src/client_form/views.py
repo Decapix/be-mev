@@ -330,3 +330,5 @@ def download_documents_view(request):
 def download_file_view(request, file_path):
     # Redirection directe vers l'URL Cloudinary
     return redirect(file_path)
+
+

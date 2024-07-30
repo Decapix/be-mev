@@ -261,10 +261,6 @@ URL_QR = "https://be-mev.com/client_form/init-formulaire/"
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-# example cloudcube url: https://cloud-cube.s3.amazonaws.com/bucketname
-
-
-
 cloudcube_base_url = os.environ.get('CLOUDCUBE_URL')
 
 
@@ -276,3 +272,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('CLOUDCUBE_SECRET_ACCESS_KEY')
 
 AWS_STORAGE_BUCKET_NAME = "mev-bucket"
 
+AWS_S3_REGION_NAME = 'fr-par'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None

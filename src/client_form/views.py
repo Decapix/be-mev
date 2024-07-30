@@ -18,7 +18,10 @@ from django.core.files import File
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 import io
-
+from django.conf import settings
+from django.http import HttpResponseRedirect
+import boto3
+from botocore.config import Config
 # Create your views here.
 
 
@@ -327,8 +330,22 @@ def download_documents_view(request):
     return render(request, 'client_form/download_documents.html', {'campagnes_data': campagnes_data})
 
 
-def download_file_view(request, file_path):
-    # Redirection directe vers l'URL Cloudinary
-    return redirect(file_path)
-
-
+def download_file_view(request, file_key):
+    s3_client = boto3.client(
+        's3',
+        aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY,
+        region_name=settings.AWS_S3_REGION_NAME,
+        endpoint_url=settings.AWS_S3_ENDPOINT_URL,
+        config=Config(signature_version='s3v4')
+    )
+    
+    url = s3_client.generate_presigned_url(
+        'get_object',
+        Params={
+            'Bucket': settings.AWS_STORAGE_BUCKET_NAME,
+            'Key': file_key
+        },
+        ExpiresIn=3600  # URL valide pour 1 heure
+    )
+    return HttpResponseRedirect(url)

@@ -1,0 +1,14 @@
+{% extends "index_form.html" %}
+{% block content %}
+<div class="container mt-10">
+    <h2>Liste des Campagnes</h2>
+    {% for campagne in campagnes %}
+    <div class="campagne">
+        <h3><a href="{% url 'campagne_detail' campagne.id %}">{{ campagne.nom }}</a></h3>
+        <p>{{ campagne.description }}</p>
+    </div>
+    {% empty %}
+    <p>Aucune campagne disponible.</p>
+    {% endfor %}
+</div>
+{% endblock %}

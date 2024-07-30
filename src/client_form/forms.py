@@ -1,7 +1,7 @@
 from django import forms
 from .models import CHOICES_VENTILATION,Campagne, DocumentComplementaire_f, AidesIndividuellesQuestionComplementaire_fp,  Identification_f, DescriptifDuLogement_f, BATI_f, ChauffageEauChaude_f, Ventilation_f, Sondage_f, Financement_f, SituationProfessionnelle_fp, CompositionMenage_fp, AidesIndividuelles_fp, Formulaire, ProprietairesOccupantsIntro_fp
 from django.forms.widgets import SelectDateWidget
-
+from django.core.exceptions import ValidationError
 
 class CampagneForm(forms.ModelForm):
     class Meta:
@@ -315,15 +315,18 @@ class AidesIndividuellesQuestionComplementaire_fpForm(forms.ModelForm):
             'annee_aide_anah': 'Indiquez l’année durant laquelle vous avez reçu l’aide de l’ANAH.',
         }
 
+def validate_file_size(value):
+    limit = 5 * 1024 * 1024 * 1024  # 5GB en octets
+    if value.size > limit:
+        raise ValidationError('La taille du fichier ne peut pas dépasser 5GB.')
+
 class DocumentComplementaire_fForm(forms.ModelForm):
+    doc1 = forms.FileField(widget=forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}), validators=[validate_file_size], required=False)
+    doc2 = forms.FileField(widget=forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}), validators=[validate_file_size], required=False)
+    doc3 = forms.FileField(widget=forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}), validators=[validate_file_size], required=False)
+    doc4 = forms.FileField(widget=forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}), validators=[validate_file_size], required=False)
+    doc5 = forms.FileField(widget=forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}), validators=[validate_file_size], required=False)
+
     class Meta:
         model = DocumentComplementaire_f
         fields = ['doc1', 'doc2', 'doc3', 'doc4', 'doc5']
-        widgets = {
-            'doc1': forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}),
-            'doc2': forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}),
-            'doc3': forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}),
-            'doc4': forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}),
-            'doc5': forms.FileInput(attrs={'accept': '*/*', 'class': 'form-control'}),
-        }
-

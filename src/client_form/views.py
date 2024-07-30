@@ -23,6 +23,8 @@ from django.http import HttpResponseRedirect
 import boto3
 from botocore.config import Config
 # Create your views here.
+import pandas as pd
+from django.core.files import File
 
 
 @staff_member_required
@@ -47,55 +49,55 @@ def create_formulaire(request):
     form = FormulaireForm()
     existing_formulaires = Formulaire.objects.filter(formulaire_type=True)
     if request.method == 'POST':
-        form = FormulaireForm(request.POST)
-        if form.is_valid():
-            formulaire = form.save()
-            for field_name, model in related_fields.items():
-                field_include_key = f"{field_name}_include"
-                if field_include_key in request.POST:
-                    obj = model.objects.create()
-                    setattr(formulaire, field_name, obj)
-            formulaire.save()
-
+        Formulaire.objects.filter(formulaire_type=True)
+        if request.method == 'POST':
+            form = FormulaireForm(request.POST)
+            if form.is_valid():
+                formulaire = form.save()
+                for field_name, model in related_fields.items():
+                    field_include_key = f"{field_name}_include"
+                    if field_include_key in request.POST:
+                        obj = model.objects.create()
+                        setattr(formulaire, field_name, obj)
+                formulaire.save()
 
             # Créer et enregistrer un QR code
-            # qr = qrcode.QRCode(
-            #     version=1,
-            #     error_correction=qrcode.constants.ERROR_CORRECT_L,
-            #     box_size=10,
-            #     border=4,
-            # )
-            # qr.add_data(f"{settings.URL_QR}{formulaire.id}")
-            # qr.make(fit=True)
-            # qr_img = qr.make_image(fill='black', back_color='white')
+            qr = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=10,
+                border=4,
+            )
+            qr.add_data(f"{settings.URL_QR}{formulaire.id}")
+            qr.make(fit=True)
+            qr_img = qr.make_image(fill='black', back_color='white')
 
             # Convertir l'image QR en bytes
-            # byte_arr = io.BytesIO()
-            # qr_img.save(byte_arr, format='PNG')
-            # byte_arr = byte_arr.getvalue()
+            byte_arr = io.BytesIO()
+            qr_img.save(byte_arr, format='PNG')
+            byte_arr = byte_arr.getvalue()
 
             # Enregistrer l'image du QR Code avec Django Storage
-            # qr_name = f'qr_codes/{formulaire.id}.png'
-            # qr_path = default_storage.save(qr_name, ContentFile(byte_arr))
+            qr_name = f'qr_codes/{formulaire.id}.png'
+            qr_path = default_storage.save(qr_name, ContentFile(byte_arr))
 
-            # pdf_path = make_pdf(formulaire, qr_path)
-            # docx_path = make_docx(formulaire, qr_path)
+            # Génération du PDF et du DOCX (implémentation spécifique nécessaire ici)
+            pdf_path = make_pdf(formulaire, qr_path)
+            docx_path = make_docx(formulaire, qr_path)
 
             # Enregistrer les fichiers dans MiseEnPage
-            # mise_en_page = MiseEnPage.objects.create(
-            #     formulaire=formulaire,
-            #     qr_code=qr_name,  # Enregistrez uniquement le nom du fichier
-            #     pdf=pdf_path,
-            #     docx=docx_path
-            # )
-            
-            return redirect('form')
+            mise_en_page = MiseEnPage.objects.create(
+                formulaire=formulaire,
+                qr_code=qr_name,  # Enregistrez uniquement le nom du fichier
+                pdf=pdf_path,
+                docx=docx_path
+            )
 
+            return redirect('form')
     return render(request, 'client_form/create_formulaire.html', {
         'form': form,
         'existing_formulaires': existing_formulaires
     })
-
 
 
 
@@ -254,11 +256,6 @@ def delete_campagne(request, campagne_id):
     return redirect('campagne_list')  
 
 
-from django.contrib.admin.views.decorators import staff_member_required
-import pandas as pd
-import io
-from django.http import HttpResponse
-from django.core.files import File
 
 @staff_member_required
 def create_excel(request, campagne_id):
@@ -296,38 +293,29 @@ def create_excel(request, campagne_id):
 
     return response
 
+@staff_member_required
+def campagnes_list_view(request):
+    campagnes = Campagne.objects.all()  # Récupérer toutes les campagnes
+    return render(request, 'campagnes_list_download.html', {'campagnes': campagnes})
 
 @staff_member_required
-def download_documents_view(request):
-    campagnes_data = []
-    campagnes = Campagne.objects.all()  # Récupérer toutes les campagnes
+def campagne_detail_view(request, campagne_id):
+    campagne = Campagne.objects.get(id=campagne_id)
+    formulaires = campagne.formulaires.filter(clone=True, document_complementaire__isnull=False)
+    formulaires_data = []
 
-    for campagne in campagnes:
-        # Filtrer directement les formulaires clonés ayant des documents complémentaires
-        formulaires = campagne.formulaires.filter(clone=True, document_complementaire__isnull=False)
-        
-        # Préparer les documents pour chaque formulaire
-        formulaires_data = []
-        for formulaire in formulaires:
-            docs = []
-            for i in range(1, 6):
-                doc = getattr(formulaire.document_complementaire, f'doc{i}', None)
-                if doc:
-                    docs.append({'name': doc.name})
-            # Ajouter les documents au formulaire
-            formulaires_data.append({
-                'formulaire': formulaire,
-                'docs': docs
-            })
-        
-        # Ajouter les formulaires et la campagne au tableau général
-        campagnes_data.append({
-            'campagne': campagne,
-            'formulaires': formulaires_data
+    for formulaire in formulaires:
+        docs = []
+        for i in range(1, 6):
+            doc = getattr(formulaire.document_complementaire, f'doc{i}', None)
+            if doc:
+                docs.append({'name': doc.name, 'url': f'/download/{doc.name}'})
+        formulaires_data.append({
+            'formulaire': formulaire,
+            'docs': docs
         })
-        print("campagnes_data", campagnes_data)
 
-    return render(request, 'client_form/download_documents.html', {'campagnes_data': campagnes_data})
+    return render(request, 'campagne_detail.html', {'campagne': campagne, 'formulaires': formulaires_data})
 
 
 def download_file_view(request, file_key):

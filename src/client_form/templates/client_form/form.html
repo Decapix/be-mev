@@ -44,12 +44,11 @@
           <ul class="list-group">
               {% for form in forms_false %}
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ form.nom }}
+                  {{ form.nom }} - <p> https://be-mev.com/admin_form/init-formulaire/{{form.id }}</p>
                   <div>
                       <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
                           {% csrf_token %}
                           <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Supprimer</button>
-                          <button class="btn btn-info btn-sm" onclick="copyToClipboard('https://be-mev.com/admin_form/init-formulaire/{{form.id }}');">Lien Questionnaire en Ligne</button>
                           <a href="{% url 'download_qr' form.id %}" class="btn btn-secondary btn-sm">Télécharger QR code</a>
                           <a href="{% url 'download_pdf' form.id %}" class="btn btn-primary btn-sm">Télécharger PDF</a>
                           <a href="{% url 'download_docx' form.id %}" class="btn btn-success btn-sm">Télécharger le docx</a>

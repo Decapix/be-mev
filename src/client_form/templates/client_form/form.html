@@ -49,9 +49,9 @@
                       <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
                           {% csrf_token %}
                           <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Supprimer</button>
+                          <button class="btn btn-info btn-sm" onclick="copyToClipboard('https://be-mev.com/admin_form/init-formulaire/{{form.id }}');">Lien Questionnaire en Ligne</button>
                           <a href="{% url 'download_qr' form.id %}" class="btn btn-secondary btn-sm">Télécharger QR code</a>
                           <a href="{% url 'download_pdf' form.id %}" class="btn btn-primary btn-sm">Télécharger PDF</a>
-
                           <a href="{% url 'download_docx' form.id %}" class="btn btn-success btn-sm">Télécharger le docx</a>
                       </form>
                   </div>
@@ -66,7 +66,6 @@
           <a href="{% url 'create_campagne' %}" class="btn btn-info">Création de campagne</a>
           <a href="{% url 'campagne_list' %}" class="btn btn-info">Voir toutes les campagnes</a>
           <a href="{% url 'download_documents' %}" class="btn btn-info">Documents complementaire</a>
-          <button class="btn btn-info btn-sm" onclick="copyToClipboard('https://be-mev.com/client_form/init-formulaire/{{form.id }}');">Lien Questionnaire en Ligne</button>
       </div>
   </div>
 </section>

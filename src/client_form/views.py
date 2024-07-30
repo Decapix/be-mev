@@ -280,7 +280,7 @@ def create_excel(request, campagne_id):
 @staff_member_required
 def campagnes_list_view(request):
     campagnes = Campagne.objects.all()  # Récupérer toutes les campagnes
-    return render(request, 'campagne_list_download.html', {'campagnes': campagnes})
+    return render(request, 'client_form/campagne_list_download.html', {'campagnes': campagnes})
 
 @staff_member_required
 def campagne_detail_view(request, campagne_id):

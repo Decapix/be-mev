@@ -17,7 +17,7 @@
                 <ul>
                     {% for doc in form_data.docs %}
                     <li>
-                        <a href="{{ doc.url }}" download="{{ doc.nom }}">{{ doc.nom }}</a>
+                        <a href="{{ doc.path }}" download="{{ doc.name }}">{{ doc.name }}</a>
                     </li>
                     {% endfor %}
                 </ul>

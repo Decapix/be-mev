@@ -44,56 +44,40 @@ def form(request):
 
 
 
+
 @staff_member_required
 def create_formulaire(request):
     form = FormulaireForm()
     existing_formulaires = Formulaire.objects.filter(formulaire_type=True)
     if request.method == 'POST':
-        Formulaire.objects.filter(formulaire_type=True)
-        if request.method == 'POST':
-            form = FormulaireForm(request.POST)
-            if form.is_valid():
-                formulaire = form.save()
-                for field_name, model in related_fields.items():
-                    field_include_key = f"{field_name}_include"
-                    if field_include_key in request.POST:
-                        obj = model.objects.create()
-                        setattr(formulaire, field_name, obj)
-                formulaire.save()
+        form = FormulaireForm(request.POST)
+        if form.is_valid():
+            formulaire = form.save()
 
-            # Créer et enregistrer un QR code
-            qr = qrcode.QRCode(
-                version=1,
-                error_correction=qrcode.constants.ERROR_CORRECT_L,
-                box_size=10,
-                border=4,
-            )
-            qr.add_data(f"{settings.URL_QR}{formulaire.id}")
-            qr.make(fit=True)
-            qr_img = qr.make_image(fill='black', back_color='white')
+            # Génération du QR code
+            qr = qrcode.make(f"{settings.URL_QR}{formulaire.id}")
+            qr_io = io.BytesIO()
+            qr.save(qr_io, format='PNG')
+            qr_file = ContentFile(qr_io.getvalue())
+            qr_filename = f'qr_codes/{formulaire.id}.png'
 
-            # Convertir l'image QR en bytes
-            byte_arr = io.BytesIO()
-            qr_img.save(byte_arr, format='PNG')
-            byte_arr = byte_arr.getvalue()
-
-            # Enregistrer l'image du QR Code avec Django Storage
-            qr_name = f'qr_codes/{formulaire.id}.png'
-            qr_path = default_storage.save(qr_name, ContentFile(byte_arr))
-
-            # Génération du PDF et du DOCX (implémentation spécifique nécessaire ici)
-            pdf_path = make_pdf(formulaire, qr_path)
-            docx_path = make_docx(formulaire, qr_path)
-
-            # Enregistrer les fichiers dans MiseEnPage
+            # Enregistrement de l'objet MiseEnPage avec le QR code
             mise_en_page = MiseEnPage.objects.create(
                 formulaire=formulaire,
-                qr_code=qr_name,  # Enregistrez uniquement le nom du fichier
-                pdf=pdf_path,
-                docx=docx_path
+                qr_code=default_storage.save(qr_filename, qr_file)
             )
 
+            # Génération du PDF et du DOCX
+            pdf_path = make_pdf(formulaire, mise_en_page.qr_code.url)
+            docx_path = make_docx(formulaire, mise_en_page.qr_code.url)
+
+            # Mise à jour de MiseEnPage avec les chemins des fichiers
+            mise_en_page.pdf = pdf_path
+            mise_en_page.docx = docx_path
+            mise_en_page.save()
+
             return redirect('form')
+
     return render(request, 'client_form/create_formulaire.html', {
         'form': form,
         'existing_formulaires': existing_formulaires
@@ -296,7 +280,7 @@ def create_excel(request, campagne_id):
 @staff_member_required
 def campagnes_list_view(request):
     campagnes = Campagne.objects.all()  # Récupérer toutes les campagnes
-    return render(request, 'campagnes_list_download.html', {'campagnes': campagnes})
+    return render(request, 'campagne_list_download.html', {'campagnes': campagnes})
 
 @staff_member_required
 def campagne_detail_view(request, campagne_id):

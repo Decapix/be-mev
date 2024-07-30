@@ -5,7 +5,9 @@ from fpdf import FPDF
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from .utils import *
-
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+import io
 
 def make_pdf(formulaire, qr_path):
     class PDF(FPDF):
@@ -80,13 +82,15 @@ dossiers. Il est donc très important d’y répondre.""", ln=True)
     if formulaire.document_complementaire :
         formulaire.document_complementaire.make_pdf(pdf)
 
-    pdf_directory = os.path.join('media', 'pdf_files')
-    if not os.path.exists(pdf_directory):
-        os.makedirs(pdf_directory)
-        
-    pdf_path = f'media/pdf_files/{formulaire.id}.pdf'
-    pdf.output(pdf_path)
-    
+    # Génération du PDF en mémoire
+    pdf_buffer = io.BytesIO()
+    pdf.output(pdf_buffer, 'F')
+    pdf_buffer.seek(0)
+
+    # Sauvegarder le PDF dans S3
+    pdf_path = f'{formulaire.id}.pdf'
+    default_storage.save(pdf_path, ContentFile(pdf_buffer.read()))
+
     return pdf_path
     
 
@@ -161,10 +165,13 @@ d’indiquer le nom de la residence dans l’objet du message)""")
     if formulaire.document_complementaire :
         formulaire.document_complementaire.make_docx(doc)
 
-    # Sauvegarder le DOCX
-    docx_directory = os.path.join('media', 'docx_files')
-    if not os.path.exists(docx_directory):
-        os.makedirs(docx_directory)
-    docx_path = os.path.join(docx_directory, f'{formulaire.id}.docx')
-    doc.save(docx_path)
+   # Sauvegarder le DOCX en mémoire
+    docx_buffer = io.BytesIO()
+    doc.save(docx_buffer)
+    docx_buffer.seek(0)
+
+    # Sauvegarder le DOCX dans S3
+    docx_path = f'{formulaire.id}.docx'
+    default_storage.save(docx_path, ContentFile(docx_buffer.read()))
+
     return docx_path

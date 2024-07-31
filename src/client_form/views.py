@@ -225,7 +225,7 @@ def formulaire_step_view(request, form_id, step):
         infoText = True
     else :
         infoText = False
-    context = {'form': form, 'step_affich': step + 1, 'step_prec': step_prec, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "title":title, "subtitle":subtitle}
+    context = {'form': form, 'step_affich': step + 1, 'step_prec': step_prec,"step":step ,  'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "title":title, "subtitle":subtitle}
     return render(request, 'client_form/qr_form.html', context)
 
 

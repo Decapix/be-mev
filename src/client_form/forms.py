@@ -20,18 +20,18 @@ class BootstrapMixin(object):
             
 class FormulaireForm( forms.ModelForm):
     # Ajout de champs booléens pour chaque groupe de question
-    identification_include = forms.BooleanField(required=False, label='Inclure Identification')
+    identification_include = forms.BooleanField(required=False, label='Inclure Identification du copropriétaire')
     descriptif_du_logement_include = forms.BooleanField(required=False, label='Inclure Descriptif du Logement')
     bati_include = forms.BooleanField(required=False, label='Inclure Bâti')
     chauffage_eau_chaude_include = forms.BooleanField(required=False, label='Inclure Chauffage et Eau Chaude')
     ventilation_include = forms.BooleanField(required=False, label='Inclure Ventilation')
-    sondage_include = forms.BooleanField(required=False, label='Inclure Sondage')
+    sondage_include = forms.BooleanField(required=False, label='Inclure Sondage sur travaux a réaliser')
     financement_include = forms.BooleanField(required=False, label='Inclure Financement')
     situation_professionnelle_include = forms.BooleanField(required=False, label='Inclure Situation Professionnelle')
     proprietaires_occupants_intro = forms.BooleanField(required=False, label='Inclure Proprietaire occupant intro')
     composition_menage_include = forms.BooleanField(required=False, label='Inclure Composition Ménage')
     aides_individuelles_include = forms.BooleanField(required=False, label='Inclure Aides Individuelles')
-    aides_individuelles_question_complementaire_include = forms.BooleanField(required=False, label='Inclure Aides Individuelles Questions complementaires')
+    aides_individuelles_question_complementaire_include = forms.BooleanField(required=False, label='Inclure Aides Individuelles Questions complementaires ville de Paris')
     document_complementaire_include = forms.BooleanField(required=False, label='Inclure Documents complementaires')
     class Meta:
         model = Formulaire

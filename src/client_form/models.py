@@ -104,7 +104,7 @@ class Formulaire(models.Model):
         fields = [
             self.identification, self.descriptif_du_logement, self.bati,
             self.chauffage_eau_chaude, self.ventilation, self.sondage,
-            self.financement, self.situation_professionnelle, self.composition_menage,
+            self.financement_avec_ecoptz, self.financement_sans_ecoptz, self.situation_professionnelle, self.composition_menage,
             self.aides_individuelles, self.aides_individuelles_question_complementaire,
             self.document_complementaire
         ]

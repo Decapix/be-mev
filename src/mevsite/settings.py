@@ -248,7 +248,7 @@ CONSTANCE_CONFIG = {
 # from constance import config
 # print(config.MY_SETTING)
 
-URL_QR = "https://be-mev.com/client_form/init-formulaire/"
+URL_QR = "https://be-mev.com/admin_form/init-formulaire/"
 
 
 

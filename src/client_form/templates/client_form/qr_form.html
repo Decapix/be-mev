@@ -6,7 +6,10 @@
 <section id="form-okok" class="form-okok">
     <div class="container mt-10">
         <!-- Cadre de texte rétractable -->
+         <a href="{% url 'formulaire_step' form_id step_prec %}">Revenir a l'etape precedente</a>
          {% if infoText == True %}
+         <h2>{{ title }}</h2>
+         <h3>{{ subtitle }}</h3>
         <div id="infoText" style="border: 1px solid black; padding: 10px;" class="my-4">
             Dans le cadre des travaux de rénovation votés lors de la dernière AG, plusieurs aides financières et solutions de financement sont mobilisables. Nous
             vous faisons parvenir ce questionnaire afin d’obtenir les justificatifs nécessaires pour effectuer les demandes de subventions et les aides auxquelles

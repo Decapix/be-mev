@@ -44,6 +44,7 @@ class Formulaire(models.Model):
                                                   null=True,
                                                   blank=True,
                                                   on_delete=models.CASCADE)
+
     bati = models.OneToOneField('BATI_f',
                                 null=True,
                                 blank=True,
@@ -60,7 +61,11 @@ class Formulaire(models.Model):
                                    null=True,
                                    blank=True,
                                    on_delete=models.CASCADE)
-    financement = models.OneToOneField('Financement_f',
+    financement_avec_ecoptz = models.OneToOneField('FinancementAvecEcoptz_f',
+                                       null=True,
+                                       blank=True,
+                                       on_delete=models.CASCADE)
+    financement_sans_ecoptz = models.OneToOneField('FinancementSansEcoptz_f',
                                        null=True,
                                        blank=True,
                                        on_delete=models.CASCADE)
@@ -142,7 +147,9 @@ class Identification_f(models.Model):
     telephone = models.CharField(max_length=25, blank=True, null=True)
     prenom = models.CharField(max_length=100, blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
-    address = models.CharField(max_length=200, blank=True, null=True)
+    adresse = models.CharField(max_length=200, blank=True, null=True)
+    ville = models.CharField(max_length=100, blank=True, null=True)
+    code_postal = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
         return f'Identification_f {self.id}'
@@ -152,16 +159,12 @@ class Identification_f(models.Model):
         pdf.cell(0, 10, 'Questionnaire d\'Identification', ln=True)
         
         pdf.set_font("DejaVu", size=8)
-        # Calcul de la largeur du texte pour 'description' et ajout du texte
-        description_text = self.get_description()  # Obtenir le texte de la description
-        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+        description_text = self.get_description()
+        description_width = pdf.get_string_width(description_text) + 6
 
-        # 190 mm est la largeur utilisable typique sur A4
         if description_width > 190:
-            # Utilise multi_cell si le texte est trop long
             pdf.multi_cell(190, 5, description_text, 0, 'L')
         else:
-            # Utilise cell si le texte est assez court
             pdf.cell(190, 5, description_text, 0, 1, 'L')
         pdf.ln(2)
         pdf.cell(0, 7, f"Nom: ___________________________________________", ln=True)
@@ -169,12 +172,13 @@ class Identification_f(models.Model):
         pdf.cell(0, 7, f"Téléphone: _________________________________", ln=True)
         pdf.cell(0, 7, f"Email: ________________________________________", ln=True)
         pdf.cell(0, 7, f"Adresse: ________________________________________", ln=True)
-        pdf.ln(4)  # Ajoute un espace entre les sections
+        pdf.cell(0, 7, f"Ville: ________________________________________", ln=True)
+        pdf.cell(0, 7, f"Code Postal: ___________________________________", ln=True)
+        pdf.ln(4)
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire d\'Identification', level=2)
-        # Ajout de la description avec gestion automatique du texte
-        description_text = self.get_description()  # Obtenir le texte de la description
+        description_text = self.get_description()
         description_paragraph = doc.add_paragraph(description_text)
         description_paragraph.paragraph_format.space_after = Pt(4) 
         doc.add_paragraph(f"Nom: \n__________________________________________")
@@ -182,14 +186,19 @@ class Identification_f(models.Model):
         doc.add_paragraph(f"Téléphone: \n_______________________________")
         doc.add_paragraph(f"Email:\n______________________________________")
         doc.add_paragraph(f"Adresse:\n______________________________________")
-        doc.add_paragraph("")  # Ajoute un espace entre les sections
+        doc.add_paragraph(f"Ville:\n______________________________________")
+        doc.add_paragraph(f"Code Postal:\n__________________________________")
+        doc.add_paragraph("")
 
     def to_excel_row(self):
         return {
             'Nom': self.nom,
             'Téléphone': self.telephone,
             'Prénom': self.prenom,
-            'Email': self.email
+            'Email': self.email,
+            'Adresse': self.adresse,
+            'Ville': self.ville,
+            'Code Postal': self.code_postal
         }
 
     def get_description(self):
@@ -197,16 +206,24 @@ class Identification_f(models.Model):
         return config.Identification_f_description
 
 
+
 class DescriptifDuLogement_f(models.Model):
+    PROPRIETAIRE_CHOICES = [
+        ('proprietaire_principale', 'Propriétaire occupant - Résidence principale'),
+        ('proprietaire_secondaire', 'Propriétaire occupant - Résidence secondaire'),
+        ('proprietaire_bailleur', 'Propriétaire bailleur'),
+        ('autre', 'Autre'),
+    ]
+
     numero_du_lot = models.CharField(max_length=50, blank=True)
-    proprietaire_occupant = models.BooleanField(
-        default=False)  # Utilisation de False comme valeur par défaut
+    proprietaire_occupant = models.CharField(
+        max_length=50, choices=PROPRIETAIRE_CHOICES, blank=True, null=True)
     etage = models.PositiveIntegerField(blank=True, null=True)
     batiment = models.CharField(max_length=100, blank=True, null=True)
     nombre_de_piece = models.PositiveIntegerField(blank=True, null=True)
     surface = models.CharField(max_length=100, blank=True, null=True)
     annee_d_aquisition = models.DateField(blank=True, null=True)
-    
+    autre = models.CharField(max_length=200, blank=True, null=True) 
 
     def __str__(self):
         return f'DescriptifDuLogement_f {self.id}'
@@ -216,39 +233,33 @@ class DescriptifDuLogement_f(models.Model):
         pdf.cell(0, 10, 'Questionnaire du Descriptif du Logement', ln=True)
         
         pdf.set_font("DejaVu", size=8)
-        # Calcul de la largeur du texte pour 'description' et ajout du texte
-        description_text = self.get_description()  # Obtenir le texte de la description
-        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+        description_text = self.get_description()
+        description_width = pdf.get_string_width(description_text) + 6
 
-        # 190 mm est la largeur utilisable typique sur A4
         if description_width > 190:
-            # Utilise multi_cell si le texte est trop long
             pdf.multi_cell(190, 5, description_text, 0, 'L')
         else:
-            # Utilise cell si le texte est assez court
             pdf.cell(190, 5, description_text, 0, 1, 'L')
         pdf.ln(2)
         pdf.cell(0, 10, f"Numéro du lot: __________________________________", ln=True)
-        pdf.cell(0, 10, f"Propriétaire occupant: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 10, f"Propriétaire occupant: {self.get_proprietaire_occupant_display()}", ln=True)
         pdf.cell(0, 10, 'Questionnaire du Logement UN BAT', ln=True)
         pdf.cell(0, 10, f"Étage: _________", ln=True)
         pdf.cell(0, 10, f"Bâtiment: _________", ln=True)
         pdf.cell(0, 10, f"Nombre de pièces: _________", ln=True)
         pdf.cell(0, 10, f"Surface: _________ m²", ln=True)
         pdf.cell(0, 10, f"Année d'acquisition: _________", ln=True)
+        if self.proprietaire_occupant == 'autre':
+            pdf.cell(0, 10, f"Autre (précision): {self.autre}", ln=True)
         pdf.ln(4)
 
     def make_docx(self, doc):
         doc.add_heading('Questionnaire du Descriptif du Logement', level=2)
-        
-        # Ajout de la description avec gestion automatique du texte
-        description_text = self.get_description()  # Obtenir le texte de la description
+        description_text = self.get_description()
         description_paragraph = doc.add_paragraph(description_text)
         description_paragraph.paragraph_format.space_after = Pt(4) 
-        
-        doc.add_paragraph(
-            f"Numéro du lot: \n__________________________________")
-        doc.add_paragraph(f"Propriétaire occupant: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Numéro du lot: \n__________________________________")
+        doc.add_paragraph(f"Propriétaire occupant: {self.get_proprietaire_occupant_display()}")
         doc.add_paragraph("")
         doc.add_heading('Questionnaire du Logement UN BAT', level=2)
         doc.add_paragraph(f"Étage: _________")
@@ -256,17 +267,20 @@ class DescriptifDuLogement_f(models.Model):
         doc.add_paragraph(f"Nombre de pièces: _________")
         doc.add_paragraph(f"Surface: _________ m²")
         doc.add_paragraph(f"Année d'acquisition: _________")
+        if self.proprietaire_occupant == 'autre':
+            doc.add_paragraph(f"Autre (précision): {self.autre}")
         doc.add_paragraph("")
 
     def to_excel_row(self):
         return {
             'Numéro du Lot': self.numero_du_lot,
-            'Propriétaire Occupant': 'Oui' if self.proprietaire_occupant else 'Non',
+            'Propriétaire Occupant': self.get_proprietaire_occupant_display(),
             'Étage': self.etage,
             'Bâtiment': self.batiment,
             'Nombre de Pièces': self.nombre_de_piece,
             'Surface (m²)': self.surface,
-            'Année d’Acquisition': self.annee_d_aquisition
+            'Année d’Acquisition': self.annee_d_aquisition,
+            'Autre (précision)': self.autre if self.proprietaire_occupant == 'autre' else ''
         }
 
     def get_description(self):
@@ -772,7 +786,7 @@ class Sondage_f(models.Model):
         return config.Sondage_f_description
 
 
-class Financement_f(models.Model):
+class FinancementSansEcoptz_f(models.Model):
     pret_collectif = models.BooleanField(default=False, blank=True, null=True)
     pret_individuel = models.BooleanField(default=False, blank=True, null=True)
     financement_fonds_propres = models.BooleanField(default=False, blank=True, null=True)
@@ -837,9 +851,76 @@ class Financement_f(models.Model):
 
     def get_description(self):
         # Retourne une description dynamique basée sur les attributs du modèle
-        return config.Financement_f_description
+        return config.FinancementSansEcoptz_f_description
 # reserver au proprietaire occupant
 
+class FinancementAvecEcoptz_f(models.Model):
+    pret_collectif = models.BooleanField(default=False, blank=True, null=True)
+    pret_individuel = models.BooleanField(default=False, blank=True, null=True)
+    financement_fonds_propres = models.BooleanField(default=False, blank=True, null=True)
+    ne_se_prononce_pas = models.BooleanField(default=False, blank=True, null=True)
+
+    duree_pret = models.IntegerField(choices=[(3, '3 ans'), (5, '5 ans'),
+                                              (7, '7 ans'), (10, '10 ans'),
+                                              (12, '12 ans'), (15, '15 ans'),
+                                              (20, '20 ans')],
+                                     blank=True,
+                                     null=True)
+
+    def __str__(self):
+        return f'Financement {self.id}'
+
+    def make_pdf(self, pdf):
+        pdf.set_font("DejaVu", 'B', size=12)
+        pdf.cell(0, 10, 'Questionnaire de Financement', ln=True)
+        pdf.set_font("DejaVu", size=8)
+        # Calcul de la largeur du texte pour 'description' et ajout du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_width = pdf.get_string_width(description_text) + 6  # +6 pour une petite marge
+                # 190 mm est la largeur utilisable typique sur A4
+        if description_width > 190:
+            # Utilise multi_cell si le texte est trop long
+            pdf.multi_cell(190, 5, description_text, 0, 'L')
+        else:
+            # Utilise cell si le texte est assez court
+            pdf.cell(190, 5, description_text, 0, 1, 'L')
+
+        pdf.ln(2)  # Ajoute un espace entre les sections
+        pdf.cell(0, 7, f"Prêt collectif: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Prêt individuel: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Financement par fonds propres: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Ne se prononce pas: Oui ☐ Non ☐", ln=True)
+        pdf.cell(0, 7, f"Durée du prêt: ________ ans", ln=True)
+        pdf.ln(4)  # Ajoute un espace entre les sections
+
+
+    def make_docx(self, doc):
+        doc.add_heading('Questionnaire de Financement', level=2)
+        # Ajout de la description avec gestion automatique du texte
+        description_text = self.get_description()  # Obtenir le texte de la description
+        description_paragraph = doc.add_paragraph(description_text)
+        description_paragraph.paragraph_format.space_after = Pt(4) 
+        doc.add_paragraph(f"Prêt collectif: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Prêt individuel: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Financement par fonds propres: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Ne se prononce pas: Oui ☐ Non ☐")
+        doc.add_paragraph(f"Durée du prêt: ________ ans")
+        doc.add_paragraph("")  # Ajoute un espace entre les sections
+
+    def to_excel_row(self):
+        # Convert boolean to 'Oui'/'Non' for better readability in Excel
+        return {
+            'Prêt Collectif': 'Oui' if self.pret_collectif else 'Non',
+            'Prêt Individuel': 'Oui' if self.pret_individuel else 'Non',
+            'Financement par Fonds Propres': 'Oui' if self.financement_fonds_propres else 'Non',
+            'Ne se prononce pas': 'Oui' if self.ne_se_prononce_pas else 'Non',
+            'Durée du Prêt (ans)': self.get_duree_pret_display() if self.duree_pret else 'N/A'
+        }
+
+    def get_description(self):
+        # Retourne une description dynamique basée sur les attributs du modèle
+        return config.FinancementAvecEcoptz_f_description
+# reserver au proprietaire occupant
 
 class SituationProfessionnelle_fp(models.Model):
     SITUATION_CHOICES = [('salarie_prive', 'Salarié du secteur privé'),
@@ -953,7 +1034,7 @@ class CompositionMenage_fp(models.Model):
         ('veuf', 'Veuf / Veuve')
     ]
     
-    situation = models.CharField(max_length=50, choices=SITUATION_CHOICES)
+    situation = models.CharField(max_length=50, choices=SITUATION_CHOICES, blank=True, null=True)
     situation_familiale = models.CharField(max_length=50, choices=SITUATION_FAMILIALE_CHOICES, blank=True, null=True)
     situation_details = models.CharField(max_length=100, blank=True, null=True)
 
@@ -1413,12 +1494,13 @@ class DocumentComplementaire_f(models.Model):
 
 related_fields = {
     'identification': Identification_f,
-    'descriptif_du_logement': DescriptifDuLogement_f,
+    'descriptif_du_logement_avec_ecoptz': DescriptifDuLogement_f,
     'bati': BATI_f,
     'chauffage_eau_chaude': ChauffageEauChaude_f,
     'ventilation': Ventilation_f,
     'sondage': Sondage_f,
-    'financement': Financement_f,
+    'financement_sans_ecoptz': FinancementSansEcoptz_f,
+    'financement_avec_ecoptz': FinancementAvecEcoptz_f,
     'situation_professionnelle': SituationProfessionnelle_fp,
     'composition_menage': CompositionMenage_fp,
     'proprietaires_occupants_intro': ProprietairesOccupantsIntro_fp,

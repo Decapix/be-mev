@@ -1,5 +1,5 @@
 from django import forms
-from .models import CHOICES_VENTILATION,Campagne, DocumentComplementaire_f, AidesIndividuellesQuestionComplementaire_fp,  Identification_f, DescriptifDuLogement_f, BATI_f, ChauffageEauChaude_f, Ventilation_f, Sondage_f, Financement_f, SituationProfessionnelle_fp, CompositionMenage_fp, AidesIndividuelles_fp, Formulaire, ProprietairesOccupantsIntro_fp
+from .models import CHOICES_VENTILATION,Campagne, DocumentComplementaire_f, AidesIndividuellesQuestionComplementaire_fp,  Identification_f, DescriptifDuLogement_f, BATI_f, ChauffageEauChaude_f, Ventilation_f, Sondage_f, FinancementSansEcoptz_f, FinancementAvecEcoptz_f, SituationProfessionnelle_fp, CompositionMenage_fp, AidesIndividuelles_fp, Formulaire, ProprietairesOccupantsIntro_fp
 from django.forms.widgets import SelectDateWidget
 from django.core.exceptions import ValidationError
 
@@ -26,7 +26,8 @@ class FormulaireForm( forms.ModelForm):
     chauffage_eau_chaude_include = forms.BooleanField(required=False, label='Inclure Chauffage et Eau Chaude')
     ventilation_include = forms.BooleanField(required=False, label='Inclure Ventilation')
     sondage_include = forms.BooleanField(required=False, label='Inclure Sondage sur travaux a réaliser')
-    financement_include = forms.BooleanField(required=False, label='Inclure Financement')
+    financement_avec_ecoptz_include = forms.BooleanField(required=False, label='Inclure Financement Avec ecoptz')
+    financement_sans_ecoptz_include = forms.BooleanField(required=False, label='Inclure Financement sans ecoptz')
     situation_professionnelle_include = forms.BooleanField(required=False, label='Inclure Situation Professionnelle')
     proprietaires_occupants_intro = forms.BooleanField(required=False, label='Inclure Proprietaire occupant intro')
     composition_menage_include = forms.BooleanField(required=False, label='Inclure Composition Ménage')
@@ -48,31 +49,32 @@ class FormulaireForm( forms.ModelForm):
 class Identification_fForm(forms.ModelForm):
     class Meta:
         model = Identification_f
-        fields = ['nom', 'prenom', 'telephone', 'email', "address"]
+        fields = ['nom', 'prenom', 'telephone', 'email', 'adresse', 'ville', 'code_postal']
         widgets = {
             'nom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre nom'}),
             'prenom': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre prénom'}),
             'telephone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre téléphone'}),
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre email'}),
-            'address': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre adresse'})
+            'adresse': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre adresse'}),
+            'ville': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre ville'}),
+            'code_postal': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Entrez votre code postal'})
         }
-
 
 
 class DescriptifDuLogement_fForm(forms.ModelForm):
     class Meta:
         model = DescriptifDuLogement_f
-        fields = ['numero_du_lot', 'proprietaire_occupant', 'etage', 'nombre_de_piece', 'surface', 'annee_d_aquisition']
+        fields = ['numero_du_lot', 'proprietaire_occupant', 'etage', 'batiment', 'nombre_de_piece', 'surface', 'annee_d_aquisition', 'autre']
         widgets = {
             'numero_du_lot': forms.TextInput(attrs={'class': 'form-control'}),
+            'proprietaire_occupant': forms.Select(attrs={'class': 'form-control'}),
             'etage': forms.NumberInput(attrs={'class': 'form-control'}),
+            'batiment': forms.TextInput(attrs={'class': 'form-control'}),
             'nombre_de_piece': forms.NumberInput(attrs={'class': 'form-control'}),
             'surface': forms.TextInput(attrs={'class': 'form-control'}),
             'annee_d_aquisition': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'autre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Précisez si nécessaire', 'required': False})
         }
-
-
-
 
 
 
@@ -196,9 +198,9 @@ class Sondage_fForm(forms.ModelForm):
         }
 
 
-class Financement_fForm(forms.ModelForm):
+class FinancementSansEcoptz_fForm(forms.ModelForm):
     class Meta:
-        model = Financement_f
+        model = FinancementSansEcoptz_f
         fields = [
             'pret_collectif', 'pret_individuel', 'financement_fonds_propres',
             'ne_se_prononce_pas', 'duree_pret'
@@ -208,7 +210,22 @@ class Financement_fForm(forms.ModelForm):
             'pret_individuel': forms.CheckboxInput(),
             'financement_fonds_propres': forms.CheckboxInput(),
             'ne_se_prononce_pas': forms.CheckboxInput(),
-            'duree_pret': forms.Select(choices=Financement_f._meta.get_field('duree_pret').choices)
+            'duree_pret': forms.Select(choices=FinancementSansEcoptz_f._meta.get_field('duree_pret').choices)
+        }
+        
+class FinancementAvecEcoptz_fForm(forms.ModelForm):
+    class Meta:
+        model = FinancementAvecEcoptz_f
+        fields = [
+            'pret_collectif', 'pret_individuel', 'financement_fonds_propres',
+            'ne_se_prononce_pas', 'duree_pret'
+        ]
+        widgets = {
+            'pret_collectif': forms.CheckboxInput(),
+            'pret_individuel': forms.CheckboxInput(),
+            'financement_fonds_propres': forms.CheckboxInput(),
+            'ne_se_prononce_pas': forms.CheckboxInput(),
+            'duree_pret': forms.Select(choices=FinancementAvecEcoptz_f._meta.get_field('duree_pret').choices)
         }
 
 

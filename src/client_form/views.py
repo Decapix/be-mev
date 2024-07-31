@@ -135,9 +135,17 @@ def download_pdf(request, form_id):
 
 @staff_member_required
 def download_qr(request, form_id):
-    mise_en_page = get_object_or_404(MiseEnPage, formulaire_id=form_id)
-    qr_path = mise_en_page.qr_code.url
-    return FileResponse(open(qr_path, 'rb'), as_attachment=True, filename=f'QR_{mise_en_page.formulaire.nom}.png')
+    try:
+        formulaire = Formulaire.objects.get(id=form_id)
+    except Formulaire.DoesNotExist:
+        return HttpResponse(status=404)
+
+    qr = qrcode.make(f"{settings.URL_QR}{formulaire.id}")
+    qr_io = io.BytesIO()
+    qr.save(qr_io, format='PNG')
+    qr_io.seek(0)
+    
+    return FileResponse(qr_io, as_attachment=True, filename=f'qr_codes/{formulaire.id}.png')
 
 
 @staff_member_required
@@ -186,6 +194,8 @@ def init_formulaire(request, existing_form_id):
 
 def formulaire_step_view(request, form_id, step):
     formulaire = get_object_or_404(Formulaire, pk=form_id)
+    title = formulaire.nom
+    subtitle = formulaire.campagne.nom if formulaire.campagne else "No Campaign"
     linked_objects = formulaire.get_linked_objects()
     
     # Vérifier si le numéro d'étape dépasse le nombre de formulaires disponibles
@@ -214,7 +224,7 @@ def formulaire_step_view(request, form_id, step):
         infoText = True
     else :
         infoText = False
-    context = {'form': form, 'step_affich': step + 1, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html}
+    context = {'form': form, 'step_affich': step + 1, 'step_prec': step - 1, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "title":title, "subtitle":subtitle}
     return render(request, 'client_form/qr_form.html', context)
 
 

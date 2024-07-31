@@ -50,8 +50,9 @@
                           {% csrf_token %}
                           <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Supprimer</button>
                           <a href="{% url 'download_qr' form.id %}" class="btn btn-secondary btn-sm">Télécharger QR code</a>
-                          <a href="{% url 'download_pdf' form.id %}" class="btn btn-primary btn-sm">Télécharger PDF</a>
-                          <a href="{% url 'download_docx' form.id %}" class="btn btn-success btn-sm">Télécharger le docx</a>
+          <!-- 
+          <a href="{% url 'download_pdf' form.id %}" class="btn btn-primary btn-sm">Télécharger PDF</a>
+                          <a href="{% url 'download_docx' form.id %}" class="btn btn-success btn-sm">Télécharger le docx</a> -->
                       </form>
                   </div>
               </li>

@@ -6,8 +6,9 @@
 <section id="form-okok" class="form-okok">
     <div class="container mt-10">
         <!-- Cadre de texte rétractable -->
-         <a href="{% url 'formulaire_step' form_id step_prec %}">Revenir a l'etape precedente</a>
-         {% if infoText == True %}
+        {% if step_prec < step %}
+            <a href="{% url 'formulaire_step' form_id step_prec %}">Revenir à l'étape précédente</a>
+        {% endif %}         {% if infoText == True %}
          <h2>{{ title }}</h2>
          <h3>{{ subtitle }}</h3>
         <div id="infoText" style="border: 1px solid black; padding: 10px;" class="my-4">

@@ -220,11 +220,12 @@ def formulaire_step_view(request, form_id, step):
     else:
         form = form_class(instance=instance)
 
+    step_prec = max(step - 1, 0)  # Assure que step_prec ne devient pas négatif
     if step == 0 :
         infoText = True
     else :
         infoText = False
-    context = {'form': form, 'step_affich': step + 1, 'step_prec': step - 1, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "title":title, "subtitle":subtitle}
+    context = {'form': form, 'step_affich': step + 1, 'step_prec': step_prec, 'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "title":title, "subtitle":subtitle}
     return render(request, 'client_form/qr_form.html', context)
 
 

@@ -8,7 +8,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import requests
 from django.conf import settings
-
+from constance import config 
 
 
 
@@ -49,7 +49,7 @@ def client(request):
         # Gérer l'erreur si l'ID de session ne correspond à aucun client
         return redirect('requestnumber')
     # Passer le client au template
-    return render(request, 'client/client.html', context={"advancement": advancement, 'steps': steps})
+    return render(request, 'client/client.html', context={"advancement": advancement, 'steps': steps, 'constance': config})
 
 def request_number(request):
     """juste check if the client exist and put id in session"""

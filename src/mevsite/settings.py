@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['be-mev-e942436feae3.herokuapp.com', '127.0.0.1', 'be-mev.herokuapp.com', 'be-mev.com', 'www.be-mev.com']
@@ -206,8 +206,6 @@ CONSTANCE_CONFIG = {
     'aide_individuel-Bleu3': ('41493', 'aide_individuel-Bleu3'),
     'aide_individuel-Bleu4': ('48447', 'aide_individuel-Bleu4'),
     'aide_individuel-Bleu5': ('55427', 'aide_individuel-Bleu5'),
-    'aide_individuel-Bleu+': ('6970', 'aide_individuel-Bleu+'),
-    'aide_individuel-Jaune1': ('28657', 'aide_individuel-Jaune1'),
     'aide_individuel-Jaune2': ('42058', 'aide_individuel-Jaune2'),
     'aide_individuel-Jaune3': ('50513', 'aide_individuel-Jaune3'),
     'aide_individuel-Jaune4': ('58981', 'aide_individuel-Jaune4'),
@@ -231,7 +229,6 @@ CONSTANCE_CONFIG = {
     "BATI_f_description":(" ", "BATI_f_description"),
     "ChauffageEauChaude_f_description":(" ", "ChauffageEauChaude_f_description"),
     "Ventilation_f_description":(" ", "Ventilation_f_description"),
-    "Sondage_f_description":(" ", "Sondage_f_description"),
     "FinancementAvecEcoptz_f_description":(" ", "FinancementAvecEcoptz_f_description"),
     "FinancementSansEcoptz_f_description":(" ", "FinancementSansEcoptz_f_description"),
     "SituationProfessionnelle_fp_description":(" ", "SituationProfessionnelle_fp_description"),
@@ -251,7 +248,7 @@ CONSTANCE_CONFIG = {
     "CL_T4":(" ", "client follow proj, 4 titre"),
     "CL_D4":(" ", "client follow proj, 4 description"),
     "CL_T5":(" ", "client follow proj, 5 titre"),
-    "CL_D6":(" ", "client follow proj, 5 description"),
+    "CL_D5":(" ", "client follow proj, 5 description"),
     "CL_T6":(" ", "client follow proj, 6 titre"),
     "CL_D6":(" ", "client follow proj, 6 description"),
 }
@@ -289,4 +286,3 @@ AWS_STORAGE_BUCKET_NAME = "mev-bucket"
 AWS_S3_REGION_NAME = 'fr-par'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None

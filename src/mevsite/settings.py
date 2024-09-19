@@ -241,6 +241,19 @@ CONSTANCE_CONFIG = {
     "AidesIndividuellesQuestionComplementaire_fp_description":(" ", "AidesIndividuellesQuestionComplementaire_fp_description"),
     "DocumentComplementaire_f_description":(" ", "DocumentComplementaire_f_description"),
     # Ajoutez d'autres paramètres ici
+    "CL_T1":(" ", "client follow proj, 1 titre"),
+    "CL_D1":(" ", "client follow proj, 1 description"),
+    "CL_T2":(" ", "client follow proj, 2 titre"),
+    "CL_D2":(" ", "client follow proj, 2 description"),
+    "CL_T3":(" ", "client follow proj, 3 titre"),
+    "CL_D3":(" ", "client follow proj, 3 description"),
+    "CL_T4":(" ", "client follow proj, 4 titre"),
+    "CL_D4":(" ", "client follow proj, 4 description"),
+    "CL_T5":(" ", "client follow proj, 5 titre"),
+    "CL_D6":(" ", "client follow proj, 5 description"),
+    "CL_T6":(" ", "client follow proj, 6 titre"),
+    "CL_D6":(" ", "client follow proj, 6 description"),
+
 }
 
 

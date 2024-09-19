@@ -12,7 +12,6 @@ from django.conf import settings
 
 
 
-
 # Create your views here.
 def client(request):
     """view for track project"""

@@ -33,7 +33,6 @@ def form(request):
 
     # Récupérer les formulaires où formulaire_type est True
     forms_true = Formulaire.objects.filter(formulaire_type=True, clone=False)
-
     # Récupérer les formulaires où formulaire_type est False
     forms_false = Formulaire.objects.filter(formulaire_type=False, clone=False)
 
@@ -245,7 +244,6 @@ def create_campagne(request):
     return render(request, 'client_form/create_campagne.html', {'form': form})
 
 
-
 @staff_member_required
 def campagne_list(request):
     campagnes = Campagne.objects.all()  # Récupère toutes les campagnes
@@ -294,6 +292,34 @@ def create_excel(request, campagne_id):
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
 
     return response
+
+@staff_member_required
+def create_pdfs(request, campagne_id):
+    global related_fields
+    campagne = Campagne.objects.get(id=campagne_id)
+    formulaires = campagne.formulaires.filter(clone=True)
+    data_rows = []
+
+    for form in formulaires:
+        row = {}
+        # Parcourir chaque modèle possible et ajouter ses données au dictionnaire de ligne
+        for key, form_class in related_fields.items():
+            form_instance = getattr(form, key, None)
+            if form_instance:
+                row.update(form_instance.to_excel_row())
+
+        data_rows.append(row)  # Ajouter le dictionnaire complet pour ce formulaire à la liste après avoir traité tous les champs
+
+    for data in data_rows :
+        print(f"form {data}")
+        for da in data :
+            print(f"rows {da}")
+    #for data in data_rows :
+    response = HttpResponse("okok", content_type="text/plain")
+
+    return response
+
+
 
 @staff_member_required
 def campagnes_list_view(request):

@@ -17,15 +17,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = "lejcles"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-DEBUG = False
+DEBUG = True
 
 
-ALLOWED_HOSTS = ['be-mev-e942436feae3.herokuapp.com', '127.0.0.1', 'be-mev.herokuapp.com', 'be-mev.com', 'www.be-mev.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -88,7 +88,7 @@ WSGI_APPLICATION = "mevsite.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'madb',
+        'NAME': 'mevdb2',
         'USER': 'postgres',
         'PASSWORD': ':)Solenops1s<$o',
         'HOST': 'localhost',
@@ -165,10 +165,10 @@ API_GOOGLE = os.environ.get('API_GOOGLE')
 
 # Configuration pour utiliser SSL/TLS avec Heroku et Cloudflare (https)
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
 # email
 
@@ -275,14 +275,14 @@ URL_QR = "https://be-mev.com/admin_form/init-formulaire/"
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-cloudcube_base_url = os.environ.get('CLOUDCUBE_URL')
+cloudcube_base_url = "https://mev-bucket.s3.fr-par.scw.cloud"
 
 
 AWS_S3_ENDPOINT_URL = cloudcube_base_url
 
-AWS_ACCESS_KEY_ID = os.environ.get('CLOUDCUBE_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = "SCWF6D9BV1MQTQXFEC8B"
 
-AWS_SECRET_ACCESS_KEY = os.environ.get('CLOUDCUBE_SECRET_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = "f3d45674-0250-48d5-88f6-75d86a02ad7e"
 
 AWS_STORAGE_BUCKET_NAME = "mev-bucket"
 

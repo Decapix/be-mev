@@ -18,7 +18,8 @@
                     </div>
                     <div class="ml-auto">
                         <a href="{% url 'create_excel' campagne.id %}" class="btn btn-primary mb-2">Créer Excel</a>
-                        <form action="{% url 'delete_campagne' campagne.id %}" method="post" >
+                        <a href="{% url 'create_pdfs' campagne.id %}" class="btn btn-secondary mb-2">Créer Pdfs</a>
+			<form action="{% url 'delete_campagne' campagne.id %}" method="post" >
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette campagne ?');">Supprimer</button>
                         </form>

@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import form, create_excel, download_file_view, campagnes_list_view, campagne_detail_view, init_formulaire,delete_campagne, create_campagne, campagne_list, formulaire_step_view,  create_formulaire, get_form_details, delete_form, download_pdf, download_docx, download_qr, success
+from .views import form, create_excel, create_pdfs, download_file_view, campagnes_list_view, campagne_detail_view, init_formulaire,delete_campagne, create_campagne, campagne_list, formulaire_step_view,  create_formulaire, get_form_details, delete_form, download_pdf, download_docx, download_qr, success
 
 urlpatterns = [
      path('', form, name='form'),
@@ -19,6 +19,7 @@ urlpatterns = [
      path('formulaire/success/', success, name='success'),
     
      path('campagne/create_excel/<uuid:campagne_id>/', create_excel, name='create_excel'),
+     path('campagne/create_pdfs/<uuid:campagne_id>/', create_pdfs, name='create_pdfs'),
 
      path('campagne/create/', create_campagne, name='create_campagne'),
      path('campagne/list/', campagne_list, name='campagne_list'),

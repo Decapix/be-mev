@@ -24,8 +24,10 @@ import boto3
 from botocore.config import Config
 # Create your views here.
 import pandas as pd
+from fpdf import FPDF
+import zipfile
 from django.core.files import File
-
+from django.utils.timezone import now
 
 @staff_member_required
 def form(request):
@@ -293,6 +295,34 @@ def create_excel(request, campagne_id):
 
     return response
 
+# Fonction pour générer un PDF à partir des données
+def generate_pdf(data, campagne, formulaire):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=10)
+
+    # Ajouter les informations en haut du PDF
+    pdf.cell(200, 10, txt=f"Date de génération: {now().strftime('%Y-%m-%d %H:%M:%S')}", ln=True)
+    pdf.cell(200, 10, txt=f"Nom de la campagne: {campagne.nom}", ln=True)
+    pdf.cell(200, 10, txt=f"Nom du formulaire: {formulaire.nom}", ln=True)
+    pdf.cell(200, 10, txt=f"Date de création de la campagne: {campagne.date_de_creation.strftime('%Y-%m-%d')}", ln=True)
+    
+    pdf.ln(10)  # Ajouter une ligne vide pour l'espacement
+
+    # Ajouter les données du formulaire dans le PDF
+    for key, value in data.items():
+        value = value if value else "N/A"  # Remplace les valeurs None par "N/A"
+        pdf.cell(200, 8, txt=f"{key}: {value}", ln=True)
+
+    # Créer un buffer pour stocker le PDF en mémoire
+    pdf_buffer = io.BytesIO()
+    pdf.output(pdf_buffer)
+    
+    # Repositionner le buffer au début
+    pdf_buffer.seek(0)
+
+    return pdf_buffer
+
 @staff_member_required
 def create_pdfs(request, campagne_id):
     global related_fields
@@ -300,26 +330,37 @@ def create_pdfs(request, campagne_id):
     formulaires = campagne.formulaires.filter(clone=True)
     data_rows = []
 
+    # Collecter toutes les données du formulaire
     for form in formulaires:
         row = {}
-        # Parcourir chaque modèle possible et ajouter ses données au dictionnaire de ligne
         for key, form_class in related_fields.items():
             form_instance = getattr(form, key, None)
             if form_instance:
                 row.update(form_instance.to_excel_row())
+        data_rows.append((row, form))  # Ajouter le dictionnaire complet et le formulaire associé
 
-        data_rows.append(row)  # Ajouter le dictionnaire complet pour ce formulaire à la liste après avoir traité tous les champs
+    # Créer un buffer mémoire pour stocker le fichier zip
+    zip_buffer = io.BytesIO()
 
-    for data in data_rows :
-        print(f"form {data}")
-        for da in data :
-            print(f"rows {da}")
-    #for data in data_rows :
-    response = HttpResponse("okok", content_type="text/plain")
+    with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+        for index, (data, formulaire) in enumerate(data_rows):
+            # Générer un PDF pour chaque formulaire avec les informations supplémentaires
+            pdf_buffer = generate_pdf(data, campagne, formulaire)
+
+            # Nommer chaque fichier PDF de manière unique (par exemple, 'form1.pdf', 'form2.pdf', etc.)
+            pdf_filename = f'form{index + 1}.pdf'
+
+            # Ajouter le PDF au fichier zip
+            zip_file.writestr(pdf_filename, pdf_buffer.getvalue())
+
+    # Revenir au début du buffer zip
+    zip_buffer.seek(0)
+
+    # Créer une réponse HTTP avec le fichier zip en tant que pièce jointe
+    response = HttpResponse(zip_buffer, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename="pdf_forms.zip"'
 
     return response
-
-
 
 @staff_member_required
 def campagnes_list_view(request):

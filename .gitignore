@@ -1,0 +1,6 @@
+# Ignorer les fichiers compilés Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+.env/

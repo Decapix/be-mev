@@ -203,14 +203,13 @@ class FinancementSansEcoptz_fForm(forms.ModelForm):
         model = FinancementSansEcoptz_f
         fields = [
             'pret_collectif', 'pret_individuel', 'financement_fonds_propres',
-            'ne_se_prononce_pas', 'duree_pret'
+            'ne_se_prononce_pas'
         ]
         widgets = {
             'pret_collectif': forms.CheckboxInput(),
             'pret_individuel': forms.CheckboxInput(),
             'financement_fonds_propres': forms.CheckboxInput(),
             'ne_se_prononce_pas': forms.CheckboxInput(),
-            'duree_pret': forms.Select(choices=FinancementSansEcoptz_f._meta.get_field('duree_pret').choices)
         }
         
 class FinancementAvecEcoptz_fForm(forms.ModelForm):
@@ -218,14 +217,13 @@ class FinancementAvecEcoptz_fForm(forms.ModelForm):
         model = FinancementAvecEcoptz_f
         fields = [
             'pret_collectif', 'pret_individuel', 'financement_fonds_propres',
-            'ne_se_prononce_pas', 'duree_pret'
+            'ne_se_prononce_pas'
         ]
         widgets = {
             'pret_collectif': forms.CheckboxInput(),
             'pret_individuel': forms.CheckboxInput(),
             'financement_fonds_propres': forms.CheckboxInput(),
             'ne_se_prononce_pas': forms.CheckboxInput(),
-            'duree_pret': forms.Select(choices=FinancementAvecEcoptz_f._meta.get_field('duree_pret').choices)
         }
 
 
@@ -265,12 +263,11 @@ class CompositionMenage_fpForm(forms.ModelForm):
     class Meta:
         model = CompositionMenage_fp
         fields = [
-            'situation', 'situation_familiale', 'situation_details', 
+            'situation_familiale', 'situation_details', 
             'nombre_personnes', 'nombre_adultes', 'nombre_enfants_mineurs', 
             'nombre_enfants_majeurs', 'personne_handicap', 'infos_supplementaires'
         ]
         widgets = {
-            'situation': forms.Select(attrs={'class': 'form-control'}),
             'situation_familiale': forms.Select(attrs={'class': 'form-control'}),
             'situation_details': forms.TextInput(attrs={'placeholder': 'Précisez si autre', 'class': 'form-control'}),
             'nombre_personnes': forms.NumberInput(attrs={'min': 0, 'class': 'form-control'}),

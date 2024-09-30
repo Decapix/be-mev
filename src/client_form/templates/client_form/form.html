@@ -49,12 +49,14 @@
           <ul class="list-group">
               {% for form in forms_false %}
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ form.nom }} - <p> https://be-mev.com/admin_form/init-formulaire/{{form.id }}</p>
+                  {{ form.nom }} - {{form.campagne.nom }}
                   <div>
                       <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
                           {% csrf_token %}
-                          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Supprimer</button>
-                          <a href="{% url 'download_qr' form.id %}" class="btn btn-secondary btn-sm">Télécharger QR code</a>
+                          <button type="submit" class="btn btn-danger btn-sm" class="mb-2" onclick="return confirm('Are you sure?');">Supprimer</button>
+                          <a href="{% url 'download_qr' form.id %}" class="btn btn-secondary btn-sm mb-2">Télécharger QR code</a>
+                          <a href="{% url 'see_form' form.id %}" class="btn btn-warning btn-sm mb-2">Voir le formulaire</a>
+                          <button type="button" class="btn btn-info btn-sm mb-2" onclick="copyToClipboard('https://be-mev.com/admin_form/init-formulaire/{{ form.id }}')">Copier lien</button>
           <!-- 
           <a href="{% url 'download_pdf' form.id %}" class="btn btn-primary btn-sm">Télécharger PDF</a>
                           <a href="{% url 'download_docx' form.id %}" class="btn btn-success btn-sm">Télécharger le docx</a> -->
@@ -67,7 +69,7 @@
 
       <!-- Navigation Links -->
       <div class="mt-4">
-          <a href="{% url 'create_formulaire' %}" class="btn btn-info">Création de formulaire</a>
+          <a href="{% url 'create_formulaire' %}" class="btn btn-info ">Création de formulaire</a>
           <a href="{% url 'create_campagne' %}" class="btn btn-info">Création de campagne</a>
           <a href="{% url 'campagne_list' %}" class="btn btn-info">Voir toutes les campagnes</a>
           <a href="{% url 'download_documents' %}" class="btn btn-info">Documents complementaire</a>
@@ -81,14 +83,15 @@
         
     {% endblock content %}
 {% block script %}
-
-<script>
-    function copyToClipboard(url) {
-        navigator.clipboard.writeText(url).then(() => {
-            alert('Lien copié dans le presse-papier!');
-        }).catch(err => {
-            console.error('Erreur lors de la copie:', err);
-        });
-    }
-    </script>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Affiche une alerte pour informer l'utilisateur
+                alert('Lien copié dans le presse-papier!');
+            }).catch(function(err) {
+                // Affiche une alerte en cas d'erreur
+                alert('Erreur lors de la copie: ' + err);
+            });
+        }
+        </script>
 {% endblock %}

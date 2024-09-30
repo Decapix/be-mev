@@ -49,7 +49,7 @@
           <ul class="list-group">
               {% for form in forms_false %}
               <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ form.nom }} - <p> https://be-mev.com/admin_form/init-formulaire/{{form.id }}</p>
+                  {{ form.nom }} - <p> {{form.campagne.nom }}</p>
                   <div>
                       <form action="{% url 'delete-form' form.id %}" method="post" style="display: inline;">
                           {% csrf_token %}

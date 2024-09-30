@@ -148,6 +148,12 @@ def download_qr(request, form_id):
     
     return FileResponse(qr_io, as_attachment=True, filename=f'qr_codes/{formulaire.id}.png')
 
+@staff_member_required
+def see_form(request, form_id):
+    form = Formulaire.objects.get(id=form_id)
+    return render(request, 'client_form/see_form.html', {
+        'form': form,
+    })
 
 @staff_member_required
 def download_docx(request, form_id):

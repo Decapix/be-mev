@@ -792,12 +792,6 @@ class FinancementSansEcoptz_f(models.Model):
     financement_fonds_propres = models.BooleanField(default=False, blank=True, null=True)
     ne_se_prononce_pas = models.BooleanField(default=False, blank=True, null=True)
 
-    duree_pret = models.IntegerField(choices=[(3, '3 ans'), (5, '5 ans'),
-                                              (7, '7 ans'), (10, '10 ans'),
-                                              (12, '12 ans'), (15, '15 ans'),
-                                              (20, '20 ans')],
-                                     blank=True,
-                                     null=True)
 
     def __str__(self):
         return f'Financement {self.id}'
@@ -822,7 +816,6 @@ class FinancementSansEcoptz_f(models.Model):
         pdf.cell(0, 7, f"Prêt individuel: Oui ☐ Non ☐", ln=True)
         pdf.cell(0, 7, f"Financement par fonds propres: Oui ☐ Non ☐", ln=True)
         pdf.cell(0, 7, f"Ne se prononce pas: Oui ☐ Non ☐", ln=True)
-        pdf.cell(0, 7, f"Durée du prêt: ________ ans", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
 
@@ -836,7 +829,6 @@ class FinancementSansEcoptz_f(models.Model):
         doc.add_paragraph(f"Prêt individuel: Oui ☐ Non ☐")
         doc.add_paragraph(f"Financement par fonds propres: Oui ☐ Non ☐")
         doc.add_paragraph(f"Ne se prononce pas: Oui ☐ Non ☐")
-        doc.add_paragraph(f"Durée du prêt: ________ ans")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
     def to_excel_row(self):
@@ -846,7 +838,6 @@ class FinancementSansEcoptz_f(models.Model):
             'Prêt Individuel': 'Oui' if self.pret_individuel else 'Non',
             'Financement par Fonds Propres': 'Oui' if self.financement_fonds_propres else 'Non',
             'Ne se prononce pas': 'Oui' if self.ne_se_prononce_pas else 'Non',
-            'Durée du Prêt (ans)': self.get_duree_pret_display() if self.duree_pret else 'N/A'
         }
 
     def get_description(self):
@@ -860,12 +851,6 @@ class FinancementAvecEcoptz_f(models.Model):
     financement_fonds_propres = models.BooleanField(default=False, blank=True, null=True)
     ne_se_prononce_pas = models.BooleanField(default=False, blank=True, null=True)
 
-    duree_pret = models.IntegerField(choices=[(3, '3 ans'), (5, '5 ans'),
-                                              (7, '7 ans'), (10, '10 ans'),
-                                              (12, '12 ans'), (15, '15 ans'),
-                                              (20, '20 ans')],
-                                     blank=True,
-                                     null=True)
 
     def __str__(self):
         return f'Financement {self.id}'
@@ -890,7 +875,6 @@ class FinancementAvecEcoptz_f(models.Model):
         pdf.cell(0, 7, f"Prêt individuel: Oui ☐ Non ☐", ln=True)
         pdf.cell(0, 7, f"Financement par fonds propres: Oui ☐ Non ☐", ln=True)
         pdf.cell(0, 7, f"Ne se prononce pas: Oui ☐ Non ☐", ln=True)
-        pdf.cell(0, 7, f"Durée du prêt: ________ ans", ln=True)
         pdf.ln(4)  # Ajoute un espace entre les sections
 
 
@@ -904,7 +888,6 @@ class FinancementAvecEcoptz_f(models.Model):
         doc.add_paragraph(f"Prêt individuel: Oui ☐ Non ☐")
         doc.add_paragraph(f"Financement par fonds propres: Oui ☐ Non ☐")
         doc.add_paragraph(f"Ne se prononce pas: Oui ☐ Non ☐")
-        doc.add_paragraph(f"Durée du prêt: ________ ans")
         doc.add_paragraph("")  # Ajoute un espace entre les sections
 
     def to_excel_row(self):
@@ -914,7 +897,6 @@ class FinancementAvecEcoptz_f(models.Model):
             'Prêt Individuel': 'Oui' if self.pret_individuel else 'Non',
             'Financement par Fonds Propres': 'Oui' if self.financement_fonds_propres else 'Non',
             'Ne se prononce pas': 'Oui' if self.ne_se_prononce_pas else 'Non',
-            'Durée du Prêt (ans)': self.get_duree_pret_display() if self.duree_pret else 'N/A'
         }
 
     def get_description(self):
@@ -1019,14 +1001,7 @@ class SituationProfessionnelle_fp(models.Model):
 
 
 class CompositionMenage_fp(models.Model):
-    SITUATION_CHOICES = [
-        ('salarie', 'Salarié'),
-        ('liberal', 'Libéral, indépendant, autoentrepreneur'),
-        ('retraite', 'Retraité'),
-        ('demandeur_emploi', 'Demandeur d\'emploi'),
-        ('etudiant', 'Etudiant, en formation'),
-        ('autre', 'Autre')
-    ]
+
     SITUATION_FAMILIALE_CHOICES = [
         ('celibataire', 'Célibataire'),
         ('marie_pacse', 'Marié / Pacsé / En concubinage'),
@@ -1034,7 +1009,6 @@ class CompositionMenage_fp(models.Model):
         ('veuf', 'Veuf / Veuve')
     ]
     
-    situation = models.CharField(max_length=50, choices=SITUATION_CHOICES, blank=True, null=True)
     situation_familiale = models.CharField(max_length=50, choices=SITUATION_FAMILIALE_CHOICES, blank=True, null=True)
     situation_details = models.CharField(max_length=100, blank=True, null=True)
 
@@ -1068,12 +1042,6 @@ class CompositionMenage_fp(models.Model):
             # Utilise cell si le texte est assez court
             pdf.cell(190, 5, description_text, 0, 1, 'L')
         pdf.ln(2)
-        
-
-        # Affichage de la situation
-        for choice, label in self.SITUATION_CHOICES:
-            checkbox = '☐' if self.situation != choice else '[X]'
-            pdf.cell(200, 10, f"{checkbox} {label}", ln=True)
 
         # Affichage de la situation familiale
         pdf.cell(200, 10, 'Situation familiale:', ln=True)
@@ -1094,11 +1062,6 @@ class CompositionMenage_fp(models.Model):
         description_text = self.get_description()  # Obtenir le texte de la description
         description_paragraph = doc.add_paragraph(description_text)
         description_paragraph.paragraph_format.space_after = Pt(4)        
-        # Situation
-        doc.add_heading('Situation:', level=2)
-        for choice, label in self.SITUATION_CHOICES:
-            checkbox = '☐' if self.situation != choice else '[X]'
-            doc.add_paragraph(f"{checkbox} {label}")
 
         # Situation familiale
         doc.add_heading('Situation familiale:', level=2)
@@ -1115,7 +1078,6 @@ class CompositionMenage_fp(models.Model):
 
     def to_excel_row(self):
         return {
-            'Situation du Ménage': self.get_situation_display(),
             'Situation Familiale': self.get_situation_familiale_display(),
             'Détails de la Situation': self.situation_details,
             'Nombre Total de Personnes': self.nombre_personnes,

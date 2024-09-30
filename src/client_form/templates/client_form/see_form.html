@@ -1,0 +1,32 @@
+{% extends "index_form.html" %}
+{% load static %}
+
+
+{% block content %}
+<!-- Conteneur de notification -->
+
+
+    
+<!-- ======= Featured Services Section ======= -->
+<section id="form-okok" class="form-okok">
+  <div class="container mt-4">
+      <div class="section-header text-center mb-5">
+          <h2>{{form.nom}}</h2>
+          <h4>{{form.campagne}}</h4>
+      </div>
+
+      <!-- Formulaires Type -->
+      <div class="mb-4">
+        {% for cat in form.get_linked_objects %}
+          <h4>{{cat}}</h4>
+          <p>
+            {% for li in cat.to_excel_row %}
+                - {{li}}
+            {% endfor %}
+          </p>
+        {% endfor %}
+          
+      </div>
+
+        
+    {% endblock content %}

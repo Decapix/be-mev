@@ -6,5 +6,7 @@
 2. client_form/forms
     fair le formualire
     mettre a jour le formlaire de formulaire
+3. client_form/make_form
+    pdf et docx
 3. settings.py
     rajouter la description

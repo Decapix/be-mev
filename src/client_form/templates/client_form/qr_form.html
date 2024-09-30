@@ -25,7 +25,8 @@
             </ul>
         </div>
         {% endif %}
-    <h2>Étape {{ step_affich }} du Formulaire</h2>
+    <h2>Étape {{ step_affich }} du Formulaire </h2>
+    <h4>{{ form.__class__.__name__ }}</h4>
 
     <div class="description">
         <p>{{ description|linebreaksbr }}</p>

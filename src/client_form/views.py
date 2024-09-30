@@ -211,7 +211,7 @@ def formulaire_step_view(request, form_id, step):
         return redirect('success')
     
     instance = linked_objects[step]
-    name_step = instance.name
+    name_step = instance
     
     print("instance", instance)
     description = instance.get_description() if instance and hasattr(instance, 'get_description') else " "

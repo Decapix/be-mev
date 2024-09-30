@@ -211,6 +211,7 @@ def formulaire_step_view(request, form_id, step):
         return redirect('success')
     
     instance = linked_objects[step]
+    name_step = instance
     
     print("instance", instance)
     description = instance.get_description() if instance and hasattr(instance, 'get_description') else " "
@@ -232,7 +233,7 @@ def formulaire_step_view(request, form_id, step):
         infoText = True
     else :
         infoText = False
-    context = {'form': form, 'step_affich': step + 1, 'step_prec': step_prec,"step":step ,  'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "title":title, "subtitle":subtitle}
+    context = {'form': form, 'step_affich': step + 1, 'step_prec': step_prec,"step":step ,  'form_id': form_id, 'description': description, "infoText": infoText, "render_html": render_html, "title":title, "subtitle":subtitle, "name_step":name_step}
     return render(request, 'client_form/qr_form.html', context)
 
 

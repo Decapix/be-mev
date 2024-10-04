@@ -206,6 +206,8 @@ CONSTANCE_CONFIG = {
     'aide_individuel-Bleu3': ('41493', 'aide_individuel-Bleu3'),
     'aide_individuel-Bleu4': ('48447', 'aide_individuel-Bleu4'),
     'aide_individuel-Bleu5': ('55427', 'aide_individuel-Bleu5'),
+    'aide_individuel-Bleu+': ('10000', 'aide_individuel-Bleu+'),
+    'aide_individuel-Jaune1': ('3000', 'aide_individuel-Jaune1'),
     'aide_individuel-Jaune2': ('42058', 'aide_individuel-Jaune2'),
     'aide_individuel-Jaune3': ('50513', 'aide_individuel-Jaune3'),
     'aide_individuel-Jaune4': ('58981', 'aide_individuel-Jaune4'),
